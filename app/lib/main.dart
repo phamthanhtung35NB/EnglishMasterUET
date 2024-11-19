@@ -11,10 +11,13 @@ import 'firebase_options.dart'; // Import Firebase options
 import 'package:english_master_uet/screen/progress_screen.dart';
 
 
+import 'package:english_master_uet/screen/progress.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform, // Sử dụng Firebase options đã cấu hình
+    options: DefaultFirebaseOptions
+        .currentPlatform, // Sử dụng Firebase options đã cấu hình
   );
   runApp(MyApp());
 }
@@ -27,7 +30,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const LoginScreen(), // Khởi động HomeScreen
+      home: ProgressScreen(), // Khởi động HomeScreen
     );
   }
 }
