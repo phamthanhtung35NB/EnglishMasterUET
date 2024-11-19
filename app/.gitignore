@@ -41,3 +41,18 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+
+# api firbase_optioons.dart
+/lib/firebase_options.dart
+#api andriod,
+/android/app/google-services.json
+#api ios
+/ios/Runner/GoogleService-Info.plist
+#api web
+/web/firebase_options.dart
+/web/firebase-messaging-sw.json
+#api windows
+/windows/Runner/GoogleService-Info.plist
+
+/firebase.json
