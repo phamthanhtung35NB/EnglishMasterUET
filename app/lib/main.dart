@@ -1,4 +1,5 @@
 import 'package:english_master_uet/screen/statistical_screen.dart';
+import 'package:english_master_uet/screen/topic_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart'; // Import Firebase options
 import 'package:english_master_uet/screen/Exercises.dart';
+import 'package:english_master_uet/screen/topic_screen.dart';
 // import 'package:english_master_uet/screen/progress.dart'as progress;
 
 
@@ -31,7 +33,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomeScreen(), // Khởi động HomeScreen
+      home: const LoginScreen(),
+      debugShowCheckedModeBanner: false, // Khởi động HomeScreen
     );
   }
 }
