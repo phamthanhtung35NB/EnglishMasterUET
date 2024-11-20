@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart'; // Import Firebase options
 import 'package:english_master_uet/screen/Exercises.dart';
+import 'package:english_master_uet/screen/topic_screen.dart';
+// import 'package:english_master_uet/screen/progress.dart'as progress;
 
 
 import 'package:english_master_uet/screen/progress.dart';
@@ -31,8 +33,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+<<<<<<< HEAD
       home: const progressScreen(), // Thay màn hình khởi động ở đây
 
+=======
+      home: const LoginScreen(),
+      debugShowCheckedModeBanner: false, // Khởi động HomeScreen
+>>>>>>> 67913e2879a1c28ff53399c773bd15736a70af02
     );
   }
 }
