@@ -30,7 +30,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: ProgressScreen(), // Khởi động HomeScreen
+      // home: ProgressScreen(), // Khởi động HomeScreen
+      home: const progressScreen(), // Thay màn hình khởi động ở đây
     );
   }
 }
