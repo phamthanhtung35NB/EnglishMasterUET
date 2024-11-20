@@ -1,4 +1,5 @@
 import 'package:english_master_uet/screen/statistical_screen.dart';
+import 'package:english_master_uet/screen/topic_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
@@ -30,8 +31,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      // home: ProgressScreen(), // Khởi động HomeScreen
       home: const progressScreen(), // Thay màn hình khởi động ở đây
+
     );
   }
 }

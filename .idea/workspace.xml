@@ -6,6 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="76596f0b-cbe1-49bb-97e3-be2cfc3377f6" name="Changes" comment="">
 <<<<<<< HEAD
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+=======
+<<<<<<< HEAD
       <change afterPath="$PROJECT_DIR$/app/lib/screen/progress_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/EnglishMasterUET.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/EnglishMasterUET.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
@@ -42,6 +45,7 @@
 >>>>>>> 798fa20c5139ec72f4f4723904197b336f2130b7
       <change beforePath="$PROJECT_DIR$/app/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/app/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/app/windows/flutter/generated_plugins.cmake" afterDir="false" />
+>>>>>>> 1188f879f98910c5d503c9dc5a82cfce8a590104
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,7 +84,12 @@
 <<<<<<< HEAD
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+=======
+<<<<<<< HEAD
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
     &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+>>>>>>> 1188f879f98910c5d503c9dc5a82cfce8a590104
     &quot;Flutter.main.dart.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
@@ -92,12 +101,18 @@
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+<<<<<<< HEAD
+    &quot;last_opened_file_path&quot;: &quot;C:/DevFlutter/flutter/bin/cache/dart-sdk&quot;,
+=======
     &quot;last_opened_file_path&quot;: &quot;D:/flutter/bin/cache/dart-sdk&quot;,
+>>>>>>> 1188f879f98910c5d503c9dc5a82cfce8a590104
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.17&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;dart.settings&quot;,
     &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
+<<<<<<< HEAD
+=======
   }
 }</component>
   <component name="RunManager">
@@ -121,8 +136,9 @@
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "dart.settings",
     "show.migrate.to.gradle.popup": "false"
+>>>>>>> 1188f879f98910c5d503c9dc5a82cfce8a590104
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\EnglishMasterUET\app\android\app\src" />

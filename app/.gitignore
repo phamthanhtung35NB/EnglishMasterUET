@@ -56,3 +56,8 @@ app.*.map.json
 /windows/Runner/GoogleService-Info.plist
 
 /firebase.json
+
+
+/lib/config/api_constants.dart
+/android
+/android/
