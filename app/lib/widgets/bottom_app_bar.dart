@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:english_master_uet/screen/home_screen.dart';
-// import 'package:english_master_uet/screen/';
-
 import 'package:english_master_uet/screen/progress.dart';
+import 'package:english_master_uet/screen/flashcard_screen.dart';
+
 class BottomAppBarWidget extends StatelessWidget {
   const BottomAppBarWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return BottomAppBar(
       shape: const CircularNotchedRectangle(),
       child: Row(
@@ -16,44 +16,44 @@ class BottomAppBarWidget extends StatelessWidget {
         children: <Widget>[
           IconButton(
             onPressed: () {
-              // chuyen den man hinh home
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ProgressScreen()),
+              context.read<AppState>().updateScreen(
+                  'Progress',
+                  ProgressScreen()
               );
-              //icon là hình ảnh trong assets
             },
-            // chỉnh px của icon
             iconSize: 25,
             icon: Image.asset('assets/images/home.png'),
           ),
           IconButton(
               onPressed: () {
-                // chuyen den man hinh report
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => const ErrorWarning()),
+                // context.read<AppState>().updateScreen(
+                    // 'Flashcard',
+                    // FlashcardScreen()
                 // );
-              },iconSize: 25,
-              icon: Image.asset('assets/images/flashcard.png')),
+              },
+              iconSize: 25,
+              icon: Image.asset('assets/images/flashcard.png')
+          ),
           IconButton(
               onPressed: () {
-                // chuyen den man hinh report
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => const ErrorWarning()),
+                // context.read<AppState>().updateScreen(
+                //     'Notebook',
+                //     NotebookScreen()
                 // );
-              },iconSize: 25,
-              icon: Image.asset('assets/images/notebook.png')),
+              },
+              iconSize: 25,
+              icon: Image.asset('assets/images/notebook.png')
+          ),
           IconButton(
               onPressed: () {
-                // chuyen den man hinh report
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => const ErrorWarning()),
+                // context.read<AppState>().updateScreen(
+                //     'Translate',
+                //     TranslateScreen()
                 // );
-              },iconSize: 25,
-              icon: Image.asset('assets/images/translate.png')),
+              },
+              iconSize: 25,
+              icon: Image.asset('assets/images/translate.png')
+          ),
         ],
       ),
     );

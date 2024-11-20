@@ -11,6 +11,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart'; // Import Firebase options
 import 'package:english_master_uet/screen/Exercises.dart';
 import 'package:english_master_uet/screen/topic_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:english_master_uet/widgets/bottom_app_bar.dart';
 // import 'package:english_master_uet/screen/progress.dart'as progress;
 
 
@@ -26,14 +28,20 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'English Master UET',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return ChangeNotifierProvider(
+      create: (context) => AppState(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'English Master UET',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: const LoginScreen(),
       ),
-      home: const LoginScreen(),
     );
   }
 }
