@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart'; // Import Firebase options
 import 'package:english_master_uet/screen/Exercises.dart';
+// import 'package:english_master_uet/screen/progress.dart'as progress;
 
 
 import 'package:english_master_uet/screen/progress.dart';
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: ProgressScreen(), // Khởi động HomeScreen
+      home: HomeScreen(), // Khởi động HomeScreen
     );
   }
 }
