@@ -146,10 +146,14 @@
           <value>
             <list>
 <<<<<<< HEAD
+              <option value="D:/flutter/packages/flutter/lib" />
+=======
+<<<<<<< HEAD
               <option value="$PROJECT_DIR$/../flutter/packages/flutter/lib" />
 =======
               <option value="C:/DevFlutter/flutter/packages/flutter/lib" />
 >>>>>>> 5f4d35bad0ec9325a41e78dbf4cec1e3b4af7890
+>>>>>>> bdb3c07fa8d8ee3d02ef60bb3dca9fe64d5d530b
             </list>
           </value>
         </entry>
@@ -164,10 +168,14 @@
           <value>
             <list>
 <<<<<<< HEAD
+              <option value="D:/flutter/packages/flutter_test/lib" />
+=======
+<<<<<<< HEAD
               <option value="$PROJECT_DIR$/../flutter/packages/flutter_test/lib" />
 =======
               <option value="C:/DevFlutter/flutter/packages/flutter_test/lib" />
 >>>>>>> 5f4d35bad0ec9325a41e78dbf4cec1e3b4af7890
+>>>>>>> bdb3c07fa8d8ee3d02ef60bb3dca9fe64d5d530b
             </list>
           </value>
         </entry>
@@ -182,10 +190,14 @@
           <value>
             <list>
 <<<<<<< HEAD
+              <option value="D:/flutter/packages/flutter_web_plugins/lib" />
+=======
+<<<<<<< HEAD
               <option value="$PROJECT_DIR$/../flutter/packages/flutter_web_plugins/lib" />
 =======
               <option value="C:/DevFlutter/flutter/packages/flutter_web_plugins/lib" />
 >>>>>>> 5f4d35bad0ec9325a41e78dbf4cec1e3b4af7890
+>>>>>>> bdb3c07fa8d8ee3d02ef60bb3dca9fe64d5d530b
             </list>
           </value>
         </entry>
@@ -270,10 +282,14 @@
           <value>
             <list>
 <<<<<<< HEAD
+              <option value="D:/flutter/bin/cache/pkg/sky_engine/lib" />
+=======
+<<<<<<< HEAD
               <option value="$PROJECT_DIR$/../flutter/bin/cache/pkg/sky_engine/lib" />
 =======
               <option value="C:/DevFlutter/flutter/bin/cache/pkg/sky_engine/lib" />
 >>>>>>> 5f4d35bad0ec9325a41e78dbf4cec1e3b4af7890
+>>>>>>> bdb3c07fa8d8ee3d02ef60bb3dca9fe64d5d530b
             </list>
           </value>
         </entry>
@@ -352,11 +368,14 @@
     <CLASSES>
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
+=======
       <root url="file://C:/DevFlutter/flutter/bin/cache/pkg/sky_engine/lib" />
       <root url="file://C:/DevFlutter/flutter/packages/flutter/lib" />
       <root url="file://C:/DevFlutter/flutter/packages/flutter_test/lib" />
       <root url="file://C:/DevFlutter/flutter/packages/flutter_web_plugins/lib" />
 >>>>>>> 5f4d35bad0ec9325a41e78dbf4cec1e3b4af7890
+>>>>>>> bdb3c07fa8d8ee3d02ef60bb3dca9fe64d5d530b
       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/_flutterfire_internals-1.3.46/lib" />
       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/async-2.11.0/lib" />
       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/boolean_selector-2.1.1/lib" />
@@ -401,12 +420,19 @@
       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/vm_service-14.2.5/lib" />
       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/web-1.1.0/lib" />
 <<<<<<< HEAD
+      <root url="file://D:/flutter/bin/cache/pkg/sky_engine/lib" />
+      <root url="file://D:/flutter/packages/flutter/lib" />
+      <root url="file://D:/flutter/packages/flutter_test/lib" />
+      <root url="file://D:/flutter/packages/flutter_web_plugins/lib" />
+=======
+<<<<<<< HEAD
       <root url="file://$PROJECT_DIR$/../flutter/bin/cache/pkg/sky_engine/lib" />
       <root url="file://$PROJECT_DIR$/../flutter/packages/flutter/lib" />
       <root url="file://$PROJECT_DIR$/../flutter/packages/flutter_test/lib" />
       <root url="file://$PROJECT_DIR$/../flutter/packages/flutter_web_plugins/lib" />
 =======
 >>>>>>> 5f4d35bad0ec9325a41e78dbf4cec1e3b4af7890
+>>>>>>> bdb3c07fa8d8ee3d02ef60bb3dca9fe64d5d530b
     </CLASSES>
     <JAVADOC />
     <SOURCES />

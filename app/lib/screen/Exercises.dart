@@ -1,4 +1,7 @@
+import 'package:english_master_uet/screen/word_matching_screen.dart';
 import 'package:flutter/material.dart';
+
+import 'listen_matching_screen.dart';
 
 class progressScreen extends StatelessWidget {
   const progressScreen({super.key});
@@ -22,8 +25,28 @@ class progressScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            _buildProgressCard('Phần 1 Nối từ', 100, true),
-            _buildProgressCard('Phần 2 Nghe ', 100, true),
+            _buildProgressCard(
+              'Phần 1 Nối từ',
+              100,
+              true,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const WordMatchingScreen()),
+                );
+              },
+            ),
+            _buildProgressCard(
+              'Phần 2 Nghe',
+              100,
+              true,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const listen_matching_screen()),
+                );
+              },
+            ),
             _buildProgressCard('Phần 3 Kho truyện', 92, false),
             _buildProgressCard('Phần 4 Phát âm', 92, false),
             const SizedBox(height: 16),
@@ -40,9 +63,10 @@ class progressScreen extends StatelessWidget {
   }
 
   /// Widget hiển thị từng mục tiến độ
-  Widget _buildProgressCard(String title, int progress, bool completed) {
+  Widget _buildProgressCard(String title, int progress, bool completed, {VoidCallback? onTap}) {
     return Card(
       child: ListTile(
+        onTap: onTap,
         leading: Icon(
           completed ? Icons.check_circle : Icons.access_time,
           color: completed ? Colors.green : Colors.orange,
