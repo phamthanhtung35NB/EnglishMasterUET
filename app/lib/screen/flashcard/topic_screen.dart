@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'flashcard_screen.dart';
-import '../data/words_data.dart';
+import '../../data/words_data.dart';
 
 class TopicSelectionScreen extends StatelessWidget {
   @override
