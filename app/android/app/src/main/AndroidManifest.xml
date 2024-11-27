@@ -4,7 +4,7 @@
     <application
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
-        android:label="english_master_uet">
+        android:label="English Master UET">
         <activity
         android:name="io.flutter.embedding.android.FlutterActivity"
         android:exported="true"
