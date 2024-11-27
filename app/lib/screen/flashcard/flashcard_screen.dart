@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flip_card/flip_card.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:provider/provider.dart';
 import '../../data/words_data.dart';
 import '../../widgets/flashcard.dart';
@@ -21,6 +22,26 @@ class _FlashcardScreenState extends State<FlashcardScreen> {
   GlobalKey<FlipCardState> cardKey = GlobalKey<FlipCardState>();
 
   bool isAnswerCorrect = false;
+  late FlutterTts flutterTts;
+
+  @override
+  void initState() {
+    super.initState();
+    flutterTts = FlutterTts();
+  }
+
+  @override
+  void dispose() {
+    flutterTts.stop(); // Dừng TTS khi thoát màn hình.
+    super.dispose();
+  }
+
+  Future<void> _speakWord(String word) async {
+    await flutterTts.setLanguage("en-US");
+    await flutterTts.setPitch(1.0);
+    await flutterTts.setSpeechRate(0.3);
+    await flutterTts.speak(word);
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -55,12 +76,12 @@ class _FlashcardScreenState extends State<FlashcardScreen> {
           cardKey = GlobalKey<FlipCardState>();
         } else {
           context.read<AppState>().updateScreen(
-            'Result',
-            ResultScreen(
-              correctAnswers: correctAnswers,
-              totalQuestions: words.length,
-            ),
-          );
+                'Result',
+                ResultScreen(
+                  correctAnswers: correctAnswers,
+                  totalQuestions: words.length,
+                ),
+              );
         }
       });
     }
@@ -72,6 +93,10 @@ class _FlashcardScreenState extends State<FlashcardScreen> {
             ? Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  IconButton(
+                    icon: const Icon(Icons.volume_up),
+                    onPressed: () => _speakWord(currentWord.word),
+                  ),
                   FlipCard(
                     key: cardKey, // Đảm bảo cardKey được gán cho FlipCard
                     front: Flashcard(text: currentWord.word),
@@ -80,7 +105,8 @@ class _FlashcardScreenState extends State<FlashcardScreen> {
                   const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
-                      TextEditingController inputController = TextEditingController();
+                      TextEditingController inputController =
+                          TextEditingController();
                       bool isEmpty = false;
                       showDialog(
                         context: context,
@@ -93,7 +119,8 @@ class _FlashcardScreenState extends State<FlashcardScreen> {
                                 children: [
                                   TextField(
                                     controller: inputController,
-                                    decoration: const InputDecoration(hintText: "Type here"),
+                                    decoration: const InputDecoration(
+                                        hintText: "Type here"),
                                   ),
                                   if (isEmpty) // Hiển thị thông báo nếu input rỗng.
                                     const Padding(
@@ -115,7 +142,8 @@ class _FlashcardScreenState extends State<FlashcardScreen> {
                                       });
                                     } else {
                                       Navigator.pop(context);
-                                      checkAnswer(inputController.text); // Gọi hàm kiểm tra.
+                                      checkAnswer(inputController
+                                          .text); // Gọi hàm kiểm tra.
                                     }
                                   },
                                   child: const Text("Submit"),
