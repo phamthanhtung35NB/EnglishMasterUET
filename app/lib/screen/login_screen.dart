@@ -3,7 +3,6 @@ import 'package:english_master_uet/controller/login_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:english_master_uet/screen/home_screen.dart';
 
-
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -24,10 +23,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
     if (result != null) {
       print("UID: $result");
-      if (result.length == 28) { // Assuming UID is 28 characters long
+      if (result.length == 28) {
+        // Assuming UID is 28 characters long
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => HomeScreen()), // Chuyển sang màn hình Home
+          MaterialPageRoute(
+              builder: (context) => HomeScreen()), // Chuyển sang màn hình Home
         );
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Login successful. UID: $result')),
@@ -58,7 +59,8 @@ class _LoginScreenState extends State<LoginScreen> {
           actions: [
             TextButton(
               onPressed: () async {
-                String? result = await _loginController.resetPassword(emailController.text);
+                String? result =
+                    await _loginController.resetPassword(emailController.text);
                 Navigator.of(context).pop();
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text(result ?? 'An error occurred')),
@@ -82,7 +84,11 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Đăng nhập'),
+        //căn giữa
+        title: const Center(
+            child: Text('Đăng nhập',
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.black))),
       ),
       // set từ trên xuống
       body: Center(
@@ -134,7 +140,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: const Text('Bạn quên mật khẩu?'),
               ),
               const SizedBox(height: 10.0),
-
             ],
           ),
         ),
