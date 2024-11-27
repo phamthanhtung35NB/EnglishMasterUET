@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flip_card/flip_card.dart';
-import '../data/words_data.dart';
-import '../widgets/flashcard.dart';
+import '../../data/words_data.dart';
+import '../../widgets/flashcard.dart';
 import 'result_screen.dart';
 
 class FlashcardScreen extends StatefulWidget {

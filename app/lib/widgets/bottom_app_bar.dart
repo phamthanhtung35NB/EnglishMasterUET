@@ -1,8 +1,9 @@
+import 'package:english_master_uet/screen/flashcard/topic_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:english_master_uet/screen/home_screen.dart';
 import 'package:english_master_uet/screen/progress.dart';
-import 'package:english_master_uet/screen/flashcard_screen.dart';
+import 'package:english_master_uet/screen/flashcard/flashcard_screen.dart';
 
 class BottomAppBarWidget extends StatelessWidget {
   const BottomAppBarWidget({super.key});
@@ -26,10 +27,10 @@ class BottomAppBarWidget extends StatelessWidget {
           ),
           IconButton(
               onPressed: () {
-                // context.read<AppState>().updateScreen(
-                    // 'Flashcard',
-                    // FlashcardScreen()
-                // );
+                context.read<AppState>().updateScreen(
+                    'Flashcard',
+                    TopicSelectionScreen()
+                );
               },
               iconSize: 25,
               icon: Image.asset('assets/images/flashcard.png')
