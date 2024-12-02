@@ -54,10 +54,7 @@ app.*.map.json
 /web/firebase-messaging-sw.json
 #api windows
 /windows/Runner/GoogleService-Info.plist
-
 /firebase.json
-
-
 /lib/config/api_constants.dart
 /android
 /android/
