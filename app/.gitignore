@@ -61,3 +61,4 @@ app.*.map.json
 /lib/config/api_constants.dart
 /android
 /android/
+/.idea/libraries/Dart_SDK.xml
