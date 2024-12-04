@@ -1,70 +1,60 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../model/user_progress.dart';
+import '../../model/learned_word.dart';
 
 class FavoriteWordsScreen extends StatelessWidget {
-  // Mock data - thực tế sẽ lấy từ database/state management
-  final List<Map<String, dynamic>> favoriteWords = [
-    {
-      'word': 'appreciate',
-      'meaning': 'đánh giá cao, cảm kích',
-      'example': 'I really appreciate your help.',
-      'topic': 'Giao tiếp',
-      'dateAdded': '20/11/2024',
-    },
-    {
-      'word': 'determine',
-      'meaning': 'xác định, quyết định',
-      'example': 'We need to determine the cause of the problem.',
-      'topic': 'Công việc',
-      'dateAdded': '19/11/2024',
-    },
-    // Thêm các từ khác...
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final userProgress = context.watch<UserProgress>();
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Từ vựng yêu thích'),
         elevation: 0,
       ),
-      body: ListView.builder(
+      body: userProgress.favoriteWords.isEmpty
+          ? Center(
+        child: Text(
+          'Bạn chưa có từ vựng yêu thích',
+          style: Theme.of(context).textTheme.titleMedium,
+        ),
+      )
+          : ListView.builder(
         padding: EdgeInsets.all(16),
-        itemCount: favoriteWords.length,
+        itemCount: userProgress.favoriteWords.length,
         itemBuilder: (context, index) {
-          final word = favoriteWords[index];
+          final LearnedWord word = userProgress.favoriteWords[index];
 
           return Card(
             margin: EdgeInsets.only(bottom: 12),
             child: ExpansionTile(
               title: Text(
-                word['word'],
+                word.word,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
                 ),
               ),
               subtitle: Text(
-                word['meaning'],
+                word.meaning,
                 style: TextStyle(
                   color: Colors.grey[600],
                 ),
               ),
-              trailing: Icon(Icons.favorite, color: Colors.red),
+              trailing: IconButton(
+                icon: Icon(Icons.favorite, color: Colors.red),
+                onPressed: () {
+                  // Remove from favorites
+                  userProgress.toggleWordFavorite(word);
+                },
+              ),
               children: [
                 Padding(
                   padding: EdgeInsets.all(16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Ví dụ:',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey[700],
-                        ),
-                      ),
-                      SizedBox(height: 4),
-                      Text(word['example']),
                       SizedBox(height: 8),
                       Divider(),
                       SizedBox(height: 8),
@@ -72,11 +62,11 @@ class FavoriteWordsScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Chủ đề: ${word['topic']}',
+                            'Chủ đề: ${word.topic}',
                             style: TextStyle(color: Colors.grey[600]),
                           ),
                           Text(
-                            'Thêm: ${word['dateAdded']}',
+                            'Ngày học: ${word.learnedDate.toLocal().toString().split(' ')[0]}',
                             style: TextStyle(color: Colors.grey[600]),
                           ),
                         ],

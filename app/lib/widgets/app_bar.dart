@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:english_master_uet/screen/progress.dart';
+import 'package:english_master_uet/screen/progress/progress.dart';
 
 import 'package:english_master_uet/screen/home_screen.dart';
 

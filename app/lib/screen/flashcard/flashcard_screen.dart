@@ -7,11 +7,13 @@ import '../../model/word.dart';
 import '../../widgets/flashcard.dart';
 import '../home_screen.dart';
 import 'result_screen.dart';
+import '../../model/learned_word.dart';
+import '../../model/user_progress.dart';
 
 class FlashcardScreen extends StatefulWidget {
   final String topic;
 
-  const FlashcardScreen({super.key, required this.topic});
+  const FlashcardScreen({Key? key, required this.topic}) : super(key: key);
 
   @override
   _FlashcardScreenState createState() => _FlashcardScreenState();
@@ -52,7 +54,19 @@ class _FlashcardScreenState extends State<FlashcardScreen> {
     void checkAnswer(String input) {
       setState(() {
         isAnswerCorrect = (input.trim().toLowerCase() == currentWord.word.toLowerCase());
-        if (isAnswerCorrect) correctAnswers++;
+        if (isAnswerCorrect) {
+          correctAnswers++;
+
+          // Create a LearnedWord and add to user progress
+          LearnedWord learnedWord = LearnedWord(
+            word: currentWord.word,
+            meaning: currentWord.meaning,
+            topic: widget.topic,
+          );
+
+          // Add learned word to user progress
+          context.read<UserProgress>().addLearnedWord(learnedWord);
+        }
       });
 
       showDialog(

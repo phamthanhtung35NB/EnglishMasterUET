@@ -16,7 +16,9 @@ import 'package:english_master_uet/widgets/bottom_app_bar.dart';
 // import 'package:english_master_uet/screen/progress.dart'as progress;
 
 
-import 'package:english_master_uet/screen/progress.dart';
+import 'package:english_master_uet/screen/progress/progress.dart';
+
+import 'model/user_progress.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,8 +34,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => AppState(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<AppState>(
+            create: (context) => AppState()
+        ),
+        ChangeNotifierProvider<UserProgress>(  // Thêm kiểu rõ ràng
+            create: (context) => UserProgress()
+        ),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'English Master UET',
