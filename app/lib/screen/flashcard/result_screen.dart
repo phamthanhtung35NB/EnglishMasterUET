@@ -1,16 +1,20 @@
+import 'package:english_master_uet/screen/flashcard/topic_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../home_screen.dart';
 
 class ResultScreen extends StatelessWidget {
   final int correctAnswers;
   final int totalQuestions;
 
-  const ResultScreen({Key? key, required this.correctAnswers, required this.totalQuestions})
+  const ResultScreen(
+      {Key? key, required this.correctAnswers, required this.totalQuestions})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Result")),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -22,7 +26,10 @@ class ResultScreen extends StatelessWidget {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                Navigator.pop(context); // Go back to the previous screen
+                context.read<AppState>().updateScreen(
+                    'Flashcard',
+                    TopicSelectionScreen()
+                );
               },
               child: const Text("Go Back"),
             ),

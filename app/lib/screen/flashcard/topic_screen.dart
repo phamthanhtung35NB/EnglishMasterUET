@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../home_screen.dart';
 import 'flashcard_screen.dart';
 import '../../data/words_data.dart';
 
@@ -15,12 +17,9 @@ class TopicSelectionScreen extends StatelessWidget {
           return ListTile(
             title: Text(topics[index]),
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      FlashcardScreen(topic: topics[index]),
-                ),
+              context.read<AppState>().updateScreen(
+                'Flashcard',
+                FlashcardScreen(topic: topics[index]),
               );
             },
           );
