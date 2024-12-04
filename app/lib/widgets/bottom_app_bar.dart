@@ -5,6 +5,7 @@ import 'package:english_master_uet/screen/home_screen.dart';
 import 'package:english_master_uet/screen/progress.dart';
 import 'package:english_master_uet/screen/flashcard/flashcard_screen.dart';
 import 'package:english_master_uet/screen/excercise/Exercises.dart';
+import 'package:english_master_uet/screen/translate_screen.dart';
 class BottomAppBarWidget extends StatelessWidget {
   const BottomAppBarWidget({super.key});
 
@@ -42,10 +43,10 @@ class BottomAppBarWidget extends StatelessWidget {
               icon: Image.asset('assets/images/notebook.png')),
           IconButton(
               onPressed: () {
-                // context.read<AppState>().updateScreen(
-                //     'Translate',
-                //     TranslateScreen()
-                // );
+                context.read<AppState>().updateScreen(
+                    'Translate',
+                    TranslateScreen()
+                );
               },
               iconSize: 25,
               icon: Image.asset('assets/images/translate.png')),

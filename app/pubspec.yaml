@@ -33,6 +33,8 @@ dependencies:
   flip_card:
   provider: ^6.0.5
   google_sign_in: ^5.0.7
+  http: ^0.13.5
+  translator: ^0.1.7
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
