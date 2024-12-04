@@ -14,7 +14,12 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final LoginController _loginController = LoginController();
-
+  @override
+  void initState() {
+    super.initState();
+    _usernameController.text = 'test@gmail.com';
+    _passwordController.text = '123456';
+  }
   Future<void> _login() async {
     String? result = await _loginController.login(
       _usernameController.text,
