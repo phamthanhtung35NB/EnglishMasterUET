@@ -29,7 +29,7 @@ class BottomAppBarWidget extends StatelessWidget {
               onPressed: () {
                 context
                     .read<AppState>()
-                    .updateScreen('Flashcard', TopicSelectionScreen());
+                    .updateScreen('Chọn Chủ Đề', TopicSelectionScreen());
               },
               iconSize: 25,
               icon: Image.asset('assets/images/flashcard.png')),

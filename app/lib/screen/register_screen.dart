@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:english_master_uet/controller/register_controller.dart';
+import 'package:english_master_uet/screen/login_screen.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -65,6 +67,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Đăng ký'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const LoginScreen()),
+            );
+          },
+        ),
       ),
       body: Center(
         child: Padding(
@@ -132,7 +143,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 child: const Text('Đăng ký bằng Google'),
               ),
               const SizedBox(height: 16.0),
-
             ],
           ),
         ),

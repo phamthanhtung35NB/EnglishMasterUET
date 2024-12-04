@@ -148,11 +148,6 @@ class _TranslateScreenState extends State<TranslateScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Dịch Thuật', style: TextStyle(fontWeight: FontWeight.bold)),
-        centerTitle: true,
-        elevation: 0,
-      ),
       body: Container(
         padding: EdgeInsets.all(16),
         child: Column(

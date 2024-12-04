@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:english_master_uet/controller/login_controller.dart';
 import 'package:english_master_uet/screen/home_screen.dart';
 import 'package:english_master_uet/screen/register_screen.dart';
+import 'package:flutter_svg/svg.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -47,7 +48,31 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     }
   }
+  Future<String> _loginWithGoogle(BuildContext context) async {
+    String? result = await _loginController.loginWithGoogle(context);
 
+    if (result != null) {
+      print("UID: $result");
+      if (result.length == 28) {
+        // Navigator.pushReplacement(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) => HomeScreen(uid: result), // Truyền UID của người dùng
+        //   ),
+        // );
+
+        Navigator.pushNamed(context, '/home_screen', arguments: result);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Login successful. UID: $result')),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(result)),
+        );
+      }
+    }
+    return result ?? '';
+  }
   Future<void> _resetPassword() async {
     final TextEditingController emailController = TextEditingController();
 
@@ -113,10 +138,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 TextButton(
                   onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => RegisterScreen()),
-                    );
+                    Navigator.pushNamed(context, '/register_screen');
+                    // Navigator.pushReplacement(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => RegisterScreen()),
+                    // );
                   },
                   child: const Text('Đăng ký ngay?'),
                 ),
@@ -165,6 +191,21 @@ class _LoginScreenState extends State<LoginScreen> {
                 ElevatedButton(
                   onPressed: _login,
                   child: const Text('Đăng nhập'),
+                ),
+
+                ElevatedButton.icon(
+                  onPressed: () async {
+                    await _loginWithGoogle(context);
+                  },
+                  icon: SvgPicture.network(
+                    'https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg',
+                    height: 24.0,
+                    width: 24.0,
+                  ),
+                  label: const Text(
+                    'Đăng nhập bằng Google',
+                    style: TextStyle(fontSize: 16),
+                  ),
                 ),
                 const SizedBox(height: 10.0),
               ],
