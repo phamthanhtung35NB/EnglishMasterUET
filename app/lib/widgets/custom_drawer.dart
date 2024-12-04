@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../screen/login_screen.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
@@ -51,8 +52,10 @@ class CustomDrawer extends StatelessWidget {
               leading: const Icon(Icons.logout),
               title: const Text('Logout'),
               onTap: () {
-                Navigator.pop(context); // Close the drawer
-                // Logout
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginScreen()),
+                );
               },
             ),
           ],
