@@ -49,13 +49,6 @@ class progressScreen extends StatelessWidget {
             ),
             _buildProgressCard('Phần 3 Kho truyện', 92, false),
             _buildProgressCard('Phần 4 Phát âm', 92, false),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context); // Trở về màn hình trước
-              },
-              child: const Text('Quay lại'),
-            ),
           ],
         ),
       ),
