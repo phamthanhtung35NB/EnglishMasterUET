@@ -1,3 +1,4 @@
+import 'package:english_master_uet/screen/register_screen.dart';
 import 'package:english_master_uet/screen/statistical_screen.dart';
 import 'package:english_master_uet/screen/flashcard/topic_screen.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +42,9 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         home: const LoginScreen(),
+        routes: {
+          '/register_screen': (context) => const RegisterScreen(), // Add this line
+        },
       ),
     );
   }
