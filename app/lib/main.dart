@@ -9,7 +9,7 @@ import 'package:english_master_uet/config/api_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart'; // Import Firebase options
-import 'package:english_master_uet/screen/Exercises.dart';
+import 'package:english_master_uet/screen/excercise/Exercises.dart';
 import 'package:english_master_uet/screen/flashcard/topic_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:english_master_uet/widgets/bottom_app_bar.dart';
