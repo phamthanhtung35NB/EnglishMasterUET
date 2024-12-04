@@ -3,6 +3,7 @@ import 'package:flip_card/flip_card.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:provider/provider.dart';
 import '../../data/words_data.dart';
+import '../../model/word.dart';
 import '../../widgets/flashcard.dart';
 import '../home_screen.dart';
 import 'result_screen.dart';
@@ -10,7 +11,7 @@ import 'result_screen.dart';
 class FlashcardScreen extends StatefulWidget {
   final String topic;
 
-  const FlashcardScreen({Key? key, required this.topic}) : super(key: key);
+  const FlashcardScreen({super.key, required this.topic});
 
   @override
   _FlashcardScreenState createState() => _FlashcardScreenState();
@@ -32,43 +33,46 @@ class _FlashcardScreenState extends State<FlashcardScreen> {
 
   @override
   void dispose() {
-    flutterTts.stop(); // Dừng TTS khi thoát màn hình.
+    flutterTts.stop();
     super.dispose();
   }
 
   Future<void> _speakWord(String word) async {
     await flutterTts.setLanguage("en-US");
     await flutterTts.setPitch(1.0);
-    await flutterTts.setSpeechRate(0.3);
+    await flutterTts.setSpeechRate(0.4);
     await flutterTts.speak(word);
-    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    final words =
-        topicWords[widget.topic]!; // Lấy danh sách từ vựng theo chủ đề
-    final currentWord = words[currentIndex]; // Lấy từ hiện tại
+    final words = topicWords[widget.topic]!;
+    final currentWord = words[currentIndex];
 
     void checkAnswer(String input) {
       setState(() {
-        isAnswerCorrect =
-            (input.trim().toLowerCase() == currentWord.word.toLowerCase());
+        isAnswerCorrect = (input.trim().toLowerCase() == currentWord.word.toLowerCase());
         if (isAnswerCorrect) correctAnswers++;
       });
 
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text(isAnswerCorrect ? "Correct!" : "Wrong!"),
-          content: Text(isAnswerCorrect
-              ? "You got it right!"
-              : "The correct word is: ${currentWord.word}"),
+          backgroundColor: isAnswerCorrect ? Colors.green[100] : Colors.red[100],
+          title: Text(
+            isAnswerCorrect ? "Chính xác!" : "Sai rồi!",
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+          content: Text(
+            isAnswerCorrect
+                ? "Bạn đã trả lời đúng!"
+                : "Từ đúng là: ${currentWord.word}",
+          ),
         ),
       );
 
-      // Delay trước khi chuyển từ
       Future.delayed(const Duration(milliseconds: 800), () {
-        Navigator.pop(context); // Close the dialog
+        Navigator.pop(context);
         if (currentIndex < words.length - 1) {
           setState(() {
             currentIndex++;
@@ -76,111 +80,146 @@ class _FlashcardScreenState extends State<FlashcardScreen> {
           cardKey = GlobalKey<FlipCardState>();
         } else {
           context.read<AppState>().updateScreen(
-                'Result',
-                ResultScreen(
-                  correctAnswers: correctAnswers,
-                  totalQuestions: words.length,
-                ),
-              );
+            'Result',
+            ResultScreen(
+              correctAnswers: correctAnswers,
+              totalQuestions: words.length,
+            ),
+          );
         }
       });
     }
 
     return Scaffold(
-      appBar: AppBar(title: Text(widget.topic)),
+      backgroundColor: Colors.blue[50],
+      appBar: AppBar(
+        title: Text(widget.topic),
+        backgroundColor: Colors.blue[100],
+        elevation: 0,
+      ),
       body: Center(
         child: currentIndex < words.length
-            ? Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+            ? Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  Text(
+                    'Từ ${currentIndex + 1}/${words.length}',
+                    style: TextStyle(color: Colors.blue[600]),
+                  ),
                   IconButton(
-                    icon: const Icon(Icons.volume_up),
+                    icon: Icon(Icons.volume_up, color: Colors.blue[400]),
                     onPressed: () => _speakWord(currentWord.word),
                   ),
-                  FlipCard(
-                    key: cardKey, // Đảm bảo cardKey được gán cho FlipCard
-                    front: Flashcard(text: currentWord.word),
-                    back: Flashcard(text: currentWord.meaning),
+                ],
+              ),
+              const SizedBox(height: 20),
+              FlipCard(
+                key: cardKey,
+                front: Flashcard(text: currentWord.word),
+                back: Flashcard(text: currentWord.meaning),
+              ),
+              const SizedBox(height: 20),
+              Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue[300],
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                      ),
+                      onPressed: () => _showInputDialog(context, checkAnswer),
+                      child: const Text('Kiểm Tra'),
+                    ),
                   ),
-                  const SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () {
-                      TextEditingController inputController =
-                          TextEditingController();
-                      bool isEmpty = false;
-                      showDialog(
-                        context: context,
-                        builder: (context) => StatefulBuilder(
-                          builder: (context, setState) {
-                            return AlertDialog(
-                              title: const Text("Enter the word"),
-                              content: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  TextField(
-                                    controller: inputController,
-                                    decoration: const InputDecoration(
-                                        hintText: "Type here"),
-                                  ),
-                                  if (isEmpty) // Hiển thị thông báo nếu input rỗng.
-                                    const Padding(
-                                      padding: EdgeInsets.only(top: 8.0),
-                                      child: Text(
-                                        "Please enter a word",
-                                        style: TextStyle(color: Colors.red),
-                                      ),
-                                    ),
-                                ],
-                              ),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    if (inputController.text.trim().isEmpty) {
-                                      // Nếu input rỗng, cập nhật trạng thái và hiển thị thông báo.
-                                      setState(() {
-                                        isEmpty = true;
-                                      });
-                                    } else {
-                                      Navigator.pop(context);
-                                      checkAnswer(inputController
-                                          .text); // Gọi hàm kiểm tra.
-                                    }
-                                  },
-                                  child: const Text("Submit"),
-                                ),
-                              ],
-                            );
-                          },
-                        ),
-                      );
-                    },
-                    child: const Text("Continue"),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      setState(() {
-                        correctAnswers++; // Tăng số câu trả lời đúng khi người dùng bỏ qua và biết từ này
-                        if (currentIndex < words.length - 1) {
-                          currentIndex++;
-                          cardKey = GlobalKey<
-                              FlipCardState>(); // Reset lại key của FlipCard để hiển thị mặt trước
-                        } else {
-                          context.read<AppState>().updateScreen(
-                                'Result',
-                                ResultScreen(
-                                  correctAnswers: correctAnswers,
-                                  totalQuestions: words.length,
-                                ),
-                              );
-                        }
-                      });
-                    },
-                    child: const Text("I already know this word"),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: Colors.blue[600],
+                        side: BorderSide(color: Colors.blue.shade400),
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          correctAnswers++;
+                          _moveToNextWord(words);
+                        });
+                      },
+                      child: const Text('Tôi Đã Biết Từ Này'),
+                    ),
                   ),
                 ],
-              )
+              ),
+            ],
+          ),
+        )
             : const CircularProgressIndicator(),
       ),
     );
+  }
+
+  void _showInputDialog(BuildContext context, Function(String) checkAnswer) {
+    TextEditingController inputController = TextEditingController();
+    bool isEmpty = false;
+
+    showDialog(
+      context: context,
+      builder: (context) => StatefulBuilder(
+        builder: (context, setState) {
+          return AlertDialog(
+            title: const Text("Nhập Từ"),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  controller: inputController,
+                  decoration: InputDecoration(
+                    hintText: "Nhập từ của bạn",
+                    errorText: isEmpty ? "Vui lòng nhập từ" : null,
+                  ),
+                ),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  if (inputController.text.trim().isEmpty) {
+                    setState(() {
+                      isEmpty = true;
+                    });
+                  } else {
+                    Navigator.pop(context);
+                    checkAnswer(inputController.text);
+                  }
+                },
+                child: const Text("Xác Nhận"),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+
+  void _moveToNextWord(List<Word> words) {
+    if (currentIndex < words.length - 1) {
+      setState(() {
+        currentIndex++;
+        cardKey = GlobalKey<FlipCardState>();
+      });
+    } else {
+      context.read<AppState>().updateScreen(
+        'Result',
+        ResultScreen(
+          correctAnswers: correctAnswers,
+          totalQuestions: words.length,
+        ),
+      );
+    }
   }
 }
