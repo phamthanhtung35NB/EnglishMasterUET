@@ -1,0 +1,2150 @@
+Index: app/pubspec.yaml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>name: english_master_uet\r\ndescription: \"A new Flutter project.\"\r\n# The following line prevents the package from being accidentally published to\r\n# pub.dev using `flutter pub publish`. This is preferred for private packages.\r\npublish_to: \"none\" # Remove this line if you wish to publish to pub.dev\r\n\r\n# The following defines the version and build number for your application.\r\n# A version number is three numbers separated by dots, like 1.2.43\r\n# followed by an optional build number separated by a +.\r\n# Both the version and the builder number may be overridden in flutter\r\n# build by specifying --build-name and --build-number, respectively.\r\n# In Android, build-name is used as versionName while build-number used as versionCode.\r\n# Read more about Android versioning at https://developer.android.com/studio/publish/versioning\r\n# In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.\r\n# Read more about iOS versioning at\r\n# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html\r\n# In Windows, build-name is used as the major, minor, and patch parts\r\n# of the product and file versions while build-number is used as the build suffix.\r\nversion: 1.0.0+1\r\n\r\nenvironment:\r\n  sdk: \">=3.4.0 <4.0.0\"\r\n\r\n# Dependencies specify other packages that your package needs in order to work.\r\n# To automatically upgrade your package dependencies to the latest versions\r\n# consider running `flutter pub upgrade --major-versions`. Alternatively,\r\n# dependencies can be manually updated by changing the version numbers below to\r\n# the latest version available on pub.dev. To see which dependencies have newer\r\n# versions available, run `flutter pub outdated`.\r\ndependencies:\r\n  flutter:\r\n    sdk: flutter\r\n  flip_card:\r\n  provider: ^6.0.5\r\n  google_sign_in: ^5.0.7\r\n  # The following adds the Cupertino Icons font to your application.\r\n  # Use with the CupertinoIcons class for iOS style icons.\r\n  cupertino_icons: ^1.0.6\r\n  firebase_core: ^3.8.0\r\n  firebase_auth: ^5.1.4\r\n  #readtime dataase\r\n  firebase_database: ^11.1.0\r\n  flutter_tts: ^3.6.0\r\n  fl_chart: ^0.69.0\r\n  font_awesome_flutter: ^10.6.0\r\n\r\ndev_dependencies:\r\n  flutter_test:\r\n    sdk: flutter\r\n\r\n  # The \"flutter_lints\" package below contains a set of recommended lints to\r\n  # encourage good coding practices. The lint set provided by the package is\r\n  # activated in the `analysis_options.yaml` file located at the root of your\r\n  # package. See that file for information about deactivating specific lint\r\n  # rules and activating additional ones.\r\n  flutter_lints: ^3.0.0\r\n\r\n# For information on the generic Dart part of this file, see the\r\n# following page: https://dart.dev/tools/pub/pubspec\r\n\r\n# The following section is specific to Flutter packages.\r\nflutter:\r\n  # The following line ensures that the Material Icons font is\r\n  # included with your application, so that you can use the icons in\r\n  # the material Icons class.\r\n  uses-material-design: true\r\n  assets:\r\n    - assets/images/\r\n  # To add assets to your application, add an assets section, like this:\r\n  # assets:\r\n  #   - images/a_dot_burr.jpeg\r\n  #   - images/a_dot_ham.jpeg\r\n\r\n  # An image asset can refer to one or more resolution-specific \"variants\", see\r\n  # https://flutter.dev/assets-and-images/#resolution-aware\r\n\r\n  # For details regarding adding assets from package dependencies, see\r\n  # https://flutter.dev/assets-and-images/#from-packages\r\n\r\n  # To add custom fonts to your application, add a fonts section here,\r\n  # in this \"flutter\" section. Each entry in this list should have a\r\n  # \"family\" key with the font family name, and a \"fonts\" key with a\r\n  # list giving the asset and other descriptors for the font. For\r\n  # example:\r\n  # fonts:\r\n  #   - family: Schyler\r\n  #     fonts:\r\n  #       - asset: fonts/Schyler-Regular.ttf\r\n  #       - asset: fonts/Schyler-Italic.ttf\r\n  #         style: italic\r\n  #   - family: Trajan Pro\r\n  #     fonts:\r\n  #       - asset: fonts/TrajanPro.ttf\r\n  #       - asset: fonts/TrajanPro_Bold.ttf\r\n  #         weight: 700\r\n  #\r\n  # For details regarding fonts from package dependencies,\r\n  # see https://flutter.dev/custom-fonts/#from-packages\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/pubspec.yaml b/app/pubspec.yaml
+--- a/app/pubspec.yaml	(revision 720d5fbe8b3ff4b00353ab056c54d969dc0f83ae)
++++ b/app/pubspec.yaml	(date 1733446451837)
+@@ -33,6 +33,9 @@
+   flip_card:
+   provider: ^6.0.5
+   google_sign_in: ^5.0.7
++  http: ^0.13.5
++  translator: ^0.1.7
++  flutter_svg: ^1.0.0
+   # The following adds the Cupertino Icons font to your application.
+   # Use with the CupertinoIcons class for iOS style icons.
+   cupertino_icons: ^1.0.6
+@@ -43,6 +46,7 @@
+   flutter_tts: ^3.6.0
+   fl_chart: ^0.69.0
+   font_awesome_flutter: ^10.6.0
++  shared_preferences: ^2.0.15
+ 
+ dev_dependencies:
+   flutter_test:
+Index: app/lib/main.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import 'package:english_master_uet/screen/statistical_screen.dart';\r\nimport 'package:english_master_uet/screen/flashcard/topic_screen.dart';\r\nimport 'package:flutter/material.dart';\r\nimport 'package:firebase_core/firebase_core.dart';\r\nimport 'package:flutter/foundation.dart';\r\nimport 'package:english_master_uet/screen/login_screen.dart';\r\nimport 'package:english_master_uet/screen/home_screen.dart';\r\nimport 'package:english_master_uet/config/api_constants.dart';\r\nimport 'package:flutter/material.dart';\r\nimport 'package:firebase_core/firebase_core.dart';\r\nimport 'firebase_options.dart'; // Import Firebase options\r\nimport 'package:english_master_uet/screen/excercise/Exercises.dart';\r\nimport 'package:english_master_uet/screen/flashcard/topic_screen.dart';\r\nimport 'package:provider/provider.dart';\r\nimport 'package:english_master_uet/widgets/bottom_app_bar.dart';\r\n// import 'package:english_master_uet/screen/progress.dart'as progress;\r\n\r\n\r\nimport 'package:english_master_uet/screen/progress.dart';\r\n\r\nvoid main() async {\r\n  WidgetsFlutterBinding.ensureInitialized();\r\n  await Firebase.initializeApp(\r\n    options: DefaultFirebaseOptions\r\n        .currentPlatform, // Sử dụng Firebase options đã cấu hình\r\n  );\r\n  runApp(MyApp());\r\n}\r\n\r\nclass MyApp extends StatelessWidget {\r\n  const MyApp({super.key});\r\n\r\n  @override\r\n  Widget build(BuildContext context) {\r\n    return ChangeNotifierProvider(\r\n      create: (context) => AppState(),\r\n      child: MaterialApp(\r\n        debugShowCheckedModeBanner: false,\r\n        title: 'English Master UET',\r\n        theme: ThemeData(\r\n          primarySwatch: Colors.blue,\r\n        ),\r\n        home: const LoginScreen(),\r\n      ),\r\n    );\r\n  }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/lib/main.dart b/app/lib/main.dart
+--- a/app/lib/main.dart	(revision 720d5fbe8b3ff4b00353ab056c54d969dc0f83ae)
++++ b/app/lib/main.dart	(date 1733446451825)
+@@ -1,3 +1,4 @@
++import 'package:english_master_uet/screen/register_screen.dart';
+ import 'package:english_master_uet/screen/statistical_screen.dart';
+ import 'package:english_master_uet/screen/flashcard/topic_screen.dart';
+ import 'package:flutter/material.dart';
+@@ -16,7 +17,9 @@
+ // import 'package:english_master_uet/screen/progress.dart'as progress;
+ 
+ 
+-import 'package:english_master_uet/screen/progress.dart';
++import 'package:english_master_uet/screen/progress/progress.dart';
++
++import 'model/user_progress.dart';
+ 
+ void main() async {
+   WidgetsFlutterBinding.ensureInitialized();
+@@ -32,8 +35,15 @@
+ 
+   @override
+   Widget build(BuildContext context) {
+-    return ChangeNotifierProvider(
+-      create: (context) => AppState(),
++    return MultiProvider(
++      providers: [
++        ChangeNotifierProvider<AppState>(
++            create: (context) => AppState()
++        ),
++        ChangeNotifierProvider<UserProgress>(  // Thêm kiểu rõ ràng
++            create: (context) => UserProgress()
++        ),
++      ],
+       child: MaterialApp(
+         debugShowCheckedModeBanner: false,
+         title: 'English Master UET',
+@@ -41,6 +51,9 @@
+           primarySwatch: Colors.blue,
+         ),
+         home: const LoginScreen(),
++        routes: {
++          '/register_screen': (context) => const RegisterScreen(), // Add this line
++        },
+       ),
+     );
+   }
+Index: app/lib/screen/flashcard/flashcard_screen.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import 'package:flutter/material.dart';\r\nimport 'package:flip_card/flip_card.dart';\r\nimport 'package:flutter_tts/flutter_tts.dart';\r\nimport 'package:provider/provider.dart';\r\nimport '../../data/words_data.dart';\r\nimport '../../model/word.dart';\r\nimport '../../widgets/flashcard.dart';\r\nimport '../home_screen.dart';\r\nimport 'result_screen.dart';\r\n\r\nclass FlashcardScreen extends StatefulWidget {\r\n  final String topic;\r\n\r\n  const FlashcardScreen({super.key, required this.topic});\r\n\r\n  @override\r\n  _FlashcardScreenState createState() => _FlashcardScreenState();\r\n}\r\n\r\nclass _FlashcardScreenState extends State<FlashcardScreen> {\r\n  int currentIndex = 0;\r\n  int correctAnswers = 0;\r\n  GlobalKey<FlipCardState> cardKey = GlobalKey<FlipCardState>();\r\n  bool isAnswerCorrect = false;\r\n  late FlutterTts flutterTts;\r\n  @override\r\n  void initState() {\r\n    super.initState();\r\n    flutterTts = FlutterTts();\r\n  }\r\n\r\n  @override\r\n  void dispose() {\r\n    flutterTts.stop();\r\n    super.dispose();\r\n  }\r\n\r\n  Future<void> _speakWord(String word) async {\r\n    await flutterTts.setLanguage(\"en-US\");\r\n    await flutterTts.setPitch(1.0);\r\n    await flutterTts.setSpeechRate(0.3);\r\n    await flutterTts.speak(word);\r\n  }\r\n\r\n  @override\r\n  Widget build(BuildContext context) {\r\n    final words = topicWords[widget.topic]!;\r\n    final currentWord = words[currentIndex];\r\n\r\n    void checkAnswer(String input) {\r\n      setState(() {\r\n        isAnswerCorrect =\r\n        (input.trim().toLowerCase() == currentWord.word.toLowerCase());\r\n        if (isAnswerCorrect) correctAnswers++;\r\n      });\r\n\r\n      showDialog(\r\n        context: context,\r\n        builder: (context) =>\r\n            AlertDialog(\r\n              backgroundColor:\r\n              isAnswerCorrect ? Colors.green[100] : Colors.red[100],\r\n              title: Text(\r\n                isAnswerCorrect ? \"Chính xác!\" : \"Sai rồi!\",\r\n                style: const TextStyle(fontWeight: FontWeight.bold),\r\n              ),\r\n              content: Text(\r\n                isAnswerCorrect\r\n                    ? \"Bạn đã trả lời đúng!\"\r\n                    : \"Từ đúng là: ${currentWord.word}\",\r\n              ),\r\n            ),\r\n      );\r\n\r\n      Future.delayed(const Duration(milliseconds: 800), () {\r\n        Navigator.of(context).maybePop();\r\n        if (currentIndex < words.length - 1) {\r\n          setState(() {\r\n            currentIndex++;\r\n          });\r\n          cardKey = GlobalKey<FlipCardState>();\r\n        } else {\r\n          context.read<AppState>().updateScreen(\r\n            'Result',\r\n            ResultScreen(\r\n              correctAnswers: correctAnswers,\r\n              totalQuestions: words.length,\r\n            ),\r\n          );\r\n        }\r\n      });\r\n    }\r\n\r\n    return Scaffold(\r\n      backgroundColor: Colors.blue[50],\r\n      body: Padding(\r\n        padding: const EdgeInsets.symmetric(horizontal: 16.0),\r\n        child: Column(\r\n          children: [\r\n            Padding(\r\n              padding: const EdgeInsets.only(top: 20.0, bottom: 10.0),\r\n              child: Row(\r\n                mainAxisAlignment: MainAxisAlignment.spaceBetween,\r\n                children: [\r\n                  Text(\r\n                    'Từ ${currentIndex + 1}/${words.length}',\r\n                    style: TextStyle(color: Colors.blue[600]),\r\n                  ),\r\n                  IconButton(\r\n                    icon: Icon(Icons.volume_up, color: Colors.blue[400]),\r\n                    onPressed: () => _speakWord(currentWord.word),\r\n                  ),\r\n                ],\r\n              ),\r\n            ),\r\n            Expanded(\r\n              flex: 5,\r\n              child: Center(\r\n                child: FlipCard(\r\n                  key: cardKey,\r\n                  front: Flashcard(text: currentWord.word),\r\n                  back: Flashcard(text: currentWord.meaning),\r\n                ),\r\n              ),\r\n            ),\r\n            Padding(\r\n              padding: const EdgeInsets.only(bottom: 20.0, top: 10.0),\r\n              child: Row(\r\n                mainAxisAlignment: MainAxisAlignment.spaceBetween,\r\n                children: [\r\n                  Expanded(\r\n                    child: ElevatedButton(\r\n                      style: ElevatedButton.styleFrom(\r\n                        backgroundColor: Colors.blue[300],\r\n                        padding: const EdgeInsets.symmetric(vertical: 12),\r\n                      ),\r\n                      onPressed: () => _showInputDialog(context, checkAnswer),\r\n                      child: const Text('Kiểm Tra'),\r\n                    ),\r\n                  ),\r\n                  const SizedBox(width: 16),\r\n                  Expanded(\r\n                    child: OutlinedButton(\r\n                      style: OutlinedButton.styleFrom(\r\n                        foregroundColor: Colors.blue[600],\r\n                        side: BorderSide(color: Colors.blue.shade400),\r\n                        padding: const EdgeInsets.symmetric(vertical: 12),\r\n                      ),\r\n                      onPressed: () {\r\n                        setState(() {\r\n                          correctAnswers++;\r\n                          _moveToNextWord(words);\r\n                        });\r\n                      },\r\n                      child: const Text('Tôi Đã Biết Từ Này'),\r\n                    ),\r\n                  ),\r\n                ],\r\n              ),\r\n            ),\r\n          ],\r\n        ),\r\n      ),\r\n    );\r\n  }\r\n\r\n  void _showInputDialog(BuildContext context, Function(String) checkAnswer) {\r\n    TextEditingController inputController = TextEditingController();\r\n    bool isEmpty = false;\r\n\r\n    showDialog(\r\n      context: context,\r\n      builder: (context) =>\r\n          StatefulBuilder(\r\n            builder: (context, setState) {\r\n              return AlertDialog(\r\n                title: const Text(\"Nhập Từ\"),\r\n                content: Column(\r\n                  mainAxisSize: MainAxisSize.min,\r\n                  children: [\r\n                    TextField(\r\n                      controller: inputController,\r\n                      decoration: InputDecoration(\r\n                        hintText: \"Nhập từ của bạn\",\r\n                        errorText: isEmpty ? \"Vui lòng nhập từ\" : null,\r\n                      ),\r\n                    ),\r\n                  ],\r\n                ),\r\n                actions: [\r\n                  TextButton(\r\n                    onPressed: () {\r\n                      if (inputController.text\r\n                          .trim()\r\n                          .isEmpty) {\r\n                        setState(() {\r\n                          isEmpty = true;\r\n                        });\r\n                      } else {\r\n                        Navigator.pop(context);\r\n                        checkAnswer(inputController.text);\r\n                      }\r\n                    },\r\n                    child: const Text(\"Xác Nhận\"),\r\n                  ),\r\n                ],\r\n              );\r\n            },\r\n          ),\r\n    );\r\n  }\r\n\r\n  void _moveToNextWord(List<Word> words) {\r\n    if (currentIndex < words.length - 1) {\r\n      setState(() {\r\n        currentIndex++;\r\n        cardKey = GlobalKey<FlipCardState>();\r\n      });\r\n    } else {\r\n      context.read<AppState>().updateScreen(\r\n        'Result',\r\n        ResultScreen(\r\n          correctAnswers: correctAnswers,\r\n          totalQuestions: words.length,\r\n        ),\r\n      );\r\n    }\r\n  }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/lib/screen/flashcard/flashcard_screen.dart b/app/lib/screen/flashcard/flashcard_screen.dart
+--- a/app/lib/screen/flashcard/flashcard_screen.dart	(revision 720d5fbe8b3ff4b00353ab056c54d969dc0f83ae)
++++ b/app/lib/screen/flashcard/flashcard_screen.dart	(date 1733446562623)
+@@ -3,6 +3,8 @@
+ import 'package:flutter_tts/flutter_tts.dart';
+ import 'package:provider/provider.dart';
+ import '../../data/words_data.dart';
++import '../../model/learned_word.dart';
++import '../../model/user_progress.dart';
+ import '../../model/word.dart';
+ import '../../widgets/flashcard.dart';
+ import '../home_screen.dart';
+@@ -21,8 +23,10 @@
+   int currentIndex = 0;
+   int correctAnswers = 0;
+   GlobalKey<FlipCardState> cardKey = GlobalKey<FlipCardState>();
++
+   bool isAnswerCorrect = false;
+   late FlutterTts flutterTts;
++
+   @override
+   void initState() {
+     super.initState();
+@@ -38,7 +42,7 @@
+   Future<void> _speakWord(String word) async {
+     await flutterTts.setLanguage("en-US");
+     await flutterTts.setPitch(1.0);
+-    await flutterTts.setSpeechRate(0.3);
++    await flutterTts.setSpeechRate(0.4);
+     await flutterTts.speak(word);
+   }
+ 
+@@ -49,31 +53,40 @@
+ 
+     void checkAnswer(String input) {
+       setState(() {
+-        isAnswerCorrect =
+-        (input.trim().toLowerCase() == currentWord.word.toLowerCase());
+-        if (isAnswerCorrect) correctAnswers++;
++        isAnswerCorrect = (input.trim().toLowerCase() == currentWord.word.toLowerCase());
++        if (isAnswerCorrect) {
++          correctAnswers++;
++
++          // Create a LearnedWord and add to user progress
++          LearnedWord learnedWord = LearnedWord(
++            word: currentWord.word,
++            meaning: currentWord.meaning,
++            topic: widget.topic,
++          );
++
++          // Add learned word to user progress
++          context.read<UserProgress>().addLearnedWord(learnedWord);
++        }
+       });
+ 
+       showDialog(
+         context: context,
+-        builder: (context) =>
+-            AlertDialog(
+-              backgroundColor:
+-              isAnswerCorrect ? Colors.green[100] : Colors.red[100],
+-              title: Text(
+-                isAnswerCorrect ? "Chính xác!" : "Sai rồi!",
+-                style: const TextStyle(fontWeight: FontWeight.bold),
+-              ),
+-              content: Text(
+-                isAnswerCorrect
+-                    ? "Bạn đã trả lời đúng!"
+-                    : "Từ đúng là: ${currentWord.word}",
+-              ),
+-            ),
++        builder: (context) => AlertDialog(
++          backgroundColor: isAnswerCorrect ? Colors.green[100] : Colors.red[100],
++          title: Text(
++            isAnswerCorrect ? "Chính xác!" : "Sai rồi!",
++            style: const TextStyle(fontWeight: FontWeight.bold),
++          ),
++          content: Text(
++            isAnswerCorrect
++                ? "Bạn đã trả lời đúng!"
++                : "Từ đúng là: ${currentWord.word}",
++          ),
++        ),
+       );
+ 
+       Future.delayed(const Duration(milliseconds: 800), () {
+-        Navigator.of(context).maybePop();
++        Navigator.pop(context);
+         if (currentIndex < words.length - 1) {
+           setState(() {
+             currentIndex++;
+@@ -93,13 +106,19 @@
+ 
+     return Scaffold(
+       backgroundColor: Colors.blue[50],
+-      body: Padding(
+-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+-        child: Column(
+-          children: [
+-            Padding(
+-              padding: const EdgeInsets.only(top: 20.0, bottom: 10.0),
+-              child: Row(
++      appBar: AppBar(
++        title: Text(widget.topic),
++        backgroundColor: Colors.blue[100],
++        elevation: 0,
++      ),
++      body: Center(
++        child: currentIndex < words.length
++            ? Padding(
++          padding: const EdgeInsets.all(16.0),
++          child: Column(
++            mainAxisAlignment: MainAxisAlignment.center,
++            children: [
++              Row(
+                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                 children: [
+                   Text(
+@@ -112,21 +131,14 @@
+                   ),
+                 ],
+               ),
+-            ),
+-            Expanded(
+-              flex: 5,
+-              child: Center(
+-                child: FlipCard(
+-                  key: cardKey,
+-                  front: Flashcard(text: currentWord.word),
+-                  back: Flashcard(text: currentWord.meaning),
+-                ),
++              const SizedBox(height: 20),
++              FlipCard(
++                key: cardKey,
++                front: Flashcard(text: currentWord.word),
++                back: Flashcard(text: currentWord.meaning),
+               ),
+-            ),
+-            Padding(
+-              padding: const EdgeInsets.only(bottom: 20.0, top: 10.0),
+-              child: Row(
+-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
++              const SizedBox(height: 20),
++              Row(
+                 children: [
+                   Expanded(
+                     child: ElevatedButton(
+@@ -138,7 +150,7 @@
+                       child: const Text('Kiểm Tra'),
+                     ),
+                   ),
+-                  const SizedBox(width: 16),
++                  const SizedBox(width: 10),
+                   Expanded(
+                     child: OutlinedButton(
+                       style: OutlinedButton.styleFrom(
+@@ -157,9 +169,10 @@
+                   ),
+                 ],
+               ),
+-            ),
+-          ],
+-        ),
++            ],
++          ),
++        )
++            : const CircularProgressIndicator(),
+       ),
+     );
+   }
+@@ -170,43 +183,40 @@
+ 
+     showDialog(
+       context: context,
+-      builder: (context) =>
+-          StatefulBuilder(
+-            builder: (context, setState) {
+-              return AlertDialog(
+-                title: const Text("Nhập Từ"),
+-                content: Column(
+-                  mainAxisSize: MainAxisSize.min,
+-                  children: [
+-                    TextField(
+-                      controller: inputController,
+-                      decoration: InputDecoration(
+-                        hintText: "Nhập từ của bạn",
+-                        errorText: isEmpty ? "Vui lòng nhập từ" : null,
+-                      ),
+-                    ),
+-                  ],
+-                ),
+-                actions: [
+-                  TextButton(
+-                    onPressed: () {
+-                      if (inputController.text
+-                          .trim()
+-                          .isEmpty) {
+-                        setState(() {
+-                          isEmpty = true;
+-                        });
+-                      } else {
+-                        Navigator.pop(context);
+-                        checkAnswer(inputController.text);
+-                      }
+-                    },
+-                    child: const Text("Xác Nhận"),
+-                  ),
+-                ],
+-              );
+-            },
+-          ),
++      builder: (context) => StatefulBuilder(
++        builder: (context, setState) {
++          return AlertDialog(
++            title: const Text("Nhập Từ"),
++            content: Column(
++              mainAxisSize: MainAxisSize.min,
++              children: [
++                TextField(
++                  controller: inputController,
++                  decoration: InputDecoration(
++                    hintText: "Nhập từ của bạn",
++                    errorText: isEmpty ? "Vui lòng nhập từ" : null,
++                  ),
++                ),
++              ],
++            ),
++            actions: [
++              TextButton(
++                onPressed: () {
++                  if (inputController.text.trim().isEmpty) {
++                    setState(() {
++                      isEmpty = true;
++                    });
++                  } else {
++                    Navigator.pop(context);
++                    checkAnswer(inputController.text);
++                  }
++                },
++                child: const Text("Xác Nhận"),
++              ),
++            ],
++          );
++        },
++      ),
+     );
+   }
+ 
+@@ -226,4 +236,4 @@
+       );
+     }
+   }
+-}
++}
+\ No newline at end of file
+Index: app/pubspec.lock
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># Generated by pub\r\n# See https://dart.dev/tools/pub/glossary#lockfile\r\npackages:\r\n  _flutterfire_internals:\r\n    dependency: transitive\r\n    description:\r\n      name: _flutterfire_internals\r\n      sha256: \"71c01c1998c40b3af1944ad0a5f374b4e6fef7f3d2df487f3970dbeadaeb25a1\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.3.46\"\r\n  async:\r\n    dependency: transitive\r\n    description:\r\n      name: async\r\n      sha256: \"947bfcf187f74dbc5e146c9eb9c0f10c9f8b30743e341481c1e2ed3ecc18c20c\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"2.11.0\"\r\n  boolean_selector:\r\n    dependency: transitive\r\n    description:\r\n      name: boolean_selector\r\n      sha256: \"6cfb5af12253eaf2b368f07bacc5a80d1301a071c73360d746b7f2e32d762c66\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"2.1.1\"\r\n  characters:\r\n    dependency: transitive\r\n    description:\r\n      name: characters\r\n      sha256: \"04a925763edad70e8443c99234dc3328f442e811f1d8fd1a72f1c8ad0f69a605\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.3.0\"\r\n  clock:\r\n    dependency: transitive\r\n    description:\r\n      name: clock\r\n      sha256: cb6d7f03e1de671e34607e909a7213e31d7752be4fb66a86d29fe1eb14bfb5cf\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.1.1\"\r\n  collection:\r\n    dependency: transitive\r\n    description:\r\n      name: collection\r\n      sha256: ee67cb0715911d28db6bf4af1026078bd6f0128b07a5f66fb2ed94ec6783c09a\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.18.0\"\r\n  cupertino_icons:\r\n    dependency: \"direct main\"\r\n    description:\r\n      name: cupertino_icons\r\n      sha256: ba631d1c7f7bef6b729a622b7b752645a2d076dba9976925b8f25725a30e1ee6\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.0.8\"\r\n  equatable:\r\n    dependency: transitive\r\n    description:\r\n      name: equatable\r\n      sha256: \"567c64b3cb4cf82397aac55f4f0cbd3ca20d77c6c03bedbc4ceaddc08904aef7\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"2.0.7\"\r\n  fake_async:\r\n    dependency: transitive\r\n    description:\r\n      name: fake_async\r\n      sha256: \"511392330127add0b769b75a987850d136345d9227c6b94c96a04cf4a391bf78\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.3.1\"\r\n  firebase_auth:\r\n    dependency: \"direct main\"\r\n    description:\r\n      name: firebase_auth\r\n      sha256: \"49c356bac95ed234805e3bb928a86d5b21a4d3745d77be53ecf2d61409ddb802\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"5.3.3\"\r\n  firebase_auth_platform_interface:\r\n    dependency: transitive\r\n    description:\r\n      name: firebase_auth_platform_interface\r\n      sha256: \"9bc336ce673ea90a9dbdb04f0e9a3e52a32321898dc869cdefe6cc0f0db369ed\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"7.4.9\"\r\n  firebase_auth_web:\r\n    dependency: transitive\r\n    description:\r\n      name: firebase_auth_web\r\n      sha256: \"56dcce4293e2a2c648c33ab72c09e888bd0e64cbb1681a32575ec9dc9c2f67f3\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"5.13.4\"\r\n  firebase_core:\r\n    dependency: \"direct main\"\r\n    description:\r\n      name: firebase_core\r\n      sha256: \"2438a75ad803e818ad3bd5df49137ee619c46b6fc7101f4dbc23da07305ce553\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"3.8.0\"\r\n  firebase_core_platform_interface:\r\n    dependency: transitive\r\n    description:\r\n      name: firebase_core_platform_interface\r\n      sha256: e30da58198a6d4b49d5bce4e852f985c32cb10db329ebef9473db2b9f09ce810\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"5.3.0\"\r\n  firebase_core_web:\r\n    dependency: transitive\r\n    description:\r\n      name: firebase_core_web\r\n      sha256: f967a7138f5d2ffb1ce15950e2a382924239eaa521150a8f144af34e68b3b3e5\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"2.18.1\"\r\n  firebase_database:\r\n    dependency: \"direct main\"\r\n    description:\r\n      name: firebase_database\r\n      sha256: de7474c0d412fbeedb68eaeced2ef2a60de8673b3fb05bea50737c6f088ce3f4\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"11.1.6\"\r\n  firebase_database_platform_interface:\r\n    dependency: transitive\r\n    description:\r\n      name: firebase_database_platform_interface\r\n      sha256: \"0fce969fa8f7dc00c2b1593e925a15435c4018451fa68c34f49d7e15876e9ff2\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"0.2.5+46\"\r\n  firebase_database_web:\r\n    dependency: transitive\r\n    description:\r\n      name: firebase_database_web\r\n      sha256: \"99da90669d271c4123ab6b9d2b322f2dcf2bdd11b10c9c363befc528b2f8e8b7\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"0.2.6+4\"\r\n  fl_chart:\r\n    dependency: \"direct main\"\r\n    description:\r\n      name: fl_chart\r\n      sha256: \"74959b99b92b9eebeed1a4049426fd67c4abc3c5a0f4d12e2877097d6a11ae08\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"0.69.2\"\r\n  flip_card:\r\n    dependency: \"direct main\"\r\n    description:\r\n      name: flip_card\r\n      sha256: \"5d4aa58f3983cced0782f4ce45826b7eea36e8e464964d9209dcbc7a87b2292f\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"0.7.0\"\r\n  flutter:\r\n    dependency: \"direct main\"\r\n    description: flutter\r\n    source: sdk\r\n    version: \"0.0.0\"\r\n  flutter_lints:\r\n    dependency: \"direct dev\"\r\n    description:\r\n      name: flutter_lints\r\n      sha256: \"9e8c3858111da373efc5aa341de011d9bd23e2c5c5e0c62bccf32438e192d7b1\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"3.0.2\"\r\n  flutter_test:\r\n    dependency: \"direct dev\"\r\n    description: flutter\r\n    source: sdk\r\n    version: \"0.0.0\"\r\n  flutter_tts:\r\n    dependency: \"direct main\"\r\n    description:\r\n      name: flutter_tts\r\n      sha256: cbb3fd43b946e62398560235469e6113e4fe26c40eab1b7cb5e7c417503fb3a8\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"3.8.5\"\r\n  flutter_web_plugins:\r\n    dependency: transitive\r\n    description: flutter\r\n    source: sdk\r\n    version: \"0.0.0\"\r\n  font_awesome_flutter:\r\n    dependency: \"direct main\"\r\n    description:\r\n      name: font_awesome_flutter\r\n      sha256: d3a89184101baec7f4600d58840a764d2ef760fe1c5a20ef9e6b0e9b24a07a3a\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"10.8.0\"\r\n  google_sign_in:\r\n    dependency: \"direct main\"\r\n    description:\r\n      name: google_sign_in\r\n      sha256: \"821f354c053d51a2d417b02d42532a19a6ea8057d2f9ebb8863c07d81c98aaf9\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"5.4.4\"\r\n  google_sign_in_android:\r\n    dependency: transitive\r\n    description:\r\n      name: google_sign_in_android\r\n      sha256: \"0928059d2f0840f63c7b07a30cf73b593ae872cdd0dbd46d1b9ba878d2599c01\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"6.1.33\"\r\n  google_sign_in_ios:\r\n    dependency: transitive\r\n    description:\r\n      name: google_sign_in_ios\r\n      sha256: \"83f015169102df1ab2905cf8abd8934e28f87db9ace7a5fa676998842fed228a\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"5.7.8\"\r\n  google_sign_in_platform_interface:\r\n    dependency: transitive\r\n    description:\r\n      name: google_sign_in_platform_interface\r\n      sha256: \"1f6e5787d7a120cc0359ddf315c92309069171306242e181c09472d1b00a2971\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"2.4.5\"\r\n  google_sign_in_web:\r\n    dependency: transitive\r\n    description:\r\n      name: google_sign_in_web\r\n      sha256: \"75cc41ebc53b1756320ee14d9c3018ad3e6cea298147dbcd86e9d0c8d6720b40\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"0.10.2+1\"\r\n  http_parser:\r\n    dependency: transitive\r\n    description:\r\n      name: http_parser\r\n      sha256: \"2aa08ce0341cc9b354a498388e30986515406668dbcc4f7c950c3e715496693b\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"4.0.2\"\r\n  js:\r\n    dependency: transitive\r\n    description:\r\n      name: js\r\n      sha256: f2c445dce49627136094980615a031419f7f3eb393237e4ecd97ac15dea343f3\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"0.6.7\"\r\n  leak_tracker:\r\n    dependency: transitive\r\n    description:\r\n      name: leak_tracker\r\n      sha256: \"3f87a60e8c63aecc975dda1ceedbc8f24de75f09e4856ea27daf8958f2f0ce05\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"10.0.5\"\r\n  leak_tracker_flutter_testing:\r\n    dependency: transitive\r\n    description:\r\n      name: leak_tracker_flutter_testing\r\n      sha256: \"932549fb305594d82d7183ecd9fa93463e9914e1b67cacc34bc40906594a1806\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"3.0.5\"\r\n  leak_tracker_testing:\r\n    dependency: transitive\r\n    description:\r\n      name: leak_tracker_testing\r\n      sha256: \"6ba465d5d76e67ddf503e1161d1f4a6bc42306f9d66ca1e8f079a47290fb06d3\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"3.0.1\"\r\n  lints:\r\n    dependency: transitive\r\n    description:\r\n      name: lints\r\n      sha256: cbf8d4b858bb0134ef3ef87841abdf8d63bfc255c266b7bf6b39daa1085c4290\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"3.0.0\"\r\n  matcher:\r\n    dependency: transitive\r\n    description:\r\n      name: matcher\r\n      sha256: d2323aa2060500f906aa31a895b4030b6da3ebdcc5619d14ce1aada65cd161cb\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"0.12.16+1\"\r\n  material_color_utilities:\r\n    dependency: transitive\r\n    description:\r\n      name: material_color_utilities\r\n      sha256: f7142bb1154231d7ea5f96bc7bde4bda2a0945d2806bb11670e30b850d56bdec\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"0.11.1\"\r\n  meta:\r\n    dependency: transitive\r\n    description:\r\n      name: meta\r\n      sha256: bdb68674043280c3428e9ec998512fb681678676b3c54e773629ffe74419f8c7\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.15.0\"\r\n  nested:\r\n    dependency: transitive\r\n    description:\r\n      name: nested\r\n      sha256: \"03bac4c528c64c95c722ec99280375a6f2fc708eec17c7b3f07253b626cd2a20\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.0.0\"\r\n  path:\r\n    dependency: transitive\r\n    description:\r\n      name: path\r\n      sha256: \"087ce49c3f0dc39180befefc60fdb4acd8f8620e5682fe2476afd0b3688bb4af\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.9.0\"\r\n  plugin_platform_interface:\r\n    dependency: transitive\r\n    description:\r\n      name: plugin_platform_interface\r\n      sha256: \"4820fbfdb9478b1ebae27888254d445073732dae3d6ea81f0b7e06d5dedc3f02\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"2.1.8\"\r\n  provider:\r\n    dependency: \"direct main\"\r\n    description:\r\n      name: provider\r\n      sha256: c8a055ee5ce3fd98d6fc872478b03823ffdb448699c6ebdbbc71d59b596fd48c\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"6.1.2\"\r\n  sky_engine:\r\n    dependency: transitive\r\n    description: flutter\r\n    source: sdk\r\n    version: \"0.0.99\"\r\n  source_span:\r\n    dependency: transitive\r\n    description:\r\n      name: source_span\r\n      sha256: \"53e943d4206a5e30df338fd4c6e7a077e02254531b138a15aec3bd143c1a8b3c\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.10.0\"\r\n  stack_trace:\r\n    dependency: transitive\r\n    description:\r\n      name: stack_trace\r\n      sha256: \"73713990125a6d93122541237550ee3352a2d84baad52d375a4cad2eb9b7ce0b\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.11.1\"\r\n  stream_channel:\r\n    dependency: transitive\r\n    description:\r\n      name: stream_channel\r\n      sha256: ba2aa5d8cc609d96bbb2899c28934f9e1af5cddbd60a827822ea467161eb54e7\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"2.1.2\"\r\n  string_scanner:\r\n    dependency: transitive\r\n    description:\r\n      name: string_scanner\r\n      sha256: \"556692adab6cfa87322a115640c11f13cb77b3f076ddcc5d6ae3c20242bedcde\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.2.0\"\r\n  term_glyph:\r\n    dependency: transitive\r\n    description:\r\n      name: term_glyph\r\n      sha256: a29248a84fbb7c79282b40b8c72a1209db169a2e0542bce341da992fe1bc7e84\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.2.1\"\r\n  test_api:\r\n    dependency: transitive\r\n    description:\r\n      name: test_api\r\n      sha256: \"5b8a98dafc4d5c4c9c72d8b31ab2b23fc13422348d2997120294d3bac86b4ddb\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"0.7.2\"\r\n  typed_data:\r\n    dependency: transitive\r\n    description:\r\n      name: typed_data\r\n      sha256: f9049c039ebfeb4cf7a7104a675823cd72dba8297f264b6637062516699fa006\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.4.0\"\r\n  vector_math:\r\n    dependency: transitive\r\n    description:\r\n      name: vector_math\r\n      sha256: \"80b3257d1492ce4d091729e3a67a60407d227c27241d6927be0130c98e741803\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"2.1.4\"\r\n  vm_service:\r\n    dependency: transitive\r\n    description:\r\n      name: vm_service\r\n      sha256: \"5c5f338a667b4c644744b661f309fb8080bb94b18a7e91ef1dbd343bed00ed6d\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"14.2.5\"\r\n  web:\r\n    dependency: transitive\r\n    description:\r\n      name: web\r\n      sha256: cd3543bd5798f6ad290ea73d210f423502e71900302dde696f8bff84bf89a1cb\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.1.0\"\r\nsdks:\r\n  dart: \">=3.5.0 <4.0.0\"\r\n  flutter: \">=3.24.0\"\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/pubspec.lock b/app/pubspec.lock
+--- a/app/pubspec.lock	(revision 720d5fbe8b3ff4b00353ab056c54d969dc0f83ae)
++++ b/app/pubspec.lock	(date 1733446533395)
+@@ -73,6 +73,22 @@
+       url: "https://pub.dev"
+     source: hosted
+     version: "1.3.1"
++  ffi:
++    dependency: transitive
++    description:
++      name: ffi
++      sha256: "16ed7b077ef01ad6170a3d0c57caa4a112a38d7a2ed5602e0aca9ca6f3d98da6"
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.1.3"
++  file:
++    dependency: transitive
++    description:
++      name: file
++      sha256: a3b4f84adafef897088c160faf7dfffb7696046cb13ae90b508c2cbc95d3b8d4
++      url: "https://pub.dev"
++    source: hosted
++    version: "7.0.1"
+   firebase_auth:
+     dependency: "direct main"
+     description:
+@@ -174,6 +190,14 @@
+       url: "https://pub.dev"
+     source: hosted
+     version: "3.0.2"
++  flutter_svg:
++    dependency: "direct main"
++    description:
++      name: flutter_svg
++      sha256: "6ff9fa12892ae074092de2fa6a9938fb21dbabfdaa2ff57dc697ff912fc8d4b2"
++      url: "https://pub.dev"
++    source: hosted
++    version: "1.1.6"
+   flutter_test:
+     dependency: "direct dev"
+     description: flutter
+@@ -240,6 +264,14 @@
+       url: "https://pub.dev"
+     source: hosted
+     version: "0.10.2+1"
++  http:
++    dependency: "direct main"
++    description:
++      name: http
++      sha256: "5895291c13fa8a3bd82e76d5627f69e0d85ca6a30dcac95c4ea19a5d555879c2"
++      url: "https://pub.dev"
++    source: hosted
++    version: "0.13.6"
+   http_parser:
+     dependency: transitive
+     description:
+@@ -328,6 +360,62 @@
+       url: "https://pub.dev"
+     source: hosted
+     version: "1.9.0"
++  path_drawing:
++    dependency: transitive
++    description:
++      name: path_drawing
++      sha256: bbb1934c0cbb03091af082a6389ca2080345291ef07a5fa6d6e078ba8682f977
++      url: "https://pub.dev"
++    source: hosted
++    version: "1.0.1"
++  path_parsing:
++    dependency: transitive
++    description:
++      name: path_parsing
++      sha256: "883402936929eac138ee0a45da5b0f2c80f89913e6dc3bf77eb65b84b409c6ca"
++      url: "https://pub.dev"
++    source: hosted
++    version: "1.1.0"
++  path_provider_linux:
++    dependency: transitive
++    description:
++      name: path_provider_linux
++      sha256: f7a1fe3a634fe7734c8d3f2766ad746ae2a2884abe22e241a8b301bf5cac3279
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.2.1"
++  path_provider_platform_interface:
++    dependency: transitive
++    description:
++      name: path_provider_platform_interface
++      sha256: "88f5779f72ba699763fa3a3b06aa4bf6de76c8e5de842cf6f29e2e06476c2334"
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.1.2"
++  path_provider_windows:
++    dependency: transitive
++    description:
++      name: path_provider_windows
++      sha256: bd6f00dbd873bfb70d0761682da2b3a2c2fccc2b9e84c495821639601d81afe7
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.3.0"
++  petitparser:
++    dependency: transitive
++    description:
++      name: petitparser
++      sha256: c15605cd28af66339f8eb6fbe0e541bfe2d1b72d5825efc6598f3e0a31b9ad27
++      url: "https://pub.dev"
++    source: hosted
++    version: "6.0.2"
++  platform:
++    dependency: transitive
++    description:
++      name: platform
++      sha256: "5d6b1b0036a5f331ebc77c850ebc8506cbc1e9416c27e59b439f917a902a4984"
++      url: "https://pub.dev"
++    source: hosted
++    version: "3.1.6"
+   plugin_platform_interface:
+     dependency: transitive
+     description:
+@@ -344,6 +432,62 @@
+       url: "https://pub.dev"
+     source: hosted
+     version: "6.1.2"
++  shared_preferences:
++    dependency: "direct main"
++    description:
++      name: shared_preferences
++      sha256: "95f9997ca1fb9799d494d0cb2a780fd7be075818d59f00c43832ed112b158a82"
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.3.3"
++  shared_preferences_android:
++    dependency: transitive
++    description:
++      name: shared_preferences_android
++      sha256: "7f172d1b06de5da47b6264c2692ee2ead20bbbc246690427cdb4fc301cd0c549"
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.3.4"
++  shared_preferences_foundation:
++    dependency: transitive
++    description:
++      name: shared_preferences_foundation
++      sha256: "07e050c7cd39bad516f8d64c455f04508d09df104be326d8c02551590a0d513d"
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.5.3"
++  shared_preferences_linux:
++    dependency: transitive
++    description:
++      name: shared_preferences_linux
++      sha256: "580abfd40f415611503cae30adf626e6656dfb2f0cee8f465ece7b6defb40f2f"
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.4.1"
++  shared_preferences_platform_interface:
++    dependency: transitive
++    description:
++      name: shared_preferences_platform_interface
++      sha256: "57cbf196c486bc2cf1f02b85784932c6094376284b3ad5779d1b1c6c6a816b80"
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.4.1"
++  shared_preferences_web:
++    dependency: transitive
++    description:
++      name: shared_preferences_web
++      sha256: d2ca4132d3946fec2184261726b355836a82c33d7d5b67af32692aff18a4684e
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.4.2"
++  shared_preferences_windows:
++    dependency: transitive
++    description:
++      name: shared_preferences_windows
++      sha256: "94ef0f72b2d71bc3e700e025db3710911bd51a71cefb65cc609dd0d9a982e3c1"
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.4.1"
+   sky_engine:
+     dependency: transitive
+     description: flutter
+@@ -397,6 +541,14 @@
+       url: "https://pub.dev"
+     source: hosted
+     version: "0.7.2"
++  translator:
++    dependency: "direct main"
++    description:
++      name: translator
++      sha256: "225ee22fc482736c593be5c232c0c5884b16d7cc42945c51ac73d9a0441dddcc"
++      url: "https://pub.dev"
++    source: hosted
++    version: "0.1.7"
+   typed_data:
+     dependency: transitive
+     description:
+@@ -429,6 +581,22 @@
+       url: "https://pub.dev"
+     source: hosted
+     version: "1.1.0"
++  xdg_directories:
++    dependency: transitive
++    description:
++      name: xdg_directories
++      sha256: "7a3f37b05d989967cdddcbb571f1ea834867ae2faa29725fd085180e0883aa15"
++      url: "https://pub.dev"
++    source: hosted
++    version: "1.1.0"
++  xml:
++    dependency: transitive
++    description:
++      name: xml
++      sha256: b015a8ad1c488f66851d762d3090a21c600e479dc75e68328c52774040cf9226
++      url: "https://pub.dev"
++    source: hosted
++    version: "6.5.0"
+ sdks:
+   dart: ">=3.5.0 <4.0.0"
+   flutter: ">=3.24.0"
+Index: .idea/libraries/Dart_Packages.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><component name=\"libraryTable\">\r\n  <library name=\"Dart Packages\" type=\"DartPackagesLibraryType\">\r\n    <properties>\r\n      <option name=\"packageNameToDirsMap\">\r\n        <entry key=\"_flutterfire_internals\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/_flutterfire_internals-1.3.46/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"async\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/async-2.11.0/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"boolean_selector\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/boolean_selector-2.1.1/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"characters\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/characters-1.3.0/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"clock\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/clock-1.1.1/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"collection\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/collection-1.18.0/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"cupertino_icons\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/cupertino_icons-1.0.8/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"equatable\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/equatable-2.0.7/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"fake_async\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/fake_async-1.3.1/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"firebase_auth\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_auth-5.3.3/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"firebase_auth_platform_interface\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_auth_platform_interface-7.4.9/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"firebase_auth_web\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_auth_web-5.13.4/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"firebase_core\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_core-3.8.0/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"firebase_core_platform_interface\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_core_platform_interface-5.3.0/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"firebase_core_web\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_core_web-2.18.1/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"firebase_database\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_database-11.1.6/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"firebase_database_platform_interface\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_database_platform_interface-0.2.5+46/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"firebase_database_web\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_database_web-0.2.6+4/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"fl_chart\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/fl_chart-0.69.2/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"flip_card\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/flip_card-0.7.0/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"flutter\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$PROJECT_DIR$/../flutter/packages/flutter/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"flutter_lints\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_lints-3.0.2/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"flutter_test\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$PROJECT_DIR$/../flutter/packages/flutter_test/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"flutter_tts\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_tts-3.8.5/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"flutter_web_plugins\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$PROJECT_DIR$/../flutter/packages/flutter_web_plugins/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"font_awesome_flutter\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/font_awesome_flutter-10.8.0/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"google_sign_in\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/google_sign_in-5.4.4/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"google_sign_in_android\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/google_sign_in_android-6.1.33/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"google_sign_in_ios\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/google_sign_in_ios-5.7.8/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"google_sign_in_platform_interface\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/google_sign_in_platform_interface-2.4.5/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"google_sign_in_web\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/google_sign_in_web-0.10.2+1/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"http_parser\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/http_parser-4.0.2/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"js\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/js-0.6.7/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"leak_tracker\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/leak_tracker-10.0.5/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"leak_tracker_flutter_testing\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/leak_tracker_flutter_testing-3.0.5/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"leak_tracker_testing\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/leak_tracker_testing-3.0.1/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"lints\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/lints-3.0.0/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"matcher\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/matcher-0.12.16+1/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"material_color_utilities\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/material_color_utilities-0.11.1/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"meta\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/meta-1.15.0/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"nested\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/nested-1.0.0/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"path\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/path-1.9.0/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"plugin_platform_interface\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/plugin_platform_interface-2.1.8/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"provider\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/provider-6.1.2/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"sky_engine\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$PROJECT_DIR$/../flutter/bin/cache/pkg/sky_engine/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"source_span\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/source_span-1.10.0/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"stack_trace\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/stack_trace-1.11.1/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"stream_channel\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/stream_channel-2.1.2/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"string_scanner\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/string_scanner-1.2.0/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"term_glyph\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/term_glyph-1.2.1/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"test_api\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/test_api-0.7.2/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"typed_data\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/typed_data-1.4.0/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"vector_math\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/vector_math-2.1.4/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"vm_service\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/vm_service-14.2.5/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"web\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/web-1.1.0/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n      </option>\r\n    </properties>\r\n    <CLASSES>\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/_flutterfire_internals-1.3.46/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/async-2.11.0/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/boolean_selector-2.1.1/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/characters-1.3.0/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/clock-1.1.1/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/collection-1.18.0/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/cupertino_icons-1.0.8/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/equatable-2.0.7/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/fake_async-1.3.1/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_auth-5.3.3/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_auth_platform_interface-7.4.9/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_auth_web-5.13.4/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_core-3.8.0/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_core_platform_interface-5.3.0/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_core_web-2.18.1/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_database-11.1.6/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_database_platform_interface-0.2.5+46/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_database_web-0.2.6+4/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/fl_chart-0.69.2/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/flip_card-0.7.0/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_lints-3.0.2/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_tts-3.8.5/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/font_awesome_flutter-10.8.0/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/google_sign_in-5.4.4/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/google_sign_in_android-6.1.33/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/google_sign_in_ios-5.7.8/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/google_sign_in_platform_interface-2.4.5/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/google_sign_in_web-0.10.2+1/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/http_parser-4.0.2/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/js-0.6.7/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/leak_tracker-10.0.5/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/leak_tracker_flutter_testing-3.0.5/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/leak_tracker_testing-3.0.1/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/lints-3.0.0/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/matcher-0.12.16+1/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/material_color_utilities-0.11.1/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/meta-1.15.0/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/nested-1.0.0/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/path-1.9.0/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/plugin_platform_interface-2.1.8/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/provider-6.1.2/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/source_span-1.10.0/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/stack_trace-1.11.1/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/stream_channel-2.1.2/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/string_scanner-1.2.0/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/term_glyph-1.2.1/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/test_api-0.7.2/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/typed_data-1.4.0/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/vector_math-2.1.4/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/vm_service-14.2.5/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/web-1.1.0/lib\" />\r\n      <root url=\"file://$PROJECT_DIR$/../flutter/bin/cache/pkg/sky_engine/lib\" />\r\n      <root url=\"file://$PROJECT_DIR$/../flutter/packages/flutter/lib\" />\r\n      <root url=\"file://$PROJECT_DIR$/../flutter/packages/flutter_test/lib\" />\r\n      <root url=\"file://$PROJECT_DIR$/../flutter/packages/flutter_web_plugins/lib\" />\r\n    </CLASSES>\r\n    <JAVADOC />\r\n    <SOURCES />\r\n  </library>\r\n</component>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/Dart_Packages.xml b/.idea/libraries/Dart_Packages.xml
+--- a/.idea/libraries/Dart_Packages.xml	(revision 720d5fbe8b3ff4b00353ab056c54d969dc0f83ae)
++++ b/.idea/libraries/Dart_Packages.xml	(date 1733446451822)
+@@ -65,6 +65,20 @@
+             </list>
+           </value>
+         </entry>
++        <entry key="ffi">
++          <value>
++            <list>
++              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/ffi-2.1.3/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="file">
++          <value>
++            <list>
++              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/file-7.0.1/lib" />
++            </list>
++          </value>
++        </entry>
+         <entry key="firebase_auth">
+           <value>
+             <list>
+@@ -145,7 +159,7 @@
+         <entry key="flutter">
+           <value>
+             <list>
+-              <option value="$PROJECT_DIR$/../flutter/packages/flutter/lib" />
++              <option value="C:/DevFlutter/flutter/packages/flutter/lib" />
+             </list>
+           </value>
+         </entry>
+@@ -156,10 +170,17 @@
+             </list>
+           </value>
+         </entry>
++        <entry key="flutter_svg">
++          <value>
++            <list>
++              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_svg-1.1.6/lib" />
++            </list>
++          </value>
++        </entry>
+         <entry key="flutter_test">
+           <value>
+             <list>
+-              <option value="$PROJECT_DIR$/../flutter/packages/flutter_test/lib" />
++              <option value="C:/DevFlutter/flutter/packages/flutter_test/lib" />
+             </list>
+           </value>
+         </entry>
+@@ -173,7 +194,7 @@
+         <entry key="flutter_web_plugins">
+           <value>
+             <list>
+-              <option value="$PROJECT_DIR$/../flutter/packages/flutter_web_plugins/lib" />
++              <option value="C:/DevFlutter/flutter/packages/flutter_web_plugins/lib" />
+             </list>
+           </value>
+         </entry>
+@@ -219,6 +240,16 @@
+             </list>
+           </value>
+         </entry>
++<<<<<<< HEAD
++=======
++        <entry key="http">
++          <value>
++            <list>
++              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/http-0.13.6/lib" />
++            </list>
++          </value>
++        </entry>
++>>>>>>> 85a5415d4456aa76c5e7960d983b9e142f9553a0
+         <entry key="http_parser">
+           <value>
+             <list>
+@@ -296,6 +327,55 @@
+             </list>
+           </value>
+         </entry>
++        <entry key="path_drawing">
++          <value>
++            <list>
++              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/path_drawing-1.0.1/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="path_parsing">
++          <value>
++            <list>
++              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/path_parsing-1.1.0/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="path_provider_linux">
++          <value>
++            <list>
++              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider_linux-2.2.1/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="path_provider_platform_interface">
++          <value>
++            <list>
++              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider_platform_interface-2.1.2/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="path_provider_windows">
++          <value>
++            <list>
++              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider_windows-2.3.0/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="petitparser">
++          <value>
++            <list>
++              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/petitparser-6.0.2/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="platform">
++          <value>
++            <list>
++              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/platform-3.1.6/lib" />
++            </list>
++          </value>
++        </entry>
+         <entry key="plugin_platform_interface">
+           <value>
+             <list>
+@@ -310,10 +390,59 @@
+             </list>
+           </value>
+         </entry>
++        <entry key="shared_preferences">
++          <value>
++            <list>
++              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/shared_preferences-2.3.3/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="shared_preferences_android">
++          <value>
++            <list>
++              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/shared_preferences_android-2.3.4/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="shared_preferences_foundation">
++          <value>
++            <list>
++              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/shared_preferences_foundation-2.5.3/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="shared_preferences_linux">
++          <value>
++            <list>
++              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/shared_preferences_linux-2.4.1/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="shared_preferences_platform_interface">
++          <value>
++            <list>
++              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/shared_preferences_platform_interface-2.4.1/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="shared_preferences_web">
++          <value>
++            <list>
++              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/shared_preferences_web-2.4.2/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="shared_preferences_windows">
++          <value>
++            <list>
++              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/shared_preferences_windows-2.4.1/lib" />
++            </list>
++          </value>
++        </entry>
+         <entry key="sky_engine">
+           <value>
+             <list>
+-              <option value="$PROJECT_DIR$/../flutter/bin/cache/pkg/sky_engine/lib" />
++              <option value="C:/DevFlutter/flutter/bin/cache/pkg/sky_engine/lib" />
+             </list>
+           </value>
+         </entry>
+@@ -356,6 +485,13 @@
+           <value>
+             <list>
+               <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/test_api-0.7.2/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="translator">
++          <value>
++            <list>
++              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/translator-0.1.7/lib" />
+             </list>
+           </value>
+         </entry>
+@@ -387,9 +523,27 @@
+             </list>
+           </value>
+         </entry>
++        <entry key="xdg_directories">
++          <value>
++            <list>
++              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/xdg_directories-1.1.0/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="xml">
++          <value>
++            <list>
++              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/xml-6.5.0/lib" />
++            </list>
++          </value>
++        </entry>
+       </option>
+     </properties>
+     <CLASSES>
++      <root url="file://C:/DevFlutter/flutter/bin/cache/pkg/sky_engine/lib" />
++      <root url="file://C:/DevFlutter/flutter/packages/flutter/lib" />
++      <root url="file://C:/DevFlutter/flutter/packages/flutter_test/lib" />
++      <root url="file://C:/DevFlutter/flutter/packages/flutter_web_plugins/lib" />
+       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/_flutterfire_internals-1.3.46/lib" />
+       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/async-2.11.0/lib" />
+       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/boolean_selector-2.1.1/lib" />
+@@ -399,6 +553,8 @@
+       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/cupertino_icons-1.0.8/lib" />
+       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/equatable-2.0.7/lib" />
+       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/fake_async-1.3.1/lib" />
++      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/ffi-2.1.3/lib" />
++      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/file-7.0.1/lib" />
+       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_auth-5.3.3/lib" />
+       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_auth_platform_interface-7.4.9/lib" />
+       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_auth_web-5.13.4/lib" />
+@@ -411,6 +567,7 @@
+       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/fl_chart-0.69.2/lib" />
+       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/flip_card-0.7.0/lib" />
+       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_lints-3.0.2/lib" />
++      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_svg-1.1.6/lib" />
+       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_tts-3.8.5/lib" />
+       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/font_awesome_flutter-10.8.0/lib" />
+       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/google_sign_in-5.4.4/lib" />
+@@ -418,6 +575,10 @@
+       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/google_sign_in_ios-5.7.8/lib" />
+       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/google_sign_in_platform_interface-2.4.5/lib" />
+       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/google_sign_in_web-0.10.2+1/lib" />
++<<<<<<< HEAD
++=======
++      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/http-0.13.6/lib" />
++>>>>>>> 85a5415d4456aa76c5e7960d983b9e142f9553a0
+       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/http_parser-4.0.2/lib" />
+       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/js-0.6.7/lib" />
+       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/leak_tracker-10.0.5/lib" />
+@@ -429,22 +590,35 @@
+       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/meta-1.15.0/lib" />
+       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/nested-1.0.0/lib" />
+       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/path-1.9.0/lib" />
++      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/path_drawing-1.0.1/lib" />
++      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/path_parsing-1.1.0/lib" />
++      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider_linux-2.2.1/lib" />
++      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider_platform_interface-2.1.2/lib" />
++      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider_windows-2.3.0/lib" />
++      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/petitparser-6.0.2/lib" />
++      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/platform-3.1.6/lib" />
+       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/plugin_platform_interface-2.1.8/lib" />
+       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/provider-6.1.2/lib" />
++      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/shared_preferences-2.3.3/lib" />
++      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/shared_preferences_android-2.3.4/lib" />
++      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/shared_preferences_foundation-2.5.3/lib" />
++      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/shared_preferences_linux-2.4.1/lib" />
++      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/shared_preferences_platform_interface-2.4.1/lib" />
++      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/shared_preferences_web-2.4.2/lib" />
++      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/shared_preferences_windows-2.4.1/lib" />
+       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/source_span-1.10.0/lib" />
+       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/stack_trace-1.11.1/lib" />
+       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/stream_channel-2.1.2/lib" />
+       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/string_scanner-1.2.0/lib" />
+       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/term_glyph-1.2.1/lib" />
+       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/test_api-0.7.2/lib" />
++      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/translator-0.1.7/lib" />
+       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/typed_data-1.4.0/lib" />
+       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/vector_math-2.1.4/lib" />
+       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/vm_service-14.2.5/lib" />
+       <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/web-1.1.0/lib" />
+-      <root url="file://$PROJECT_DIR$/../flutter/bin/cache/pkg/sky_engine/lib" />
+-      <root url="file://$PROJECT_DIR$/../flutter/packages/flutter/lib" />
+-      <root url="file://$PROJECT_DIR$/../flutter/packages/flutter_test/lib" />
+-      <root url="file://$PROJECT_DIR$/../flutter/packages/flutter_web_plugins/lib" />
++      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/xdg_directories-1.1.0/lib" />
++      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/xml-6.5.0/lib" />
+     </CLASSES>
+     <JAVADOC />
+     <SOURCES />
+Index: app/lib/screen/translate_screen.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/lib/screen/translate_screen.dart b/app/lib/screen/translate_screen.dart
+new file mode 100644
+--- /dev/null	(date 1733446451828)
++++ b/app/lib/screen/translate_screen.dart	(date 1733446451828)
+@@ -0,0 +1,299 @@
++import 'package:flutter/material.dart';
++import 'package:flutter/services.dart';
++import 'package:flutter_tts/flutter_tts.dart';
++import '../controller/translate_controller.dart';
++
++class TranslateScreen extends StatefulWidget {
++  @override
++  _TranslateScreenState createState() => _TranslateScreenState();
++}
++
++class _TranslateScreenState extends State<TranslateScreen> {
++  final TranslateController _controller = TranslateController();
++  final TextEditingController _textController = TextEditingController();
++  final FlutterTts _flutterTts = FlutterTts();
++
++  String _translatedText = '';
++  String _sourceLang = 'auto';
++  String _targetLang = 'en';
++  bool _isTranslating = false;
++  bool _isSpeaking = false;
++
++  final List<Map<String, String>> _languageOptions = [
++    {'code': 'en', 'name': 'Tiếng Anh', 'ttsCode': 'en-US'},
++    {'code': 'vi', 'name': 'Tiếng Việt', 'ttsCode': 'vi-VN'},
++    {'code': 'fr', 'name': 'Tiếng Pháp', 'ttsCode': 'fr-FR'},
++  ];
++
++  @override
++  void initState() {
++    super.initState();
++    _initTts();
++  }
++
++  void _initTts() async {
++    await _flutterTts.setLanguage(_languageOptions[0]['ttsCode']!);
++    await _flutterTts.setPitch(1.0);
++    await _flutterTts.setSpeechRate(0.5);
++
++    _flutterTts.setStartHandler(() {
++      setState(() {
++        _isSpeaking = true;
++      });
++    });
++
++    _flutterTts.setCompletionHandler(() {
++      setState(() {
++        _isSpeaking = false;
++      });
++    });
++
++    _flutterTts.setErrorHandler((msg) {
++      setState(() {
++        _isSpeaking = false;
++      });
++      _showErrorDialog('Lỗi phát âm: $msg');
++    });
++  }
++
++  void _speak() async {
++    if (_translatedText.isNotEmpty) {
++      // Tìm mã ngôn ngữ TTS phù hợp
++      var selectedLang = _languageOptions.firstWhere(
++              (lang) => lang['code'] == _targetLang,
++          orElse: () => _languageOptions[0]
++      );
++
++      await _flutterTts.setLanguage(selectedLang['ttsCode']!);
++
++      var result = await _flutterTts.speak(_translatedText);
++      if (result == 1) {
++        setState(() {
++          _isSpeaking = true;
++        });
++      }
++    }
++  }
++
++  void _stopSpeaking() async {
++    await _flutterTts.stop();
++    setState(() {
++      _isSpeaking = false;
++    });
++  }
++
++  void _showErrorDialog(String message) {
++    showDialog(
++      context: context,
++      builder: (ctx) => AlertDialog(
++        title: Text('Thông báo'),
++        content: Text(message),
++        actions: <Widget>[
++          TextButton(
++            child: Text('Đóng'),
++            onPressed: () {
++              Navigator.of(ctx).pop();
++            },
++          )
++        ],
++      ),
++    );
++  }
++
++  void _translate() async {
++    final text = _textController.text;
++    if (text.isNotEmpty) {
++      setState(() {
++        _isTranslating = true;
++      });
++
++      try {
++        final translated = await _controller.translateText(text, _targetLang);
++        setState(() {
++          _translatedText = translated;
++          _isTranslating = false;
++        });
++      } catch (e) {
++        setState(() {
++          _translatedText = 'Lỗi dịch thuật. Vui lòng thử lại.';
++          _isTranslating = false;
++        });
++      }
++    }
++  }
++
++  void _clearText() {
++    _textController.clear();
++    setState(() {
++      _translatedText = '';
++    });
++  }
++
++  void _copyTranslatedText() {
++    if (_translatedText.isNotEmpty) {
++      Clipboard.setData(ClipboardData(text: _translatedText));
++      ScaffoldMessenger.of(context).showSnackBar(
++        SnackBar(content: Text('Đã sao chép kết quả dịch')),
++      );
++    }
++
++  }
++
++  @override
++  void dispose() {
++    _flutterTts.stop();
++    // super.dispose();
++  }
++
++  @override
++  Widget build(BuildContext context) {
++    return Scaffold(
++      body: Container(
++        padding: EdgeInsets.all(16),
++        child: Column(
++          crossAxisAlignment: CrossAxisAlignment.stretch,
++          children: [
++            // Khung nhập văn bản (giữ nguyên như trước)
++            Container(
++              decoration: BoxDecoration(
++                color: Colors.white,
++                borderRadius: BorderRadius.circular(12),
++                boxShadow: [
++                  BoxShadow(
++                    color: Colors.grey.withOpacity(0.2),
++                    spreadRadius: 2,
++                    blurRadius: 5,
++                  )
++                ],
++              ),
++              child: TextField(
++                controller: _textController,
++                maxLines: 4,
++                decoration: InputDecoration(
++                  hintText: 'Nhập văn bản để dịch...',
++                  border: InputBorder.none,
++                  contentPadding: EdgeInsets.all(16),
++                  suffixIcon: _textController.text.isNotEmpty
++                      ? IconButton(
++                    icon: Icon(Icons.clear, color: Colors.grey),
++                    onPressed: _clearText,
++                  )
++                      : null,
++                ),
++                onChanged: (value) {
++                  setState(() {});
++                },
++              ),
++            ),
++
++            SizedBox(height: 16),
++
++            // Các nút lựa chọn ngôn ngữ (giữ nguyên như trước)
++            SingleChildScrollView(
++              scrollDirection: Axis.horizontal,
++              child: Row(
++                mainAxisAlignment: MainAxisAlignment.center,
++                children: _languageOptions.map((lang) {
++                  return Padding(
++                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
++                    child: ChoiceChip(
++                      label: Text(lang['name']!),
++                      selected: _targetLang == lang['code'],
++                      onSelected: (bool selected) {
++                        setState(() {
++                          _targetLang = lang['code']!;
++                        });
++                        _translate();
++                      },
++                      selectedColor: Colors.blue[100],
++                    ),
++                  );
++                }).toList(),
++              ),
++            ),
++
++            SizedBox(height: 16),
++
++            // Nút dịch (giữ nguyên như trước)
++            ElevatedButton(
++              onPressed: _textController.text.isNotEmpty && !_isTranslating
++                  ? _translate
++                  : null,
++              style: ElevatedButton.styleFrom(
++                backgroundColor: Colors.blue,
++                padding: EdgeInsets.symmetric(vertical: 12),
++                shape: RoundedRectangleBorder(
++                  borderRadius: BorderRadius.circular(10),
++                ),
++              ),
++              child: _isTranslating
++                  ? CircularProgressIndicator(color: Colors.white)
++                  : Text(
++                'Dịch',
++                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
++              ),
++            ),
++
++            SizedBox(height: 16),
++
++            // Kết quả dịch thuật
++            Container(
++              decoration: BoxDecoration(
++                color: Colors.grey[100],
++                borderRadius: BorderRadius.circular(12),
++                border: Border.all(color: Colors.grey[300]!),
++              ),
++              padding: EdgeInsets.all(16),
++              child: Column(
++                crossAxisAlignment: CrossAxisAlignment.start,
++                children: [
++                  Row(
++                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
++                    children: [
++                      Text(
++                        'Kết quả dịch',
++                        style: TextStyle(
++                            fontWeight: FontWeight.bold,
++                            color: Colors.blue
++                        ),
++                      ),
++                      Row(
++                        children: [
++                          // Nút sao chép
++                          IconButton(
++                            icon: Icon(Icons.copy, size: 20),
++                            onPressed: _copyTranslatedText,
++                            tooltip: 'Sao chép',
++                          ),
++                          // Nút phát âm
++                          IconButton(
++                            icon: _isSpeaking
++                                ? Icon(Icons.stop, color: Colors.red)
++                                : Icon(Icons.volume_up),
++                            onPressed: _isSpeaking ? _stopSpeaking : _speak,
++                            tooltip: _isSpeaking ? 'Dừng' : 'Phát âm',
++                          ),
++                        ],
++                      )
++                    ],
++                  ),
++                  SizedBox(height: 8),
++                  Text(
++                    _translatedText.isEmpty
++                        ? 'Kết quả dịch sẽ hiển thị ở đây'
++                        : _translatedText,
++                    style: TextStyle(
++                      color: _translatedText.isEmpty
++                          ? Colors.grey
++                          : Colors.black,
++                    ),
++                  ),
++                ],
++              ),
++            ),
++          ],
++        ),
++      ),
++    );
++  }
++}
+\ No newline at end of file
+Index: app/lib/controller/translate_controller.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/lib/controller/translate_controller.dart b/app/lib/controller/translate_controller.dart
+new file mode 100644
+--- /dev/null	(date 1733446451822)
++++ b/app/lib/controller/translate_controller.dart	(date 1733446451822)
+@@ -0,0 +1,14 @@
++import 'package:translator/translator.dart';
++
++class TranslateController {
++  final GoogleTranslator _translator = GoogleTranslator();
++
++  Future<String> translateText(String text, String targetLang) async {
++    try {
++      final translation = await _translator.translate(text, to: targetLang);
++      return translation.text;
++    } catch (e) {
++      return 'Error: ${e.toString()}';
++    }
++  }
++}
+\ No newline at end of file
+Index: app/lib/model/learned_word.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/lib/model/learned_word.dart b/app/lib/model/learned_word.dart
+new file mode 100644
+--- /dev/null	(date 1733446451825)
++++ b/app/lib/model/learned_word.dart	(date 1733446451825)
+@@ -0,0 +1,20 @@
++class LearnedWord {
++  final String word;
++  final String meaning;
++  final String topic;
++  final DateTime learnedDate;
++  bool isFavorite;
++
++  LearnedWord({
++    required this.word,
++    required this.meaning,
++    required this.topic,
++    DateTime? learnedDate,
++    this.isFavorite = false,
++  }) : learnedDate = learnedDate ?? DateTime.now();
++
++  // Methods to toggle favorite status
++  void toggleFavorite() {
++    isFavorite = !isFavorite;
++  }
++}
+\ No newline at end of file
+Index: app/lib/screen/topic_learned.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/lib/screen/topic_learned.dart b/app/lib/screen/progress/topic_learned.dart
+rename from app/lib/screen/topic_learned.dart
+rename to app/lib/screen/progress/topic_learned.dart
+--- a/app/lib/screen/topic_learned.dart	(revision 720d5fbe8b3ff4b00353ab056c54d969dc0f83ae)
++++ b/app/lib/screen/progress/topic_learned.dart	(date 1733446451828)
+@@ -1,49 +1,54 @@
+ import 'package:flutter/material.dart';
++import 'package:provider/provider.dart';
++import '../../model/user_progress.dart';
++
+ 
+ class CompletedTopicsScreen extends StatelessWidget {
+-  // Mock data - thực tế sẽ lấy từ database/state management
+-  final List<Map<String, dynamic>> completedTopics = [
+-    {
+-      'name': 'Các từ về gia đình',
+-      'completedDate': '20/11/2024',
+-      'totalWords': 20,
+-      'masteredWords': 18,
+-    },
+-    {
+-      'name': 'Từ vựng về màu sắc',
+-      'completedDate': '19/11/2024',
+-      'totalWords': 15,
+-      'masteredWords': 13,
+-    },
+-    {
+-      'name': 'Động vật',
+-      'completedDate': '18/11/2024',
+-      'totalWords': 25,
+-      'masteredWords': 22,
+-    },
+-    // Thêm các chủ đề khác...
+-  ];
+-
+   @override
+   Widget build(BuildContext context) {
++    final userProgress = context.watch<UserProgress>();
++
++    // Convert learned topics to a list of maps for easier display
++    final completedTopics = userProgress.learnedTopics.entries.map((entry) {
++      return {
++        'name': entry.key,
++        'totalWords': entry.value.length,
++        'masteredWords': entry.value.length, // In this implementation, all words are considered mastered
++        'completedDate': userProgress.allLearnedWords
++            .where((word) => word.topic == entry.key)
++            .map((word) => word.learnedDate)
++            .reduce((a, b) => a.isAfter(b) ? a : b)
++            .toLocal()
++            .toString()
++            .split(' ')[0], // Extract date in format YYYY-MM-DD
++      };
++    }).toList();
++
+     return Scaffold(
+       appBar: AppBar(
+         title: Text('Chủ đề đã học'),
+         elevation: 0,
+       ),
+-      body: ListView.builder(
++      body: completedTopics.isEmpty
++          ? Center(
++        child: Text(
++          'Bạn chưa hoàn thành chủ đề nào',
++          style: Theme.of(context).textTheme.titleMedium,
++        ),
++      )
++          : ListView.builder(
+         padding: EdgeInsets.all(16),
+         itemCount: completedTopics.length,
+         itemBuilder: (context, index) {
+           final topic = completedTopics[index];
+-          final progress = topic['masteredWords'] / topic['totalWords'];
++          final progress = 1.0; // All words are considered mastered in this implementation
+ 
+           return Card(
+             margin: EdgeInsets.only(bottom: 12),
+             child: ListTile(
+               contentPadding: EdgeInsets.all(16),
+               title: Text(
+-                topic['name'],
++                topic['name'] as String,
+                 style: TextStyle(
+                   fontWeight: FontWeight.bold,
+                   fontSize: 16,
+Index: app/lib/screen/progress.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/lib/screen/progress.dart b/app/lib/screen/progress/progress.dart
+rename from app/lib/screen/progress.dart
+rename to app/lib/screen/progress/progress.dart
+--- a/app/lib/screen/progress.dart	(revision 720d5fbe8b3ff4b00353ab056c54d969dc0f83ae)
++++ b/app/lib/screen/progress/progress.dart	(date 1733446451828)
+@@ -1,7 +1,10 @@
+ import 'package:flutter/material.dart';
+ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+-import 'package:english_master_uet/screen/topic_learned.dart';
+-import 'package:english_master_uet/screen/favorite_word_screen.dart';
++import 'package:provider/provider.dart';import '../../model/user_progress.dart';
++
++import 'topic_learned.dart';
++import 'favorite_word_screen.dart';
++import 'learned_words_screen.dart';
+ 
+ class ProgressScreen extends StatelessWidget {
+   // Mock data - trong thực tế sẽ lấy từ state management (Provider/Bloc...)
+@@ -16,6 +19,7 @@
+ 
+   @override
+   Widget build(BuildContext context) {
++    final userProgress = context.watch<UserProgress>();
+     return Scaffold(
+       backgroundColor: Colors.grey[100],
+       appBar: AppBar(
+@@ -51,8 +55,14 @@
+                     icon: FontAwesomeIcons.book,
+                     iconColor: Colors.blue,
+                     title: 'Từ vựng đã học',
+-                    value: '${stats['wordsLearned']}',
++                    value: '${userProgress.getTotalLearnedWords()}',
+                     subtitle: 'từ vựng',
++                    onTap: () {
++                      Navigator.push(
++                        context,
++                        MaterialPageRoute(builder: (context) => LearnedWordsScreen()), // Use the new screen
++                      );
++                    },
+                   ),
+ 
+                   // Chủ đề đã học
+@@ -61,7 +71,7 @@
+                     icon: FontAwesomeIcons.layerGroup,
+                     iconColor: Colors.green,
+                     title: 'Chủ đề đã học',
+-                    value: '${stats['topicsCompleted']}',
++                    value: '${userProgress.getTotalLearnedTopics()}',
+                     subtitle: 'chủ đề',
+                     onTap: () {
+                       Navigator.push(
+@@ -76,7 +86,7 @@
+                     context,
+                     icon: FontAwesomeIcons.trophy,
+                     iconColor: Colors.amber,
+-                    title: 'Số ngày học liên tiếp',
++                    title: 'Thời gian học',
+                     value: '${stats['streak']}',
+                     subtitle: 'ngày',
+                   ),
+@@ -87,7 +97,7 @@
+                     icon: FontAwesomeIcons.heart,
+                     iconColor: Colors.red,
+                     title: 'Từ vựng yêu thích',
+-                    value: '${stats['favoriteWords']}',
++                    value: '${userProgress.getFavoriteWordsCount()}',
+                     subtitle: 'từ vựng',
+                     onTap: () {
+                       Navigator.push(
+Index: app/lib/screen/progress/learned_words_screen.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/lib/screen/progress/learned_words_screen.dart b/app/lib/screen/progress/learned_words_screen.dart
+new file mode 100644
+--- /dev/null	(date 1733446451828)
++++ b/app/lib/screen/progress/learned_words_screen.dart	(date 1733446451828)
+@@ -0,0 +1,85 @@
++import 'package:flutter/material.dart';
++import 'package:provider/provider.dart';
++import '../../model/user_progress.dart';
++import '../../model/learned_word.dart';
++
++class LearnedWordsScreen extends StatelessWidget {
++  @override
++  Widget build(BuildContext context) {
++    final userProgress = context.watch<UserProgress>();
++
++    return Scaffold(
++      appBar: AppBar(
++        title: Text('Từ vựng đã học'),
++        elevation: 0,
++        actions: [
++          IconButton(
++            icon: Icon(Icons.filter_list),
++            onPressed: () {
++              // TODO: Implement filtering functionality
++              ScaffoldMessenger.of(context).showSnackBar(
++                SnackBar(content: Text('Tính năng lọc sẽ được cập nhật')),
++              );
++            },
++          )
++        ],
++      ),
++      body: userProgress.allLearnedWords.isEmpty
++          ? Center(
++        child: Text(
++          'Bạn chưa học từ vựng nào',
++          style: Theme.of(context).textTheme.titleMedium,
++        ),
++      )
++          : ListView.builder(
++        padding: EdgeInsets.all(16),
++        itemCount: userProgress.allLearnedWords.length,
++        itemBuilder: (context, index) {
++          final LearnedWord word = userProgress.allLearnedWords[index];
++
++          return Card(
++            margin: EdgeInsets.only(bottom: 12),
++            child: ListTile(
++              title: Text(
++                word.word,
++                style: TextStyle(
++                  fontWeight: FontWeight.bold,
++                  fontSize: 16,
++                ),
++              ),
++              subtitle: Column(
++                crossAxisAlignment: CrossAxisAlignment.start,
++                children: [
++                  SizedBox(height: 8),
++                  Text(
++                    'Nghĩa: ${word.meaning}',
++                    style: TextStyle(color: Colors.grey[700]),
++                  ),
++                  SizedBox(height: 4),
++                  Text(
++                    'Chủ đề: ${word.topic}',
++                    style: TextStyle(color: Colors.grey[600]),
++                  ),
++                  SizedBox(height: 4),
++                  Text(
++                    'Ngày học: ${word.learnedDate.toLocal().toString().split(' ')[0]}',
++                    style: TextStyle(color: Colors.grey[500]),
++                  ),
++                ],
++              ),
++              trailing: IconButton(
++                icon: Icon(
++                  word.isFavorite ? Icons.favorite : Icons.favorite_border,
++                  color: word.isFavorite ? Colors.red : Colors.grey,
++                ),
++                onPressed: () {
++                  userProgress.toggleWordFavorite(word);
++                },
++              ),
++            ),
++          );
++        },
++      ),
++    );
++  }
++}
+\ No newline at end of file
+Index: app/lib/screen/favorite_word_screen.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/lib/screen/favorite_word_screen.dart b/app/lib/screen/progress/favorite_word_screen.dart
+rename from app/lib/screen/favorite_word_screen.dart
+rename to app/lib/screen/progress/favorite_word_screen.dart
+--- a/app/lib/screen/favorite_word_screen.dart	(revision 720d5fbe8b3ff4b00353ab056c54d969dc0f83ae)
++++ b/app/lib/screen/progress/favorite_word_screen.dart	(date 1733446451828)
+@@ -1,70 +1,60 @@
+ import 'package:flutter/material.dart';
++import 'package:provider/provider.dart';
++import '../../model/user_progress.dart';
++import '../../model/learned_word.dart';
+ 
+ class FavoriteWordsScreen extends StatelessWidget {
+-  // Mock data - thực tế sẽ lấy từ database/state management
+-  final List<Map<String, dynamic>> favoriteWords = [
+-    {
+-      'word': 'appreciate',
+-      'meaning': 'đánh giá cao, cảm kích',
+-      'example': 'I really appreciate your help.',
+-      'topic': 'Giao tiếp',
+-      'dateAdded': '20/11/2024',
+-    },
+-    {
+-      'word': 'determine',
+-      'meaning': 'xác định, quyết định',
+-      'example': 'We need to determine the cause of the problem.',
+-      'topic': 'Công việc',
+-      'dateAdded': '19/11/2024',
+-    },
+-    // Thêm các từ khác...
+-  ];
+-
+   @override
+   Widget build(BuildContext context) {
++    final userProgress = context.watch<UserProgress>();
++
+     return Scaffold(
+       appBar: AppBar(
+         title: Text('Từ vựng yêu thích'),
+         elevation: 0,
+       ),
+-      body: ListView.builder(
++      body: userProgress.favoriteWords.isEmpty
++          ? Center(
++        child: Text(
++          'Bạn chưa có từ vựng yêu thích',
++          style: Theme.of(context).textTheme.titleMedium,
++        ),
++      )
++          : ListView.builder(
+         padding: EdgeInsets.all(16),
+-        itemCount: favoriteWords.length,
++        itemCount: userProgress.favoriteWords.length,
+         itemBuilder: (context, index) {
+-          final word = favoriteWords[index];
++          final LearnedWord word = userProgress.favoriteWords[index];
+ 
+           return Card(
+             margin: EdgeInsets.only(bottom: 12),
+             child: ExpansionTile(
+               title: Text(
+-                word['word'],
++                word.word,
+                 style: TextStyle(
+                   fontWeight: FontWeight.bold,
+                   fontSize: 16,
+                 ),
+               ),
+               subtitle: Text(
+-                word['meaning'],
++                word.meaning,
+                 style: TextStyle(
+                   color: Colors.grey[600],
+                 ),
+               ),
+-              trailing: Icon(Icons.favorite, color: Colors.red),
++              trailing: IconButton(
++                icon: Icon(Icons.favorite, color: Colors.red),
++                onPressed: () {
++                  // Remove from favorites
++                  userProgress.toggleWordFavorite(word);
++                },
++              ),
+               children: [
+                 Padding(
+                   padding: EdgeInsets.all(16),
+                   child: Column(
+                     crossAxisAlignment: CrossAxisAlignment.start,
+                     children: [
+-                      Text(
+-                        'Ví dụ:',
+-                        style: TextStyle(
+-                          fontWeight: FontWeight.bold,
+-                          color: Colors.grey[700],
+-                        ),
+-                      ),
+-                      SizedBox(height: 4),
+-                      Text(word['example']),
+                       SizedBox(height: 8),
+                       Divider(),
+                       SizedBox(height: 8),
+@@ -72,11 +62,11 @@
+                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                         children: [
+                           Text(
+-                            'Chủ đề: ${word['topic']}',
++                            'Chủ đề: ${word.topic}',
+                             style: TextStyle(color: Colors.grey[600]),
+                           ),
+                           Text(
+-                            'Thêm: ${word['dateAdded']}',
++                            'Ngày học: ${word.learnedDate.toLocal().toString().split(' ')[0]}',
+                             style: TextStyle(color: Colors.grey[600]),
+                           ),
+                         ],
+@@ -91,4 +81,4 @@
+       ),
+     );
+   }
+-}
+\ No newline at end of file
++}
+Index: app/lib/widgets/app_bar.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import 'package:flutter/material.dart';\r\nimport 'package:provider/provider.dart';\r\nimport 'package:english_master_uet/screen/progress.dart';\r\n\r\nimport 'package:english_master_uet/screen/home_screen.dart';\r\n\r\nclass AppBarScreen extends StatelessWidget implements PreferredSizeWidget {\r\n  const AppBarScreen({super.key});\r\n\r\n  @override\r\n  Widget build(BuildContext context) {\r\n    return Consumer<AppState>(\r\n        builder: (context, appState, child) {\r\n          return AppBar(\r\n\r\n            leading: Builder(\r\n              builder: (BuildContext context) {\r\n                return IconButton(\r\n                  icon: const Icon(Icons.menu),\r\n                  onPressed: () {\r\n                    Scaffold.of(context).openDrawer();\r\n                  },\r\n                );\r\n              },\r\n            ),\r\n            title: Row(\r\n              children: [\r\n                TextButton(\r\n                  child: Text(\r\n                      appState.currentTitle,\r\n                      style: const TextStyle(color: Colors.black)\r\n                  ),\r\n                  onPressed: () {\r\n                    // Navigate to current screen\r\n                  },\r\n                )\r\n              ],\r\n            ),\r\n            actions: [\r\n              Container(\r\n                width: 40,\r\n                height: 40,\r\n                color: Colors.white,\r\n                child: IconButton(\r\n                  icon: const Icon(Icons.notifications),\r\n                  onPressed: () {\r\n                    // Navigate to Notifications screen\r\n                  },\r\n                ),\r\n              )\r\n            ],\r\n          );\r\n        }\r\n    );\r\n  }\r\n\r\n  @override\r\n  Size get preferredSize => const Size.fromHeight(kToolbarHeight);\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/lib/widgets/app_bar.dart b/app/lib/widgets/app_bar.dart
+--- a/app/lib/widgets/app_bar.dart	(revision 720d5fbe8b3ff4b00353ab056c54d969dc0f83ae)
++++ b/app/lib/widgets/app_bar.dart	(date 1733446451828)
+@@ -1,6 +1,6 @@
+ import 'package:flutter/material.dart';
+ import 'package:provider/provider.dart';
+-import 'package:english_master_uet/screen/progress.dart';
++import 'package:english_master_uet/screen/progress/progress.dart';
+ 
+ import 'package:english_master_uet/screen/home_screen.dart';
+ 
+Index: app/lib/screen/login_screen.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import 'package:flutter/material.dart';\r\nimport 'package:english_master_uet/controller/login_controller.dart';\r\nimport 'package:english_master_uet/screen/home_screen.dart';\r\nimport 'package:english_master_uet/screen/register_screen.dart';\r\n\r\nclass LoginScreen extends StatefulWidget {\r\n  const LoginScreen({super.key});\r\n\r\n  @override\r\n  _LoginScreenState createState() => _LoginScreenState();\r\n}\r\n\r\nclass _LoginScreenState extends State<LoginScreen> {\r\n  final TextEditingController _usernameController = TextEditingController();\r\n  final TextEditingController _passwordController = TextEditingController();\r\n  final LoginController _loginController = LoginController();\r\n\r\n  @override\r\n  void initState() {\r\n    super.initState();\r\n    _usernameController.text = 'test@gmail.com';\r\n    _passwordController.text = '123456';\r\n  }\r\n\r\n  Future<void> _login() async {\r\n    String? result = await _loginController.login(\r\n      _usernameController.text,\r\n      _passwordController.text,\r\n    );\r\n\r\n    if (result != null) {\r\n      print(\"UID: $result\");\r\n      if (result.length == 28) {\r\n        // Assuming UID is 28 characters long\r\n        Navigator.pushReplacement(\r\n          context,\r\n          MaterialPageRoute(\r\n              builder: (context) => HomeScreen()), // Chuyển sang màn hình Home\r\n        );\r\n        ScaffoldMessenger.of(context).showSnackBar(\r\n          SnackBar(content: Text('Login successful. UID: $result')),\r\n        );\r\n      } else {\r\n        ScaffoldMessenger.of(context).showSnackBar(\r\n          SnackBar(content: Text(result)),\r\n        );\r\n      }\r\n    }\r\n  }\r\n\r\n  Future<void> _resetPassword() async {\r\n    final TextEditingController emailController = TextEditingController();\r\n\r\n    await showDialog(\r\n      context: context,\r\n      builder: (context) {\r\n        return AlertDialog(\r\n          title: const Text('Reset Password'),\r\n          content: TextField(\r\n            controller: emailController,\r\n            decoration: const InputDecoration(\r\n              labelText: 'Enter your email',\r\n              border: OutlineInputBorder(),\r\n            ),\r\n          ),\r\n          actions: [\r\n            TextButton(\r\n              onPressed: () async {\r\n                String? result =\r\n                    await _loginController.resetPassword(emailController.text);\r\n                Navigator.of(context).pop();\r\n                ScaffoldMessenger.of(context).showSnackBar(\r\n                  SnackBar(content: Text(result ?? 'An error occurred')),\r\n                );\r\n              },\r\n              child: const Text('Submit'),\r\n            ),\r\n            TextButton(\r\n              onPressed: () {\r\n                Navigator.of(context).pop();\r\n              },\r\n              child: const Text('Cancel'),\r\n            ),\r\n          ],\r\n        );\r\n      },\r\n    );\r\n  }\r\n\r\n  @override\r\n  Widget build(BuildContext context) {\r\n    return Scaffold(\r\n      appBar: AppBar(\r\n        //căn giữa\r\n        title: const Center(\r\n            child: Text('Đăng nhập',\r\n                textAlign: TextAlign.center,\r\n                style: TextStyle(color: Colors.black))),\r\n      ),\r\n      // set từ trên xuống\r\n      body: Stack(\r\n        alignment: Alignment.center,\r\n        fit: StackFit.expand,\r\n        children: [\r\n          Positioned(\r\n            bottom: 20,\r\n            child: Row(\r\n              mainAxisAlignment: MainAxisAlignment.center,\r\n              children: [\r\n                TextButton(\r\n                  onPressed: _resetPassword,\r\n                  child: const Text('Bạn quên mật khẩu?'),\r\n                ),\r\n                TextButton(\r\n                  onPressed: () {\r\n                    Navigator.pushReplacement(\r\n                      context,\r\n                      MaterialPageRoute(builder: (context) => RegisterScreen()),\r\n                    );\r\n                  },\r\n                  child: const Text('Đăng ký ngay?'),\r\n                ),\r\n              ],\r\n            ),\r\n          ),\r\n\r\n          Padding(\r\n            padding: const EdgeInsets.only(top: 0.0),\r\n            child: Column(\r\n              mainAxisAlignment: MainAxisAlignment.center,\r\n              children: <Widget>[\r\n                const SizedBox(\r\n                  width: 150.0,\r\n                  height: 150.0,\r\n                  child: Image(\r\n                    image: AssetImage('assets/images/logo.png'),\r\n                  ),\r\n                ),\r\n                const SizedBox(height: 50.0),\r\n                Container(\r\n                  width: 300.0, // Set the desired width\r\n                  height: 50.0,\r\n                  child: TextField(\r\n                    controller: _usernameController,\r\n                    decoration: const InputDecoration(\r\n                      labelText: 'Email',\r\n                      border: OutlineInputBorder(),\r\n                    ),\r\n                  ),\r\n                ),\r\n                const SizedBox(height: 16.0),\r\n                Container(\r\n                  width: 300.0, // Set the desired width\r\n                  height: 50.0,\r\n                  child: TextField(\r\n                    controller: _passwordController,\r\n                    decoration: const InputDecoration(\r\n                      labelText: 'Mật khẩu',\r\n                      border: OutlineInputBorder(),\r\n                    ),\r\n                    obscureText: true,\r\n                  ),\r\n                ),\r\n                const SizedBox(height: 16.0),\r\n                ElevatedButton(\r\n                  onPressed: _login,\r\n                  child: const Text('Đăng nhập'),\r\n                ),\r\n                const SizedBox(height: 10.0),\r\n              ],\r\n            ),\r\n          )\r\n\r\n        ],\r\n      ),\r\n    );\r\n  }\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/lib/screen/login_screen.dart b/app/lib/screen/login_screen.dart
+--- a/app/lib/screen/login_screen.dart	(revision 720d5fbe8b3ff4b00353ab056c54d969dc0f83ae)
++++ b/app/lib/screen/login_screen.dart	(date 1733446451828)
+@@ -2,6 +2,7 @@
+ import 'package:english_master_uet/controller/login_controller.dart';
+ import 'package:english_master_uet/screen/home_screen.dart';
+ import 'package:english_master_uet/screen/register_screen.dart';
++import 'package:flutter_svg/svg.dart';
+ 
+ class LoginScreen extends StatefulWidget {
+   const LoginScreen({super.key});
+@@ -47,7 +48,31 @@
+       }
+     }
+   }
++  Future<String> _loginWithGoogle(BuildContext context) async {
++    String? result = await _loginController.loginWithGoogle(context);
+ 
++    if (result != null) {
++      print("UID: $result");
++      if (result.length == 28) {
++        // Navigator.pushReplacement(
++        //   context,
++        //   MaterialPageRoute(
++        //     builder: (context) => HomeScreen(uid: result), // Truyền UID của người dùng
++        //   ),
++        // );
++
++        Navigator.pushNamed(context, '/home_screen', arguments: result);
++        // ScaffoldMessenger.of(context).showSnackBar(
++        //   SnackBar(content: Text('Login successful. UID: $result')),
++        // );
++      } else {
++        ScaffoldMessenger.of(context).showSnackBar(
++          SnackBar(content: Text(result)),
++        );
++      }
++    }
++    return result ?? '';
++  }
+   Future<void> _resetPassword() async {
+     final TextEditingController emailController = TextEditingController();
+ 
+@@ -113,10 +138,11 @@
+                 ),
+                 TextButton(
+                   onPressed: () {
+-                    Navigator.pushReplacement(
+-                      context,
+-                      MaterialPageRoute(builder: (context) => RegisterScreen()),
+-                    );
++                    Navigator.pushNamed(context, '/register_screen');
++                    // Navigator.pushReplacement(
++                    //   context,
++                    //   MaterialPageRoute(builder: (context) => RegisterScreen()),
++                    // );
+                   },
+                   child: const Text('Đăng ký ngay?'),
+                 ),
+@@ -166,6 +192,21 @@
+                   onPressed: _login,
+                   child: const Text('Đăng nhập'),
+                 ),
++
++                ElevatedButton.icon(
++                  onPressed: () async {
++                    await _loginWithGoogle(context);
++                  },
++                  icon: SvgPicture.network(
++                    'https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg',
++                    height: 24.0,
++                    width: 24.0,
++                  ),
++                  label: const Text(
++                    'Đăng nhập bằng Google',
++                    style: TextStyle(fontSize: 16),
++                  ),
++                ),
+                 const SizedBox(height: 10.0),
+               ],
+             ),
+Index: app/lib/screen/home_screen.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import 'package:flutter/material.dart';\r\nimport 'package:provider/provider.dart';\r\nimport 'package:english_master_uet/widgets/app_bar.dart';\r\nimport 'package:english_master_uet/widgets/custom_drawer.dart';\r\nimport 'package:english_master_uet/widgets/bottom_app_bar.dart';\r\nimport 'package:english_master_uet/screen/statistical_screen.dart';\r\nimport 'package:english_master_uet/screen/progress.dart';\r\nimport 'package:english_master_uet/screen/flashcard/flashcard_screen.dart'; // Giả sử bạn có màn hình này\r\n\r\nclass AppState extends ChangeNotifier {\r\n  String _currentTitle = \"Home\";\r\n  Widget _currentBody = ProgressScreen();\r\n\r\n  String get currentTitle => _currentTitle;\r\n  Widget get currentBody => _currentBody;\r\n\r\n  void updateScreen(String newTitle, Widget newBody) {\r\n    _currentTitle = newTitle;\r\n    _currentBody = newBody;\r\n    notifyListeners();\r\n  }\r\n}\r\n\r\nclass HomeScreen extends StatelessWidget {\r\n  const HomeScreen({super.key});\r\n\r\n  @override\r\n  Widget build(BuildContext context) {\r\n    return Consumer<AppState>(\r\n      builder: (context, appState, child) {\r\n        return Scaffold(\r\n          appBar: const AppBarScreen(),\r\n          body: appState.currentBody,\r\n          drawer: const CustomDrawer(),\r\n          bottomNavigationBar: const BottomAppBarWidget(),\r\n        );\r\n      },\r\n    );\r\n  }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/lib/screen/home_screen.dart b/app/lib/screen/home_screen.dart
+--- a/app/lib/screen/home_screen.dart	(revision 720d5fbe8b3ff4b00353ab056c54d969dc0f83ae)
++++ b/app/lib/screen/home_screen.dart	(date 1733446451828)
+@@ -4,7 +4,7 @@
+ import 'package:english_master_uet/widgets/custom_drawer.dart';
+ import 'package:english_master_uet/widgets/bottom_app_bar.dart';
+ import 'package:english_master_uet/screen/statistical_screen.dart';
+-import 'package:english_master_uet/screen/progress.dart';
++import 'package:english_master_uet/screen/progress/progress.dart';
+ import 'package:english_master_uet/screen/flashcard/flashcard_screen.dart'; // Giả sử bạn có màn hình này
+ 
+ class AppState extends ChangeNotifier {
+Index: app/lib/model/user_progress.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/lib/model/user_progress.dart b/app/lib/model/user_progress.dart
+new file mode 100644
+--- /dev/null	(date 1733446451825)
++++ b/app/lib/model/user_progress.dart	(date 1733446451825)
+@@ -0,0 +1,121 @@
++import 'package:flutter/foundation.dart';
++import 'learned_word.dart'; // Đảm bảo import class LearnedWord
++import 'package:shared_preferences/shared_preferences.dart';
++import 'dart:convert';
++
++
++
++class UserProgress extends ChangeNotifier {
++  Map<String, Set<String>> _learnedTopics = {};
++  List<LearnedWord> _allLearnedWords = [];
++  List<LearnedWord> _favoriteWords = [];
++
++  UserProgress() {
++    // Load saved progress when the class is initialized
++    _loadSavedProgress();
++  }
++
++
++
++  // Tải tiến trình từ SharedPreferences
++  Future<void> _loadSavedProgress() async {
++    final prefs = await SharedPreferences.getInstance();
++
++    // Load learned topics
++    final topicsJson = prefs.getString('learned_topics');
++    if (topicsJson != null) {
++      final Map<String, dynamic> decodedTopics = json.decode(topicsJson);
++      _learnedTopics = decodedTopics.map(
++              (key, value) => MapEntry(key, Set<String>.from(value))
++      );
++    }
++
++    // Load learned words
++    final wordsJson = prefs.getString('learned_words');
++    if (wordsJson != null) {
++      final List<dynamic> decodedWords = json.decode(wordsJson);
++      _allLearnedWords = decodedWords.map((wordJson) =>
++          LearnedWord(
++              word: wordJson['word'],
++              meaning: wordJson['meaning'],
++              topic: wordJson['topic'],
++              learnedDate: DateTime.parse(wordJson['learnedDate']),
++              isFavorite: wordJson['isFavorite']
++          )
++      ).toList();
++
++      // Rebuild favorite words list
++      _favoriteWords = _allLearnedWords.where((word) => word.isFavorite).toList();
++    }
++
++    notifyListeners();
++  }
++
++  Future<void> _saveProgress() async {
++    final prefs = await SharedPreferences.getInstance();
++
++    // Save learned topics
++    await prefs.setString('learned_topics', json.encode(
++        _learnedTopics.map((key, value) => MapEntry(key, value.toList()))
++    ));
++
++    // Save learned words
++    await prefs.setString('learned_words', json.encode(
++        _allLearnedWords.map((word) => {
++          'word': word.word,
++          'meaning': word.meaning,
++          'topic': word.topic,
++          'learnedDate': word.learnedDate.toIso8601String(),
++          'isFavorite': word.isFavorite
++        }).toList()
++    ));
++  }
++
++
++  // Getter cho các thuộc tính riêng tư
++  Map<String, Set<String>> get learnedTopics => _learnedTopics;
++  List<LearnedWord> get allLearnedWords => _allLearnedWords;
++  List<LearnedWord> get favoriteWords => _favoriteWords;
++
++  void addLearnedWord(LearnedWord word) {
++    // Kiểm tra xem từ này đã được học chưa
++    bool alreadyLearned = _allLearnedWords.any(
++            (learnedWord) =>
++        learnedWord.word == word.word &&
++            learnedWord.topic == word.topic
++    );
++
++    if (!alreadyLearned) {
++      _allLearnedWords.add(word);
++
++      _learnedTopics.putIfAbsent(word.topic, () => {});
++      _learnedTopics[word.topic]!.add(word.word);
++
++      // Lưu tiến trình sau khi thêm từ mới
++      _saveProgress();
++      notifyListeners();
++    }
++  }
++
++  void toggleWordFavorite(LearnedWord word) {
++    word.toggleFavorite();
++
++    if (word.isFavorite && !_favoriteWords.contains(word)) {
++      _favoriteWords.add(word);
++    } else {
++      _favoriteWords.removeWhere((w) => w.word == word.word);
++    }
++
++    // Lưu tiến trình sau khi thay đổi trạng thái yêu thích
++    _saveProgress();
++    notifyListeners();
++  }
++
++
++  // Các phương thức thống kê
++  int getTotalLearnedWords() => _allLearnedWords.length;
++  int getTotalLearnedTopics() => _learnedTopics.keys.length;
++  int getFavoriteWordsCount() => _favoriteWords.length;
++
++
++}
+Index: app/lib/controller/login_controller.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import 'package:firebase_auth/firebase_auth.dart';\r\n\r\nclass LoginController {\r\n  final FirebaseAuth _auth = FirebaseAuth.instance;\r\n  Future<String?> login(String email, String password) async {\r\n      try {\r\n        UserCredential userCredential = await _auth.signInWithEmailAndPassword(\r\n          email: email,\r\n          password: password,\r\n        );\r\n        //in uid ra log\r\n        return userCredential.user?.uid;\r\n        //không đăng nhập được\r\n      } on FirebaseAuthException catch (e) {\r\n        if (e.code == 'user-not-found') {\r\n          return 'Không tìm thấy người dùng cho email đó.';\r\n        } else if (e.code == 'wrong-password') {\r\n          return 'Mật khẩu cung cấp không chính xác.';\r\n        } else {\r\n          return 'Đã xảy ra lỗi. Vui lòng thử lại: ${e.message}';\r\n        }\r\n      } catch (e) {\r\n        return 'Đã xảy ra lỗi. Vui lòng thử lại: ${e.toString()}';\r\n      }\r\n\r\n\r\n  }\r\n\r\n  Future<void> logout() async {\r\n    await _auth.signOut();\r\n  }\r\n\r\n\r\n  Future<String?> changePassword(String currentPassword, String newPassword) async {\r\n    User? user = _auth.currentUser;\r\n\r\n    if (user == null) {\r\n      return 'No user is currently signed in.';\r\n    }\r\n\r\n    try {\r\n      // Re-authenticate the user\r\n      AuthCredential credential = EmailAuthProvider.credential(\r\n        email: user.email!,\r\n        password: currentPassword,\r\n      );\r\n\r\n      await user.reauthenticateWithCredential(credential);\r\n\r\n      // Update the password\r\n      await user.updatePassword(newPassword);\r\n      return 'Mật khẩu đã được cập nhật thành công.';\r\n    } on FirebaseAuthException catch (e) {\r\n      return 'Error: ${e.message}';\r\n    } catch (e) {\r\n      return 'An error occurred: ${e.toString()}';\r\n    }\r\n  }\r\n\r\n  Future<String?> resetPassword(String email) async {\r\n    try {\r\n      await _auth.sendPasswordResetEmail(email: email);\r\n      return 'Password reset email has been sent.';\r\n    } on FirebaseAuthException catch (e) {\r\n      return 'Error: ${e.message}';\r\n    } catch (e) {\r\n      return 'An error occurred: ${e.toString()}';\r\n    }\r\n  }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/lib/controller/login_controller.dart b/app/lib/controller/login_controller.dart
+--- a/app/lib/controller/login_controller.dart	(revision 720d5fbe8b3ff4b00353ab056c54d969dc0f83ae)
++++ b/app/lib/controller/login_controller.dart	(date 1733446451822)
+@@ -1,7 +1,11 @@
+ import 'package:firebase_auth/firebase_auth.dart';
++import 'package:flutter/cupertino.dart';
++import 'package:google_sign_in/google_sign_in.dart';
+ 
+ class LoginController {
+   final FirebaseAuth _auth = FirebaseAuth.instance;
++
++  final GoogleSignIn _googleSignIn = GoogleSignIn();
+   Future<String?> login(String email, String password) async {
+       try {
+         UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+@@ -25,6 +29,32 @@
+ 
+ 
+   }
++  Future<String> loginWithGoogle(BuildContext context) async {
++    try {
++      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
++      if (googleUser == null) {
++        // Đăng nhập bị hủy
++        return"";
++      }
++
++      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
++      final AuthCredential credential = GoogleAuthProvider.credential(
++        accessToken: googleAuth.accessToken,
++        idToken: googleAuth.idToken,
++      );
++
++      UserCredential userCredential = await _auth.signInWithCredential(credential);
++
++      // Sau khi đăng nhập, lấy UID và thông tin người dùng từ Firestore
++      String uid = userCredential.user!.uid;
++
++      return uid;
++    } catch (e) {
++      print('Lỗi đăng nhập: ${e.toString()}');
++      return '';
++    }
++    return '';
++  }
+ 
+   Future<void> logout() async {
+     await _auth.signOut();
+Index: .idea/libraries/Dart_SDK.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><component name=\"libraryTable\">\r\n  <library name=\"Dart SDK\">\r\n    <CLASSES>\r\n      <root url=\"file://$PROJECT_DIR$/../flutter/bin/cache/dart-sdk/lib/async\" />\r\n      <root url=\"file://$PROJECT_DIR$/../flutter/bin/cache/dart-sdk/lib/cli\" />\r\n      <root url=\"file://$PROJECT_DIR$/../flutter/bin/cache/dart-sdk/lib/collection\" />\r\n      <root url=\"file://$PROJECT_DIR$/../flutter/bin/cache/dart-sdk/lib/convert\" />\r\n      <root url=\"file://$PROJECT_DIR$/../flutter/bin/cache/dart-sdk/lib/core\" />\r\n      <root url=\"file://$PROJECT_DIR$/../flutter/bin/cache/dart-sdk/lib/developer\" />\r\n      <root url=\"file://$PROJECT_DIR$/../flutter/bin/cache/dart-sdk/lib/ffi\" />\r\n      <root url=\"file://$PROJECT_DIR$/../flutter/bin/cache/dart-sdk/lib/html\" />\r\n      <root url=\"file://$PROJECT_DIR$/../flutter/bin/cache/dart-sdk/lib/indexed_db\" />\r\n      <root url=\"file://$PROJECT_DIR$/../flutter/bin/cache/dart-sdk/lib/io\" />\r\n      <root url=\"file://$PROJECT_DIR$/../flutter/bin/cache/dart-sdk/lib/isolate\" />\r\n      <root url=\"file://$PROJECT_DIR$/../flutter/bin/cache/dart-sdk/lib/js\" />\r\n      <root url=\"file://$PROJECT_DIR$/../flutter/bin/cache/dart-sdk/lib/js_interop\" />\r\n      <root url=\"file://$PROJECT_DIR$/../flutter/bin/cache/dart-sdk/lib/js_interop_unsafe\" />\r\n      <root url=\"file://$PROJECT_DIR$/../flutter/bin/cache/dart-sdk/lib/js_util\" />\r\n      <root url=\"file://$PROJECT_DIR$/../flutter/bin/cache/dart-sdk/lib/math\" />\r\n      <root url=\"file://$PROJECT_DIR$/../flutter/bin/cache/dart-sdk/lib/mirrors\" />\r\n      <root url=\"file://$PROJECT_DIR$/../flutter/bin/cache/dart-sdk/lib/svg\" />\r\n      <root url=\"file://$PROJECT_DIR$/../flutter/bin/cache/dart-sdk/lib/typed_data\" />\r\n      <root url=\"file://$PROJECT_DIR$/../flutter/bin/cache/dart-sdk/lib/web_audio\" />\r\n      <root url=\"file://$PROJECT_DIR$/../flutter/bin/cache/dart-sdk/lib/web_gl\" />\r\n    </CLASSES>\r\n    <JAVADOC />\r\n    <SOURCES />\r\n  </library>\r\n</component>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/Dart_SDK.xml b/.idea/libraries/Dart_SDK.xml
+--- a/.idea/libraries/Dart_SDK.xml	(revision 720d5fbe8b3ff4b00353ab056c54d969dc0f83ae)
++++ b/.idea/libraries/Dart_SDK.xml	(date 1733446451822)
+@@ -1,27 +1,27 @@
+ <component name="libraryTable">
+   <library name="Dart SDK">
+     <CLASSES>
+-      <root url="file://$PROJECT_DIR$/../flutter/bin/cache/dart-sdk/lib/async" />
+-      <root url="file://$PROJECT_DIR$/../flutter/bin/cache/dart-sdk/lib/cli" />
+-      <root url="file://$PROJECT_DIR$/../flutter/bin/cache/dart-sdk/lib/collection" />
+-      <root url="file://$PROJECT_DIR$/../flutter/bin/cache/dart-sdk/lib/convert" />
+-      <root url="file://$PROJECT_DIR$/../flutter/bin/cache/dart-sdk/lib/core" />
+-      <root url="file://$PROJECT_DIR$/../flutter/bin/cache/dart-sdk/lib/developer" />
+-      <root url="file://$PROJECT_DIR$/../flutter/bin/cache/dart-sdk/lib/ffi" />
+-      <root url="file://$PROJECT_DIR$/../flutter/bin/cache/dart-sdk/lib/html" />
+-      <root url="file://$PROJECT_DIR$/../flutter/bin/cache/dart-sdk/lib/indexed_db" />
+-      <root url="file://$PROJECT_DIR$/../flutter/bin/cache/dart-sdk/lib/io" />
+-      <root url="file://$PROJECT_DIR$/../flutter/bin/cache/dart-sdk/lib/isolate" />
+-      <root url="file://$PROJECT_DIR$/../flutter/bin/cache/dart-sdk/lib/js" />
+-      <root url="file://$PROJECT_DIR$/../flutter/bin/cache/dart-sdk/lib/js_interop" />
+-      <root url="file://$PROJECT_DIR$/../flutter/bin/cache/dart-sdk/lib/js_interop_unsafe" />
+-      <root url="file://$PROJECT_DIR$/../flutter/bin/cache/dart-sdk/lib/js_util" />
+-      <root url="file://$PROJECT_DIR$/../flutter/bin/cache/dart-sdk/lib/math" />
+-      <root url="file://$PROJECT_DIR$/../flutter/bin/cache/dart-sdk/lib/mirrors" />
+-      <root url="file://$PROJECT_DIR$/../flutter/bin/cache/dart-sdk/lib/svg" />
+-      <root url="file://$PROJECT_DIR$/../flutter/bin/cache/dart-sdk/lib/typed_data" />
+-      <root url="file://$PROJECT_DIR$/../flutter/bin/cache/dart-sdk/lib/web_audio" />
+-      <root url="file://$PROJECT_DIR$/../flutter/bin/cache/dart-sdk/lib/web_gl" />
++      <root url="file://C:/DevFlutter/flutter/bin/cache/dart-sdk/lib/async" />
++      <root url="file://C:/DevFlutter/flutter/bin/cache/dart-sdk/lib/cli" />
++      <root url="file://C:/DevFlutter/flutter/bin/cache/dart-sdk/lib/collection" />
++      <root url="file://C:/DevFlutter/flutter/bin/cache/dart-sdk/lib/convert" />
++      <root url="file://C:/DevFlutter/flutter/bin/cache/dart-sdk/lib/core" />
++      <root url="file://C:/DevFlutter/flutter/bin/cache/dart-sdk/lib/developer" />
++      <root url="file://C:/DevFlutter/flutter/bin/cache/dart-sdk/lib/ffi" />
++      <root url="file://C:/DevFlutter/flutter/bin/cache/dart-sdk/lib/html" />
++      <root url="file://C:/DevFlutter/flutter/bin/cache/dart-sdk/lib/indexed_db" />
++      <root url="file://C:/DevFlutter/flutter/bin/cache/dart-sdk/lib/io" />
++      <root url="file://C:/DevFlutter/flutter/bin/cache/dart-sdk/lib/isolate" />
++      <root url="file://C:/DevFlutter/flutter/bin/cache/dart-sdk/lib/js" />
++      <root url="file://C:/DevFlutter/flutter/bin/cache/dart-sdk/lib/js_interop" />
++      <root url="file://C:/DevFlutter/flutter/bin/cache/dart-sdk/lib/js_interop_unsafe" />
++      <root url="file://C:/DevFlutter/flutter/bin/cache/dart-sdk/lib/js_util" />
++      <root url="file://C:/DevFlutter/flutter/bin/cache/dart-sdk/lib/math" />
++      <root url="file://C:/DevFlutter/flutter/bin/cache/dart-sdk/lib/mirrors" />
++      <root url="file://C:/DevFlutter/flutter/bin/cache/dart-sdk/lib/svg" />
++      <root url="file://C:/DevFlutter/flutter/bin/cache/dart-sdk/lib/typed_data" />
++      <root url="file://C:/DevFlutter/flutter/bin/cache/dart-sdk/lib/web_audio" />
++      <root url="file://C:/DevFlutter/flutter/bin/cache/dart-sdk/lib/web_gl" />
+     </CLASSES>
+     <JAVADOC />
+     <SOURCES />
+Index: app/lib/widgets/custom_drawer.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import 'package:flutter/material.dart';\r\n\r\n\r\nclass CustomDrawer extends StatelessWidget {\r\n  const CustomDrawer({super.key});\r\n\r\n  @override\r\n  Widget build(BuildContext context) {\r\n    return Drawer(\r\n      child: Container(\r\n        margin: const EdgeInsets.only(top: kToolbarHeight),\r\n        color: Colors.grey,\r\n        child: ListView(\r\n          padding: EdgeInsets.zero,\r\n          children: <Widget>[\r\n            const DrawerHeader(\r\n              decoration: BoxDecoration(\r\n                color: Colors.blue,\r\n                image: DecorationImage(\r\n                  fit: BoxFit.contain,\r\n                  image: AssetImage('assets/images/logo.png'),\r\n                ),\r\n              ),\r\n              child: null,\r\n            ),\r\n            ListTile(\r\n              leading: const Icon(Icons.home),\r\n              title: const Text('Home'),\r\n              onTap: () {\r\n                Navigator.pop(context); // Close the drawer\r\n                // Navigate to Home screen\r\n              },\r\n            ),\r\n            ListTile(\r\n              leading: const Icon(Icons.feedback),\r\n              title: const Text('Quick Reply'),\r\n              onTap: () {\r\n                Navigator.pop(context); // Close the drawer\r\n                // Navigate to Quick Reply screen\r\n              },\r\n            ),\r\n            ListTile(\r\n              leading: const Icon(Icons.settings),\r\n              title: const Text('Settings'),\r\n              onTap: () {\r\n                Navigator.pop(context); // Close the drawer\r\n                // Navigate to Settings screen\r\n              },\r\n            ),\r\n            ListTile(\r\n              leading: const Icon(Icons.logout),\r\n              title: const Text('Logout'),\r\n              onTap: () {\r\n                Navigator.pop(context); // Close the drawer\r\n                // Logout\r\n              },\r\n            ),\r\n          ],\r\n        ),\r\n      ),\r\n    );\r\n  }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/lib/widgets/custom_drawer.dart b/app/lib/widgets/custom_drawer.dart
+--- a/app/lib/widgets/custom_drawer.dart	(revision 720d5fbe8b3ff4b00353ab056c54d969dc0f83ae)
++++ b/app/lib/widgets/custom_drawer.dart	(date 1733446451828)
+@@ -1,5 +1,6 @@
+ import 'package:flutter/material.dart';
+ 
++import '../screen/login_screen.dart';
+ 
+ class CustomDrawer extends StatelessWidget {
+   const CustomDrawer({super.key});
+@@ -51,8 +52,10 @@
+               leading: const Icon(Icons.logout),
+               title: const Text('Logout'),
+               onTap: () {
+-                Navigator.pop(context); // Close the drawer
+-                // Logout
++                Navigator.pushReplacement(
++                  context,
++                  MaterialPageRoute(builder: (context) => const LoginScreen()),
++                );
+               },
+             ),
+           ],
+@@ -60,4 +63,4 @@
+       ),
+     );
+   }
+-}
+\ No newline at end of file
++}
+Index: app/lib/widgets/bottom_app_bar.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import 'package:english_master_uet/screen/flashcard/topic_screen.dart';\r\nimport 'package:flutter/material.dart';\r\nimport 'package:provider/provider.dart';\r\nimport 'package:english_master_uet/screen/home_screen.dart';\r\nimport 'package:english_master_uet/screen/progress.dart';\r\nimport 'package:english_master_uet/screen/flashcard/flashcard_screen.dart';\r\nimport 'package:english_master_uet/screen/excercise/Exercises.dart';\r\nclass BottomAppBarWidget extends StatelessWidget {\r\n  const BottomAppBarWidget({super.key});\r\n\r\n  @override\r\n  Widget build(BuildContext context) {\r\n    return BottomAppBar(\r\n      shape: const CircularNotchedRectangle(),\r\n      child: Row(\r\n        mainAxisAlignment: MainAxisAlignment.spaceAround,\r\n        children: <Widget>[\r\n          IconButton(\r\n            onPressed: () {\r\n              context\r\n                  .read<AppState>()\r\n                  .updateScreen('Progress', ProgressScreen());\r\n            },\r\n            iconSize: 25,\r\n            icon: Image.asset('assets/images/home.png'),\r\n          ),\r\n          IconButton(\r\n              onPressed: () {\r\n                context\r\n                    .read<AppState>()\r\n                    .updateScreen('Flashcard', TopicSelectionScreen());\r\n              },\r\n              iconSize: 25,\r\n              icon: Image.asset('assets/images/flashcard.png')),\r\n          IconButton(\r\n              onPressed: () {\r\n                context\r\n                    .read<AppState>()\r\n                    .updateScreen('Exercise', const progressScreen());\r\n              },\r\n              iconSize: 25,\r\n              icon: Image.asset('assets/images/notebook.png')),\r\n          IconButton(\r\n              onPressed: () {\r\n                // context.read<AppState>().updateScreen(\r\n                //     'Translate',\r\n                //     TranslateScreen()\r\n                // );\r\n              },\r\n              iconSize: 25,\r\n              icon: Image.asset('assets/images/translate.png')),\r\n        ],\r\n      ),\r\n    );\r\n  }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/lib/widgets/bottom_app_bar.dart b/app/lib/widgets/bottom_app_bar.dart
+--- a/app/lib/widgets/bottom_app_bar.dart	(revision 720d5fbe8b3ff4b00353ab056c54d969dc0f83ae)
++++ b/app/lib/widgets/bottom_app_bar.dart	(date 1733446451828)
+@@ -2,9 +2,10 @@
+ import 'package:flutter/material.dart';
+ import 'package:provider/provider.dart';
+ import 'package:english_master_uet/screen/home_screen.dart';
+-import 'package:english_master_uet/screen/progress.dart';
++import 'package:english_master_uet/screen/progress/progress.dart';
+ import 'package:english_master_uet/screen/flashcard/flashcard_screen.dart';
+ import 'package:english_master_uet/screen/excercise/Exercises.dart';
++import 'package:english_master_uet/screen/translate_screen.dart';
+ class BottomAppBarWidget extends StatelessWidget {
+   const BottomAppBarWidget({super.key});
+ 
+@@ -28,7 +29,7 @@
+               onPressed: () {
+                 context
+                     .read<AppState>()
+-                    .updateScreen('Flashcard', TopicSelectionScreen());
++                    .updateScreen('Chọn Chủ Đề', TopicSelectionScreen());
+               },
+               iconSize: 25,
+               icon: Image.asset('assets/images/flashcard.png')),
+@@ -42,10 +43,10 @@
+               icon: Image.asset('assets/images/notebook.png')),
+           IconButton(
+               onPressed: () {
+-                // context.read<AppState>().updateScreen(
+-                //     'Translate',
+-                //     TranslateScreen()
+-                // );
++                context.read<AppState>().updateScreen(
++                    'Translate',
++                    TranslateScreen()
++                );
+               },
+               iconSize: 25,
+               icon: Image.asset('assets/images/translate.png')),
+Index: app/lib/screen/register_screen.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import 'package:flutter/material.dart';\r\nimport 'package:english_master_uet/controller/register_controller.dart';\r\n\r\nclass RegisterScreen extends StatefulWidget {\r\n  const RegisterScreen({super.key});\r\n\r\n  @override\r\n  _RegisterScreenState createState() => _RegisterScreenState();\r\n}\r\n\r\nclass _RegisterScreenState extends State<RegisterScreen> {\r\n  final TextEditingController _emailController = TextEditingController();\r\n  final TextEditingController _passwordController = TextEditingController();\r\n  final TextEditingController _passwordAgainController = TextEditingController();\r\n  final RegisterController _registerController = RegisterController();\r\n  // String? _verificationId;\r\n\r\n  Future<void> _register() async {\r\n    if (_passwordController.text != _passwordAgainController.text) {\r\n      ScaffoldMessenger.of(context).showSnackBar(\r\n        const SnackBar(content: Text('Mật khẩu không khớp.')),\r\n      );\r\n      return;\r\n    }\r\n    String? result = await _registerController.register(\r\n      _emailController.text,\r\n      _passwordController.text,\r\n    );\r\n\r\n    if (result != null) {\r\n      print(\"UID: $result\");\r\n      if (result.length == 28) {\r\n        Navigator.pushNamed(context, '/home_screen', arguments: result);\r\n        ScaffoldMessenger.of(context).showSnackBar(\r\n          SnackBar(content: Text('Đăng ký thành công. UID: $result')),\r\n        );\r\n      } else {\r\n        ScaffoldMessenger.of(context).showSnackBar(\r\n          SnackBar(content: Text(result)),\r\n        );\r\n      }\r\n    }\r\n  }\r\n\r\n  Future<void> _registerWithGoogle() async {\r\n    String? result = await _registerController.registerWithGoogle();\r\n\r\n    if (result != null) {\r\n      print(\"UID: $result\");\r\n      if (result.length == 28) {\r\n        Navigator.pushNamed(context, '/home_screen', arguments: result);\r\n        ScaffoldMessenger.of(context).showSnackBar(\r\n          SnackBar(content: Text('Đăng ký thành công. UID: $result')),\r\n        );\r\n      } else {\r\n        ScaffoldMessenger.of(context).showSnackBar(\r\n          SnackBar(content: Text(result)),\r\n        );\r\n      }\r\n    }\r\n  }\r\n\r\n  @override\r\n  Widget build(BuildContext context) {\r\n    return Scaffold(\r\n      appBar: AppBar(\r\n        title: const Text('Đăng ký'),\r\n      ),\r\n      body: Center(\r\n        child: Padding(\r\n          padding: const EdgeInsets.only(top: 0.0),\r\n          child: Column(\r\n            mainAxisAlignment: MainAxisAlignment.center,\r\n            children: <Widget>[\r\n              const SizedBox(\r\n                width: 150.0,\r\n                height: 150.0,\r\n                child: Image(\r\n                  image: AssetImage('assets/images/logo.png'),\r\n                ),\r\n              ),\r\n              const SizedBox(height: 50.0),\r\n              Container(\r\n                width: 300.0,\r\n                height: 50.0,\r\n                child: TextField(\r\n                  controller: _emailController,\r\n                  decoration: const InputDecoration(\r\n                    icon: Icon(Icons.email),\r\n                    labelText: 'Email',\r\n                    border: OutlineInputBorder(),\r\n                  ),\r\n                ),\r\n              ),\r\n              const SizedBox(height: 16.0),\r\n              Container(\r\n                width: 300.0,\r\n                height: 50.0,\r\n                child: TextField(\r\n                  controller: _passwordController,\r\n                  decoration: const InputDecoration(\r\n                    icon: Icon(Icons.lock),\r\n                    labelText: 'Mật khẩu',\r\n                    border: OutlineInputBorder(),\r\n                  ),\r\n                  obscureText: true,\r\n                ),\r\n              ),\r\n              const SizedBox(height: 16.0),\r\n              // nhập lai mat khau\r\n              Container(\r\n                width: 300.0,\r\n                height: 50.0,\r\n                child: TextField(\r\n                  controller: _passwordAgainController,\r\n                  decoration: const InputDecoration(\r\n                    icon: Icon(Icons.lock),\r\n                    labelText: 'Nhập lại mật khẩu',\r\n                    border: OutlineInputBorder(),\r\n                  ),\r\n                  obscureText: true,\r\n                ),\r\n              ),\r\n              const SizedBox(height: 16.0),\r\n              ElevatedButton(\r\n                onPressed: _register,\r\n                child: const Text('Đăng ký'),\r\n              ),\r\n              const SizedBox(height: 16.0),\r\n              ElevatedButton(\r\n                onPressed: _registerWithGoogle,\r\n                child: const Text('Đăng ký bằng Google'),\r\n              ),\r\n              const SizedBox(height: 16.0),\r\n\r\n            ],\r\n          ),\r\n        ),\r\n      ),\r\n    );\r\n  }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/lib/screen/register_screen.dart b/app/lib/screen/register_screen.dart
+--- a/app/lib/screen/register_screen.dart	(revision 720d5fbe8b3ff4b00353ab056c54d969dc0f83ae)
++++ b/app/lib/screen/register_screen.dart	(date 1733446451828)
+@@ -1,5 +1,7 @@
+ import 'package:flutter/material.dart';
+ import 'package:english_master_uet/controller/register_controller.dart';
++import 'package:english_master_uet/screen/login_screen.dart';
++import 'package:flutter_svg/flutter_svg.dart';
+ 
+ class RegisterScreen extends StatefulWidget {
+   const RegisterScreen({super.key});
+@@ -65,6 +67,16 @@
+     return Scaffold(
+       appBar: AppBar(
+         title: const Text('Đăng ký'),
++        leading: IconButton(
++          icon: const Icon(Icons.arrow_back),
++          onPressed: () {
++            Navigator.pop(context);
++            // Navigator.pushReplacement(
++            //   context,
++            //   MaterialPageRoute(builder: (context) => const LoginScreen()),
++            // );
++          },
++        ),
+       ),
+       body: Center(
+         child: Padding(
+@@ -127,12 +139,21 @@
+                 child: const Text('Đăng ký'),
+               ),
+               const SizedBox(height: 16.0),
+-              ElevatedButton(
+-                onPressed: _registerWithGoogle,
+-                child: const Text('Đăng ký bằng Google'),
++              ElevatedButton.icon(
++                onPressed: () async {
++                  await _registerWithGoogle();
++                },
++                icon: SvgPicture.network(
++                  'https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg',
++                  height: 24.0,
++                  width: 24.0,
++                ),
++                label: const Text(
++                  'Đăng nhập bằng Google',
++                  style: TextStyle(fontSize: 16),
++                ),
+               ),
+               const SizedBox(height: 16.0),
+-
+             ],
+           ),
+         ),
