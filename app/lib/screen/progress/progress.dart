@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:english_master_uet/screen/topic_learned.dart';
-import 'package:english_master_uet/screen/favorite_word_screen.dart';
+import 'package:provider/provider.dart';import '../../model/user_progress.dart';
+
+import 'topic_learned.dart';
+import 'favorite_word_screen.dart';
+import 'learned_words_screen.dart';
 
 class ProgressScreen extends StatelessWidget {
   // Mock data - trong thực tế sẽ lấy từ state management (Provider/Bloc...)
@@ -16,6 +19,7 @@ class ProgressScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userProgress = context.watch<UserProgress>();
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
@@ -51,8 +55,14 @@ class ProgressScreen extends StatelessWidget {
                     icon: FontAwesomeIcons.book,
                     iconColor: Colors.blue,
                     title: 'Từ vựng đã học',
-                    value: '${stats['wordsLearned']}',
+                    value: '${userProgress.getTotalLearnedWords()}',
                     subtitle: 'từ vựng',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => LearnedWordsScreen()), // Use the new screen
+                      );
+                    },
                   ),
 
                   // Chủ đề đã học
@@ -61,7 +71,7 @@ class ProgressScreen extends StatelessWidget {
                     icon: FontAwesomeIcons.layerGroup,
                     iconColor: Colors.green,
                     title: 'Chủ đề đã học',
-                    value: '${stats['topicsCompleted']}',
+                    value: '${userProgress.getTotalLearnedTopics()}',
                     subtitle: 'chủ đề',
                     onTap: () {
                       Navigator.push(
@@ -76,7 +86,7 @@ class ProgressScreen extends StatelessWidget {
                     context,
                     icon: FontAwesomeIcons.trophy,
                     iconColor: Colors.amber,
-                    title: 'Số ngày học liên tiếp',
+                    title: 'Thời gian học',
                     value: '${stats['streak']}',
                     subtitle: 'ngày',
                   ),
@@ -87,7 +97,7 @@ class ProgressScreen extends StatelessWidget {
                     icon: FontAwesomeIcons.heart,
                     iconColor: Colors.red,
                     title: 'Từ vựng yêu thích',
-                    value: '${stats['favoriteWords']}',
+                    value: '${userProgress.getFavoriteWordsCount()}',
                     subtitle: 'từ vựng',
                     onTap: () {
                       Navigator.push(

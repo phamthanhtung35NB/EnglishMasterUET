@@ -1,7 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
   Future<String?> login(String email, String password) async {
       try {
         UserCredential userCredential = await _auth.signInWithEmailAndPassword(
@@ -24,6 +28,32 @@ class LoginController {
       }
 
 
+  }
+  Future<String> loginWithGoogle(BuildContext context) async {
+    try {
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      if (googleUser == null) {
+        // Đăng nhập bị hủy
+        return"";
+      }
+
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      UserCredential userCredential = await _auth.signInWithCredential(credential);
+
+      // Sau khi đăng nhập, lấy UID và thông tin người dùng từ Firestore
+      String uid = userCredential.user!.uid;
+
+      return uid;
+    } catch (e) {
+      print('Lỗi đăng nhập: ${e.toString()}');
+      return '';
+    }
+    return '';
   }
 
   Future<void> logout() async {

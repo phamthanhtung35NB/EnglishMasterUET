@@ -1,3 +1,4 @@
+import 'package:english_master_uet/screen/register_screen.dart';
 import 'package:english_master_uet/screen/statistical_screen.dart';
 import 'package:english_master_uet/screen/flashcard/topic_screen.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,9 @@ import 'package:english_master_uet/widgets/bottom_app_bar.dart';
 // import 'package:english_master_uet/screen/progress.dart'as progress;
 
 
-import 'package:english_master_uet/screen/progress.dart';
+import 'package:english_master_uet/screen/progress/progress.dart';
+
+import 'model/user_progress.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,8 +35,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => AppState(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<AppState>(
+            create: (context) => AppState()
+        ),
+        ChangeNotifierProvider<UserProgress>(  // Thêm kiểu rõ ràng
+            create: (context) => UserProgress()
+        ),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'English Master UET',
@@ -41,6 +51,9 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         home: const LoginScreen(),
+        routes: {
+          '/register_screen': (context) => const RegisterScreen(), // Add this line
+        },
       ),
     );
   }

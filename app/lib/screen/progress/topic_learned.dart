@@ -1,49 +1,54 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../model/user_progress.dart';
+
 
 class CompletedTopicsScreen extends StatelessWidget {
-  // Mock data - thực tế sẽ lấy từ database/state management
-  final List<Map<String, dynamic>> completedTopics = [
-    {
-      'name': 'Các từ về gia đình',
-      'completedDate': '20/11/2024',
-      'totalWords': 20,
-      'masteredWords': 18,
-    },
-    {
-      'name': 'Từ vựng về màu sắc',
-      'completedDate': '19/11/2024',
-      'totalWords': 15,
-      'masteredWords': 13,
-    },
-    {
-      'name': 'Động vật',
-      'completedDate': '18/11/2024',
-      'totalWords': 25,
-      'masteredWords': 22,
-    },
-    // Thêm các chủ đề khác...
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final userProgress = context.watch<UserProgress>();
+
+    // Convert learned topics to a list of maps for easier display
+    final completedTopics = userProgress.learnedTopics.entries.map((entry) {
+      return {
+        'name': entry.key,
+        'totalWords': entry.value.length,
+        'masteredWords': entry.value.length, // In this implementation, all words are considered mastered
+        'completedDate': userProgress.allLearnedWords
+            .where((word) => word.topic == entry.key)
+            .map((word) => word.learnedDate)
+            .reduce((a, b) => a.isAfter(b) ? a : b)
+            .toLocal()
+            .toString()
+            .split(' ')[0], // Extract date in format YYYY-MM-DD
+      };
+    }).toList();
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Chủ đề đã học'),
         elevation: 0,
       ),
-      body: ListView.builder(
+      body: completedTopics.isEmpty
+          ? Center(
+        child: Text(
+          'Bạn chưa hoàn thành chủ đề nào',
+          style: Theme.of(context).textTheme.titleMedium,
+        ),
+      )
+          : ListView.builder(
         padding: EdgeInsets.all(16),
         itemCount: completedTopics.length,
         itemBuilder: (context, index) {
           final topic = completedTopics[index];
-          final progress = topic['masteredWords'] / topic['totalWords'];
+          final progress = 1.0; // All words are considered mastered in this implementation
 
           return Card(
             margin: EdgeInsets.only(bottom: 12),
             child: ListTile(
               contentPadding: EdgeInsets.all(16),
               title: Text(
-                topic['name'],
+                topic['name'] as String,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
