@@ -7,11 +7,8 @@ class ResultScreen extends StatelessWidget {
   final int correctAnswers;
   final int totalQuestions;
 
-  const ResultScreen({
-    super.key,
-    required this.correctAnswers,
-    required this.totalQuestions
-  });
+  const ResultScreen(
+      {super.key, required this.correctAnswers, required this.totalQuestions});
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +26,7 @@ class ResultScreen extends StatelessWidget {
               style: TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
-                  color: Colors.blue[400]
-              ),
+                  color: Colors.blue[400]),
             ),
             const SizedBox(height: 20),
             Container(
@@ -43,15 +39,14 @@ class ResultScreen extends StatelessWidget {
                 children: [
                   Text(
                     'Bạn đã học $correctAnswers/$totalQuestions từ',
-                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(height: 10),
                   Text(
                     resultMessage,
                     style: TextStyle(
-                        fontSize: 18,
-                        color: _getMessageColor(percentage)
-                    ),
+                        fontSize: 18, color: _getMessageColor(percentage)),
                     textAlign: TextAlign.center,
                   ),
                 ],
@@ -61,16 +56,16 @@ class ResultScreen extends StatelessWidget {
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue[300],
-                padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
               onPressed: () {
-                context.read<AppState>().updateScreen(
-                    'Flashcard',
-                    TopicSelectionScreen()
-                );
+                context
+                    .read<AppState>()
+                    .updateScreen('Flashcard', TopicSelectionScreen());
               },
               child: const Text(
                 'Quay Lại',
@@ -84,10 +79,10 @@ class ResultScreen extends StatelessWidget {
   }
 
   String _getResultMessage(double percentage) {
-    if (percentage == 100) return 'Tuyệt vời! Bài học hoàn hảo!';
-    if (percentage >= 80) return 'Rất tốt! Tiếp tục phát huy!';
-    if (percentage >= 60) return 'Khá tốt. Cố gắng nhiều hơn nhé!';
-    if (percentage >= 40) return 'Bạn đang tiến bộ. Đừng ngừng học!';
+    if (percentage == 100) return 'Tuyệt vời! Bạn đã hoàn thành xuất sắc!';
+    if (percentage >= 80) return 'Tốt lắm! Tiếp tục phát huy bạn nhé!';
+    if (percentage >= 60) return 'Khá tốt rồi. Cố gắng nhiều hơn nhé!';
+    if (percentage >= 40) return 'Bạn đang tiến bộ. Cố lên bạn nhé!';
     return 'Hãy cố gắng nhiều hơn nữa nhé!';
   }
 
