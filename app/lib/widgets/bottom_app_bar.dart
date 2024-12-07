@@ -18,7 +18,7 @@ class BottomAppBarWidget extends StatelessWidget {
       style: TabStyle.react,
       items: [
         TabItem(icon: Image.asset('assets/images/home.png'), title: 'Progress'),
-        TabItem(icon: Image.asset('assets/images/flashcard.png'), title: 'Chọn Chủ Đề'),
+        TabItem(icon: Image.asset('assets/images/flashcard.png'), title: 'Flashcard'),
         TabItem(icon: Image.asset('assets/images/notebook.png'), title: 'Exercise'),
         TabItem(icon: Image.asset('assets/images/translate.png'), title: 'Translate'),
       ],
