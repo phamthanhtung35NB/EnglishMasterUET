@@ -46,11 +46,8 @@ dependencies:
   flutter_tts: ^3.6.0
   fl_chart: ^0.69.0
   font_awesome_flutter: ^10.6.0
-<<<<<<< HEAD
   convex_bottom_bar: ^3.2.0
-=======
   shared_preferences: ^2.0.15
->>>>>>> 50dba903b4ede10aa90c4fe9521c5effc12577a4
 
 dev_dependencies:
   flutter_test:
