@@ -20,12 +20,11 @@ class TopicSelectionScreen extends StatelessWidget {
     "Kinh Doanh": "💼"
   };
 
-  // Function to shuffle words for a given topic
+  // Đảo các từ trong topic
   List<Word> _shuffleWords(String topic) {
     List<Word> words = List.from(topicWords[topic]!);
     final random = Random();
 
-    // Fisher-Yates shuffle algorithm
     for (int i = words.length - 1; i > 0; i--) {
       int j = random.nextInt(i + 1);
       final temp = words[i];
@@ -44,7 +43,7 @@ class TopicSelectionScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text('Chọn Chủ Đề'),
-        backgroundColor: Colors.blue[100],
+        backgroundColor: Colors.blue.shade50,
         elevation: 0,
       ),
       body: Container(
@@ -74,22 +73,18 @@ class TopicSelectionScreen extends StatelessWidget {
                 title: Text(
                   topics[index],
                   style: const TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 18
-                  ),
+                      fontWeight: FontWeight.w600, fontSize: 18),
                 ),
-                trailing: const Icon(Icons.arrow_forward_ios, color: Colors.blue),
+                trailing:
+                    const Icon(Icons.arrow_forward_ios, color: Colors.blue),
                 onTap: () {
-                  // Shuffle words for the selected topic before navigating
                   final shuffledWords = _shuffleWords(topics[index]);
-
-                  // Replace the original words with shuffled words
                   topicWords[topics[index]] = shuffledWords;
 
                   context.read<AppState>().updateScreen(
-                    'Flashcard',
-                    FlashcardScreen(topic: topics[index]),
-                  );
+                        topics[index],
+                        FlashcardScreen(topic: topics[index]),
+                      );
                 },
               ),
             );
