@@ -184,9 +184,11 @@ class _FlashcardScreenState extends State<FlashcardScreen> {
                       child: const Text('Tôi Đã Biết Từ Này'),
                     ),
                   ),
+                  const SizedBox(height: 20),
                 ],
               ),
             ),
+            const SizedBox(height: 20)
           ],
         ),
       ),

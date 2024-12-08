@@ -15,6 +15,7 @@ class BottomAppBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ConvexAppBar(
+      backgroundColor: const Color(0xFF3478DC),
       style: TabStyle.react,
       items: [
         TabItem(icon: Image.asset('assets/images/home.png'), title: 'Progress'),
@@ -29,7 +30,7 @@ class BottomAppBarWidget extends StatelessWidget {
             context.read<AppState>().updateScreen('Progress', ProgressScreen());
             break;
           case 1:
-            context.read<AppState>().updateScreen('Chọn Chủ Đề', TopicSelectionScreen());
+            context.read<AppState>().updateScreen('Select a topic', TopicSelectionScreen());
             break;
           case 2:
             context.read<AppState>().updateScreen('Exercise', const Exercises());
