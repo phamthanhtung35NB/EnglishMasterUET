@@ -38,9 +38,9 @@ class _LoginScreenState extends State<LoginScreen> {
           MaterialPageRoute(
               builder: (context) => HomeScreen()), // Chuyển sang màn hình Home
         );
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Login successful. UID: $result')),
-        );
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   SnackBar(content: Text('Login successful. UID: $result')),
+        // );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(result)),

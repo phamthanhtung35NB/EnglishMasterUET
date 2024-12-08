@@ -60,9 +60,8 @@ class _TranslateScreenState extends State<TranslateScreen> {
     if (_translatedText.isNotEmpty) {
       // Tìm mã ngôn ngữ TTS phù hợp
       var selectedLang = _languageOptions.firstWhere(
-              (lang) => lang['code'] == _targetLang,
-          orElse: () => _languageOptions[0]
-      );
+          (lang) => lang['code'] == _targetLang,
+          orElse: () => _languageOptions[0]);
 
       await _flutterTts.setLanguage(selectedLang['ttsCode']!);
 
@@ -136,7 +135,6 @@ class _TranslateScreenState extends State<TranslateScreen> {
         SnackBar(content: Text('Đã sao chép kết quả dịch')),
       );
     }
-
   }
 
   @override
@@ -175,9 +173,9 @@ class _TranslateScreenState extends State<TranslateScreen> {
                   contentPadding: EdgeInsets.all(16),
                   suffixIcon: _textController.text.isNotEmpty
                       ? IconButton(
-                    icon: Icon(Icons.clear, color: Colors.grey),
-                    onPressed: _clearText,
-                  )
+                          icon: Icon(Icons.clear, color: Colors.grey),
+                          onPressed: _clearText,
+                        )
                       : null,
                 ),
                 onChanged: (value) {
@@ -229,9 +227,10 @@ class _TranslateScreenState extends State<TranslateScreen> {
               child: _isTranslating
                   ? CircularProgressIndicator(color: Colors.white)
                   : Text(
-                'Dịch',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
+                      'Dịch',
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
             ),
 
             SizedBox(height: 16),
@@ -253,9 +252,7 @@ class _TranslateScreenState extends State<TranslateScreen> {
                       Text(
                         'Kết quả dịch',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.blue
-                        ),
+                            fontWeight: FontWeight.bold, color: Colors.blue),
                       ),
                       Row(
                         children: [
@@ -283,9 +280,8 @@ class _TranslateScreenState extends State<TranslateScreen> {
                         ? 'Kết quả dịch sẽ hiển thị ở đây'
                         : _translatedText,
                     style: TextStyle(
-                      color: _translatedText.isEmpty
-                          ? Colors.grey
-                          : Colors.black,
+                      color:
+                          _translatedText.isEmpty ? Colors.grey : Colors.black,
                     ),
                   ),
                 ],
