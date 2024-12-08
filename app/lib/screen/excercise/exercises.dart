@@ -1,22 +1,16 @@
 import 'package:english_master_uet/screen/excercise/word_matching_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../home_screen.dart';
 import 'listen_matching_screen.dart';
 
-class progressScreen extends StatelessWidget {
-  const progressScreen({super.key});
+class Exercises extends StatelessWidget {
+  const Exercises({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Chương trình học',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.blueAccent,
-      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -32,10 +26,7 @@ class progressScreen extends StatelessWidget {
                     isCompleted: true,
                     icon: Icons.link,
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const WordMatchingScreen()),
-                      );
+                      context.read<AppState>().updateScreen('Exercise', const WordMatchingScreen());
                     },
                   ),
                   _buildProgressCard(
@@ -44,10 +35,7 @@ class progressScreen extends StatelessWidget {
                     isCompleted: true,
                     icon: Icons.headphones,
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const ListenMatchingScreen()),
-                      );
+                      context.read<AppState>().updateScreen('Exercise', const ListenMatchingScreen());
                     },
                   ),
                   _buildProgressCard(
@@ -132,6 +120,6 @@ class progressScreen extends StatelessWidget {
     );
   }
 
-  /// Widget hiển thị từng mục tiến độ
+/// Widget hiển thị từng mục tiến độ
 
 }

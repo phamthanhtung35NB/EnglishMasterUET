@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:english_master_uet/screen/home_screen.dart';
 import 'package:english_master_uet/screen/progress/progress.dart';
 import 'package:english_master_uet/screen/flashcard/flashcard_screen.dart';
-import 'package:english_master_uet/screen/excercise/Exercises.dart';
+import 'package:english_master_uet/screen/excercise/exercises.dart';
 import 'package:english_master_uet/screen/translate_screen.dart';
 
 class BottomAppBarWidget extends StatelessWidget {
@@ -32,7 +32,7 @@ class BottomAppBarWidget extends StatelessWidget {
             context.read<AppState>().updateScreen('Chọn Chủ Đề', TopicSelectionScreen());
             break;
           case 2:
-            context.read<AppState>().updateScreen('Exercise', const progressScreen());
+            context.read<AppState>().updateScreen('Exercise', const Exercises());
             break;
           case 3:
             context.read<AppState>().updateScreen('Translate', TranslateScreen());

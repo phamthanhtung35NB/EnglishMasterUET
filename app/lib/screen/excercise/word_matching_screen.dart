@@ -17,8 +17,10 @@ class _WordMatchingScreenState extends State<WordMatchingScreen> {
   // Hàm để nạp câu hỏi
   void loadQuestions() {
     setState(() {
-      currentQuestion = questions[currentQuestionIndex].question; // Câu hỏi tiếng Anh
-      words = List<String>.from(questions[currentQuestionIndex].wordsToChooseFrom); // Các từ cần chọn
+      currentQuestion =
+          questions[currentQuestionIndex].question; // Câu hỏi tiếng Anh
+      words = List<String>.from(
+          questions[currentQuestionIndex].wordsToChooseFrom); // Các từ cần chọn
     });
   }
 
@@ -35,7 +37,8 @@ class _WordMatchingScreenState extends State<WordMatchingScreen> {
 
   // Hàm kiểm tra đáp án và chuyển sang câu hỏi tiếp theo
   void checkAnswer() {
-    if (selectedWords.join(" ") == questions[currentQuestionIndex].correctAnswer.join(" ")) {
+    if (selectedWords.join(" ") ==
+        questions[currentQuestionIndex].correctAnswer.join(" ")) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Chính xác!'),
@@ -67,25 +70,16 @@ class _WordMatchingScreenState extends State<WordMatchingScreen> {
       );
     }
   }
-
   @override
   void initState() {
     super.initState();
-    loadQuestions(); // Nạp câu hỏi khi khởi tạo
+    questions = getRandomizedQuestions(questions); // Randomize both question order and words
+    loadQuestions();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: const Icon(Icons.book, color: Colors.white),
-        title: const Text(
-          'Bài tập Nối từ',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.blueAccent,
-      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -115,14 +109,15 @@ class _WordMatchingScreenState extends State<WordMatchingScreen> {
                     const Text(
                       'Viết lại bằng Tiếng Việt',
                       style: TextStyle(
-                        fontSize: 24,
+                        fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     const SizedBox(height: 16),
                     Row(
                       children: [
-                        const Icon(Icons.volume_up, size: 28, color: Colors.blue),
+                        const Icon(Icons.volume_up,
+                            size: 28, color: Colors.blue),
                         const SizedBox(width: 8),
                         Text(
                           currentQuestion, // Hiển thị câu hỏi tiếng Anh
@@ -217,7 +212,6 @@ class _WordMatchingScreenState extends State<WordMatchingScreen> {
                 }).toList(),
               ),
             ),
-            const SizedBox(height: 16),
             Center(
               child: ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
@@ -225,8 +219,8 @@ class _WordMatchingScreenState extends State<WordMatchingScreen> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 14, horizontal: 32),
+                  padding:
+                  const EdgeInsets.symmetric(vertical: 14, horizontal: 32),
                 ),
                 onPressed: checkAnswer,
                 icon: const Icon(Icons.check_circle, color: Colors.white),
@@ -236,6 +230,7 @@ class _WordMatchingScreenState extends State<WordMatchingScreen> {
                 ),
               ),
             ),
+            const SizedBox(height: 36),
           ],
         ),
       ),
