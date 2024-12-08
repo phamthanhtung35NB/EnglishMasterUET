@@ -10,7 +10,7 @@ class CustomDrawer extends StatelessWidget {
     return Drawer(
       child: Container(
         margin: const EdgeInsets.only(top: kToolbarHeight),
-        color: Colors.grey,
+        color: Colors.white,
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[

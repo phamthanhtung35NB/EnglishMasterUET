@@ -61,7 +61,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
       }
     }
   }
-
+  bool _isPasswordVisible = false;
+  bool _isPasswordVisible2 = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,7 +99,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 child: TextField(
                   controller: _emailController,
                   decoration: const InputDecoration(
-                    icon: Icon(Icons.email),
                     labelText: 'Email',
                     border: OutlineInputBorder(),
                   ),
@@ -106,31 +106,49 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
               const SizedBox(height: 16.0),
               Container(
-                width: 300.0,
+                width: 300.0, // Set the desired width
                 height: 50.0,
                 child: TextField(
                   controller: _passwordController,
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.lock),
+                  decoration: InputDecoration(
                     labelText: 'Mật khẩu',
                     border: OutlineInputBorder(),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _isPasswordVisible = !_isPasswordVisible;
+                        });
+                      },
+                    ),
                   ),
-                  obscureText: true,
+                  obscureText: !_isPasswordVisible, // Ẩn/hiện mật khẩu
                 ),
               ),
               const SizedBox(height: 16.0),
               // nhập lai mat khau
               Container(
-                width: 300.0,
+                width: 300.0, // Set the desired width
                 height: 50.0,
                 child: TextField(
                   controller: _passwordAgainController,
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.lock),
+                  decoration: InputDecoration(
                     labelText: 'Nhập lại mật khẩu',
                     border: OutlineInputBorder(),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _isPasswordVisible2 ? Icons.visibility : Icons.visibility_off,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _isPasswordVisible2 = !_isPasswordVisible2;
+                        });
+                      },
+                    ),
                   ),
-                  obscureText: true,
+                  obscureText: !_isPasswordVisible2, // Ẩn/hiện mật khẩu
                 ),
               ),
               const SizedBox(height: 16.0),
@@ -150,7 +168,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 label: const Text(
                   'Đăng nhập bằng Google',
-                  style: TextStyle(fontSize: 16),
                 ),
               ),
               const SizedBox(height: 16.0),
