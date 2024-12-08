@@ -14,7 +14,14 @@ final Map<String, List<Word>> topicWords = {
     Word(word: "Explore", meaning: "Khám phá"),
     Word(word: "Vacation", meaning: "Kỳ nghỉ"),
     Word(word: "Journey", meaning: "Hành trình"),
-    Word(word: "Itinerary", meaning: "Lịch trình")
+    Word(word: "Itinerary", meaning: "Lịch trình"),
+    Word(word: "Guide", meaning: "Hướng dẫn viên"),
+    Word(word: "Map", meaning: "Bản đồ"),
+    Word(word: "Cruise", meaning: "Chuyến đi biển"),
+    Word(word: "Souvenir", meaning: "Quà lưu niệm"),
+    Word(word: "Travel", meaning: "Du lịch"),
+    Word(word: "Check in", meaning: "Làm thủ tục"),
+    Word(word: "Tour", meaning: "Chuyến tham quan")
   ],
   "Công Nghệ": [
     Word(word: "Software", meaning: "Phần mềm"),
@@ -29,7 +36,14 @@ final Map<String, List<Word>> topicWords = {
     Word(word: "Algorithm", meaning: "Thuật toán"),
     Word(word: "Interface", meaning: "Giao diện"),
     Word(word: "Download", meaning: "Tải xuống"),
-    Word(word: "Hardware", meaning: "Phần cứng")
+    Word(word: "Hardware", meaning: "Phần cứng"),
+    Word(word: "Cloud", meaning: "Đám mây"),
+    Word(word: "Gadget", meaning: "Thiết bị nhỏ"),
+    Word(word: "Application", meaning: "Ứng dụng"),
+    Word(word: "Device", meaning: "Thiết bị"),
+    Word(word: "Server", meaning: "Máy chủ"),
+    Word(word: "AI", meaning: "Trí tuệ nhân tạo"),
+    Word(word: "Machine Learning", meaning: "Học máy")
   ],
   "Ẩm Thực": [
     Word(word: "Recipe", meaning: "Công thức nấu ăn"),
@@ -44,7 +58,14 @@ final Map<String, List<Word>> topicWords = {
     Word(word: "Spice", meaning: "Gia vị"),
     Word(word: "Menu", meaning: "Thực đơn"),
     Word(word: "Beverage", meaning: "Đồ uống"),
-    Word(word: "Grill", meaning: "Nướng")
+    Word(word: "Grill", meaning: "Nướng"),
+    Word(word: "Chef", meaning: "Đầu bếp"),
+    Word(word: "Kitchen", meaning: "Nhà bếp"),
+    Word(word: "Baking", meaning: "Làm bánh"),
+    Word(word: "Boil", meaning: "Luộc"),
+    Word(word: "Taste", meaning: "Hương vị"),
+    Word(word: "Dish", meaning: "Món ăn"),
+    Word(word: "Fry", meaning: "Chiên")
   ],
   "Thể Thao": [
     Word(word: "Team", meaning: "Đội"),
@@ -59,13 +80,20 @@ final Map<String, List<Word>> topicWords = {
     Word(word: "Strategy", meaning: "Chiến thuật"),
     Word(word: "Practice", meaning: "Tập luyện"),
     Word(word: "Score", meaning: "Điểm số"),
-    Word(word: "Coach", meaning: "Huấn luyện viên")
+    Word(word: "Coach", meaning: "Huấn luyện viên"),
+    Word(word: "Goal", meaning: "Bàn thắng"),
+    Word(word: "Match", meaning: "Trận đấu"),
+    Word(word: "League", meaning: "Giải đấu"),
+    Word(word: "Penalty", meaning: "Hình phạt"),
+    Word(word: "Fitness", meaning: "Thể lực"),
+    Word(word: "Victory", meaning: "Chiến thắng"),
+    Word(word: "Trophy", meaning: "Cúp")
   ],
   "Văn Hóa": [
     Word(word: "Tradition", meaning: "Truyền thống"),
     Word(word: "Festival", meaning: "Lễ hội"),
     Word(word: "Heritage", meaning: "Di sản"),
-    Word(word: "Customs", meaning: "Phong tục"),
+    Word(word: "Custom", meaning: "Phong tục"),
     Word(word: "Language", meaning: "Ngôn ngữ"),
     Word(word: "Art", meaning: "Nghệ thuật"),
     Word(word: "Music", meaning: "Âm nhạc"),
@@ -74,7 +102,14 @@ final Map<String, List<Word>> topicWords = {
     Word(word: "History", meaning: "Lịch sử"),
     Word(word: "Museum", meaning: "Bảo tàng"),
     Word(word: "Exhibition", meaning: "Triển lãm"),
-    Word(word: "Performance", meaning: "Biểu diễn")
+    Word(word: "Performance", meaning: "Biểu diễn"),
+    Word(word: "Ceremony", meaning: "Nghi lễ"),
+    Word(word: "Belief", meaning: "Niềm tin"),
+    Word(word: "Ritual", meaning: "Nghi thức"),
+    Word(word: "Symbol", meaning: "Biểu tượng"),
+    Word(word: "Legend", meaning: "Truyền thuyết"),
+    Word(word: "Myth", meaning: "Thần thoại"),
+    Word(word: "Ancestor", meaning: "Tổ tiên")
   ],
   "Sức Khỏe": [
     Word(word: "Fitness", meaning: "Thể dục"),
@@ -89,7 +124,14 @@ final Map<String, List<Word>> topicWords = {
     Word(word: "Protein", meaning: "Protein"),
     Word(word: "Sleep", meaning: "Giấc ngủ"),
     Word(word: "Hydration", meaning: "Cung cấp nước"),
-    Word(word: "Recovery", meaning: "Phục hồi")
+    Word(word: "Recovery", meaning: "Phục hồi"),
+    Word(word: "Immunity", meaning: "Hệ miễn dịch"),
+    Word(word: "Mental Health", meaning: "Sức khỏe tinh thần"),
+    Word(word: "Stress", meaning: "Căng thẳng"),
+    Word(word: "Balance", meaning: "Cân bằng"),
+    Word(word: "Cardio", meaning: "Bài tập tim mạch"),
+    Word(word: "Strength", meaning: "Sức mạnh"),
+    Word(word: "Well being", meaning: "Khỏe mạnh")
   ],
   "Giáo Dục": [
     Word(word: "Learning", meaning: "Học tập"),
@@ -97,14 +139,21 @@ final Map<String, List<Word>> topicWords = {
     Word(word: "Teacher", meaning: "Giáo viên"),
     Word(word: "Subject", meaning: "Môn học"),
     Word(word: "Class", meaning: "Lớp học"),
-    Word(word: "Study", meaning: "Nghiên cứu"),
+    Word(word: "Study", meaning: "Học tập"),
     Word(word: "Knowledge", meaning: "Kiến thức"),
     Word(word: "Library", meaning: "Thư viện"),
     Word(word: "Research", meaning: "Nghiên cứu"),
     Word(word: "Exam", meaning: "Kỳ thi"),
     Word(word: "Homework", meaning: "Bài tập về nhà"),
     Word(word: "Campus", meaning: "Khuôn viên trường"),
-    Word(word: "Workshop", meaning: "Hội thảo")
+    Word(word: "Workshop", meaning: "Hội thảo"),
+    Word(word: "Degree", meaning: "Bằng cấp"),
+    Word(word: "Semester", meaning: "Học kì"),
+    Word(word: "Quiz", meaning: "Bài kiểm tra"),
+    Word(word: "Scholarship", meaning: "Học bổng"),
+    Word(word: "Tutor", meaning: "Gia sư"),
+    Word(word: "Schedule", meaning: "Lịch học"),
+    Word(word: "Curriculum", meaning: "Chương trình học")
   ],
   "Nghệ Thuật": [
     Word(word: "Painting", meaning: "Tranh vẽ"),
@@ -119,7 +168,14 @@ final Map<String, List<Word>> topicWords = {
     Word(word: "Inspiration", meaning: "Cảm hứng"),
     Word(word: "Color", meaning: "Màu sắc"),
     Word(word: "Artwork", meaning: "Tác phẩm"),
-    Word(word: "Portrait", meaning: "Chân dung")
+    Word(word: "Portrait", meaning: "Chân dung"),
+    Word(word: "Sketch", meaning: "Bản phác thảo"),
+    Word(word: "Abstract", meaning: "Trừu tượng"),
+    Word(word: "Canvas", meaning: "Vải vẽ"),
+    Word(word: "Craft", meaning: "Thủ công"),
+    Word(word: "Photography", meaning: "Nhiếp ảnh"),
+    Word(word: "Drama", meaning: "Kịch"),
+    Word(word: "Symphony", meaning: "Bản giao hưởng")
   ],
   "Môi Trường": [
     Word(word: "Ecology", meaning: "Sinh thái học"),
@@ -134,7 +190,14 @@ final Map<String, List<Word>> topicWords = {
     Word(word: "Ecosystem", meaning: "Hệ sinh thái"),
     Word(word: "Energy", meaning: "Năng lượng"),
     Word(word: "Wildlife", meaning: "Động vật hoang dã"),
-    Word(word: "Protection", meaning: "Bảo vệ")
+    Word(word: "Protection", meaning: "Bảo vệ"),
+    Word(word: "Habitat", meaning: "Môi trường sống"),
+    Word(word: "Deforestation", meaning: "Phá rừng"),
+    Word(word: "Renewable", meaning: "Tái tạo"),
+    Word(word: "Carbon", meaning: "Các-bon"),
+    Word(word: "Organic", meaning: "Hữu cơ"),
+    Word(word: "Biodiversity", meaning: "Đa dạng sinh học"),
+    Word(word: "Waste", meaning: "Rác thải")
   ],
   "Kinh Doanh": [
     Word(word: "Business", meaning: "Kinh doanh"),
@@ -149,6 +212,13 @@ final Map<String, List<Word>> topicWords = {
     Word(word: "Manager", meaning: "Quản lý"),
     Word(word: "Sales", meaning: "Bán hàng"),
     Word(word: "Finance", meaning: "Tài chính"),
-    Word(word: "Competition", meaning: "Cạnh tranh")
+    Word(word: "Competition", meaning: "Cạnh tranh"),
+    Word(word: "Revenue", meaning: "Doanh thu"),
+    Word(word: "Growth", meaning: "Tăng trưởng"),
+    Word(word: "Leadership", meaning: "Lãnh đạo"),
+    Word(word: "Brand", meaning: "Thương hiệu"),
+    Word(word: "Expense", meaning: "Chi phí"),
+    Word(word: "Supply", meaning: "Cung ứng"),
+    Word(word: "Market", meaning: "Thị trường")
   ]
 };

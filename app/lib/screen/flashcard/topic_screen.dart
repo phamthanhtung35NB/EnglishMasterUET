@@ -24,28 +24,20 @@ class TopicSelectionScreen extends StatelessWidget {
   List<Word> _shuffleWords(String topic) {
     List<Word> words = List.from(topicWords[topic]!);
     final random = Random();
-
     for (int i = words.length - 1; i > 0; i--) {
       int j = random.nextInt(i + 1);
       final temp = words[i];
       words[i] = words[j];
       words[j] = temp;
     }
-
     return words;
   }
 
   @override
   Widget build(BuildContext context) {
     final topics = topicWords.keys.toList();
-
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: const Text('Chọn Chủ Đề'),
-        backgroundColor: Colors.blue.shade50,
-        elevation: 0,
-      ),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(

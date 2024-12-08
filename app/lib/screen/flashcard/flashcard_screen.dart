@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter_tts/flutter_tts.dart';
@@ -26,16 +27,19 @@ class _FlashcardScreenState extends State<FlashcardScreen> {
 
   bool isAnswerCorrect = false;
   late FlutterTts flutterTts;
+  late AudioPlayer audioPlayer;
 
   @override
   void initState() {
     super.initState();
     flutterTts = FlutterTts();
+    audioPlayer = AudioPlayer();
   }
 
   @override
   void dispose() {
     flutterTts.stop();
+    audioPlayer.dispose();
     super.dispose();
   }
 
@@ -46,33 +50,42 @@ class _FlashcardScreenState extends State<FlashcardScreen> {
     await flutterTts.speak(word);
   }
 
+  Future<void> playSound(String filePath) async {
+    final AudioPlayer player = AudioPlayer();
+    try {
+      await player.play(AssetSource(filePath));
+    } catch (e) {
+      print("Lỗi phát âm thanh: $e");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final words = topicWords[widget.topic]!;
     final currentWord = words[currentIndex];
-
+    // Kiểm tra câu tra lời
     void checkAnswer(String input) {
       setState(() {
-        isAnswerCorrect = (input.trim().toLowerCase() == currentWord.word.toLowerCase());
+        isAnswerCorrect =
+            (input.trim().toLowerCase() == currentWord.word.toLowerCase());
         if (isAnswerCorrect) {
           correctAnswers++;
-
           // Create a LearnedWord and add to user progress
           LearnedWord learnedWord = LearnedWord(
             word: currentWord.word,
             meaning: currentWord.meaning,
             topic: widget.topic,
           );
-
           // Add learned word to user progress
           context.read<UserProgress>().addLearnedWord(learnedWord);
         }
       });
-
+      // Thông báo đúng sai
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          backgroundColor: isAnswerCorrect ? Colors.green[100] : Colors.red[100],
+          backgroundColor:
+              isAnswerCorrect ? Colors.green[100] : Colors.red[100],
           title: Text(
             isAnswerCorrect ? "Chính xác!" : "Sai rồi!",
             style: const TextStyle(fontWeight: FontWeight.bold),
@@ -94,31 +107,25 @@ class _FlashcardScreenState extends State<FlashcardScreen> {
           cardKey = GlobalKey<FlipCardState>();
         } else {
           context.read<AppState>().updateScreen(
-            'Result',
-            ResultScreen(
-              correctAnswers: correctAnswers,
-              totalQuestions: words.length,
-            ),
-          );
+                'Result',
+                ResultScreen(
+                  correctAnswers: correctAnswers,
+                  totalQuestions: words.length,
+                ),
+              );
         }
       });
     }
 
     return Scaffold(
       backgroundColor: Colors.blue[50],
-      appBar: AppBar(
-        title: Text(widget.topic),
-        backgroundColor: Colors.blue[100],
-        elevation: 0,
-      ),
-      body: Center(
-        child: currentIndex < words.length
-            ? Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 20.0, bottom: 10.0),
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
@@ -131,14 +138,24 @@ class _FlashcardScreenState extends State<FlashcardScreen> {
                   ),
                 ],
               ),
-              const SizedBox(height: 20),
-              FlipCard(
-                key: cardKey,
-                front: Flashcard(text: currentWord.word),
-                back: Flashcard(text: currentWord.meaning),
+            ),
+            Expanded(
+              flex: 5,
+              child: Center(
+                child: FlipCard(
+                  key: cardKey,
+                  front: Flashcard(text: currentWord.word),
+                  back: Flashcard(text: currentWord.meaning),
+                  onFlip: () async {
+                    await playSound('sounds/flip_sound.mp3');
+                  },
+                ),
               ),
-              const SizedBox(height: 20),
-              Row(
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 20.0, top: 10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(
                     child: ElevatedButton(
@@ -150,7 +167,7 @@ class _FlashcardScreenState extends State<FlashcardScreen> {
                       child: const Text('Kiểm Tra'),
                     ),
                   ),
-                  const SizedBox(width: 10),
+                  const SizedBox(width: 16),
                   Expanded(
                     child: OutlinedButton(
                       style: OutlinedButton.styleFrom(
@@ -169,14 +186,14 @@ class _FlashcardScreenState extends State<FlashcardScreen> {
                   ),
                 ],
               ),
-            ],
-          ),
-        )
-            : const CircularProgressIndicator(),
+            ),
+          ],
+        ),
       ),
     );
   }
 
+  // Yêu cầu nhập từ vừa học
   void _showInputDialog(BuildContext context, Function(String) checkAnswer) {
     TextEditingController inputController = TextEditingController();
     bool isEmpty = false;
@@ -220,6 +237,7 @@ class _FlashcardScreenState extends State<FlashcardScreen> {
     );
   }
 
+  // Chuyển qua từ tiếp theo
   void _moveToNextWord(List<Word> words) {
     if (currentIndex < words.length - 1) {
       setState(() {
@@ -228,12 +246,12 @@ class _FlashcardScreenState extends State<FlashcardScreen> {
       });
     } else {
       context.read<AppState>().updateScreen(
-        'Result',
-        ResultScreen(
-          correctAnswers: correctAnswers,
-          totalQuestions: words.length,
-        ),
-      );
+            'Result',
+            ResultScreen(
+              correctAnswers: correctAnswers,
+              totalQuestions: words.length,
+            ),
+          );
     }
   }
 }

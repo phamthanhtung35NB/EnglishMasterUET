@@ -21,14 +21,6 @@ class ResultScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              'Kết Quả Học Tập',
-              style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.blue[400]),
-            ),
-            const SizedBox(height: 20),
             Container(
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
@@ -37,6 +29,14 @@ class ResultScreen extends StatelessWidget {
               ),
               child: Column(
                 children: [
+                  Text(
+                    'Kết Quả Học Tập',
+                    style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue[400]),
+                  ),
+                  const SizedBox(height: 20),
                   Text(
                     'Bạn đã học $correctAnswers/$totalQuestions từ',
                     style: const TextStyle(
@@ -49,6 +49,7 @@ class ResultScreen extends StatelessWidget {
                         fontSize: 18, color: _getMessageColor(percentage)),
                     textAlign: TextAlign.center,
                   ),
+                  const SizedBox(height: 10),
                 ],
               ),
             ),
@@ -65,7 +66,7 @@ class ResultScreen extends StatelessWidget {
               onPressed: () {
                 context
                     .read<AppState>()
-                    .updateScreen('Flashcard', TopicSelectionScreen());
+                    .updateScreen('Chọn Chủ Đề', TopicSelectionScreen());
               },
               child: const Text(
                 'Quay Lại',
