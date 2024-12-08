@@ -10,68 +10,128 @@ class progressScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Bài tập'),
+        title: const Text(
+          'Chương trình học',
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.blueAccent,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Chương trình học',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+            const SizedBox(height: 16),
+            Expanded(
+              child: ListView(
+                children: [
+                  _buildProgressCard(
+                    title: 'Phần 1: Nối từ',
+                    progress: 100,
+                    isCompleted: true,
+                    icon: Icons.link,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const WordMatchingScreen()),
+                      );
+                    },
+                  ),
+                  _buildProgressCard(
+                    title: 'Phần 2: Nghe',
+                    progress: 100,
+                    isCompleted: true,
+                    icon: Icons.headphones,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const ListenMatchingScreen()),
+                      );
+                    },
+                  ),
+                  _buildProgressCard(
+                    title: 'Phần 3: Kho truyện',
+                    progress: 92,
+                    isCompleted: false,
+                    icon: Icons.book,
+                  ),
+                  _buildProgressCard(
+                    title: 'Phần 4: Phát âm',
+                    progress: 92,
+                    isCompleted: false,
+                    icon: Icons.mic,
+                  ),
+                ],
               ),
             ),
-            const SizedBox(height: 16),
-            _buildProgressCard(
-              'Phần 1 Nối từ',
-              100,
-              true,
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const WordMatchingScreen()),
-                );
-              },
-            ),
-            _buildProgressCard(
-              'Phần 2 Nghe',
-              100,
-              true,
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const listen_matching_screen()),
-                );
-              },
-            ),
-            _buildProgressCard('Phần 3 Kho truyện', 92, false),
-            _buildProgressCard('Phần 4 Phát âm', 92, false),
           ],
         ),
       ),
     );
   }
 
-  /// Widget hiển thị từng mục tiến độ
-  Widget _buildProgressCard(String title, int progress, bool completed, {VoidCallback? onTap}) {
-    return Card(
-      child: ListTile(
-        onTap: onTap,
-        leading: Icon(
-          completed ? Icons.check_circle : Icons.access_time,
-          color: completed ? Colors.green : Colors.orange,
+  Widget _buildProgressCard({
+    required String title,
+    required int progress,
+    required bool isCompleted,
+    IconData? icon,
+    VoidCallback? onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        elevation: 4,
+        margin: const EdgeInsets.symmetric(vertical: 8),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Icon(
+                icon ?? Icons.star,
+                size: 32,
+                color: isCompleted ? Colors.green : Colors.orange,
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    LinearProgressIndicator(
+                      value: progress / 100,
+                      backgroundColor: Colors.grey[300],
+                      color: isCompleted ? Colors.green : Colors.orange,
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      isCompleted
+                          ? 'Hoàn thành'
+                          : 'Đang hoàn thiện (${progress}%)',
+                      style: TextStyle(
+                        color: isCompleted ? Colors.green : Colors.orange,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
-        title: Text(title),
-        subtitle: LinearProgressIndicator(
-          value: progress / 100,
-          color: completed ? Colors.green : Colors.orange,
-          backgroundColor: Colors.grey[300],
-        ),
-        trailing: Text('$progress%'),
       ),
     );
   }
+
+  /// Widget hiển thị từng mục tiến độ
+
 }
