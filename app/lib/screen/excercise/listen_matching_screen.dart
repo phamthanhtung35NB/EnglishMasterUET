@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
 class ListenMatchingScreen extends StatefulWidget {
   const ListenMatchingScreen({super.key});
@@ -10,7 +11,14 @@ class ListenMatchingScreen extends StatefulWidget {
 class _ListenMatchingScreenState extends State<ListenMatchingScreen> {
   String correctAnswer = "hello world"; // Đáp án đúng
   String userAnswer = ""; // Câu trả lời của người dùng
+  FlutterTts flutterTts = FlutterTts(); // Khởi tạo đối tượng FlutterTts
 
+  // Hàm để phát âm thanh
+  void _playAudio() async {
+    await flutterTts.speak(correctAnswer); // Phát âm "hello world"
+  }
+
+  // Kiểm tra câu trả lời của người dùng
   void checkAnswer() {
     if (userAnswer.trim().toLowerCase() == correctAnswer.toLowerCase()) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -55,10 +63,7 @@ class _ListenMatchingScreenState extends State<ListenMatchingScreen> {
                 child: Row(
                   children: [
                     IconButton(
-                      onPressed: () {
-                        // Chỗ này bạn thêm logic phát âm thanh
-                        print("Play audio");
-                      },
+                      onPressed: _playAudio, // Gọi hàm phát âm thanh
                       icon: const Icon(Icons.volume_up),
                       iconSize: 40,
                       color: Colors.blue,
