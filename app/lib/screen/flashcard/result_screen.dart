@@ -66,7 +66,7 @@ class ResultScreen extends StatelessWidget {
               onPressed: () {
                 context
                     .read<AppState>()
-                    .updateScreen('Chọn Chủ Đề', TopicSelectionScreen());
+                    .updateScreen('Select a topic', TopicSelectionScreen());
               },
               child: const Text(
                 'Quay Lại',
