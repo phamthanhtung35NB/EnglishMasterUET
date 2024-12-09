@@ -70,5 +70,75 @@ List<Question> questions = [
     question: 'four pens',
     correctAnswer: ['bốn', 'cái', 'bút'],
     wordsToChooseFrom: ['bốn', 'cái', 'bút', 'sáu', 'giấy', 'xe'],
+  ),
+  Question(
+    question: 'The cat drinks milk',
+    correctAnswer: ['con', 'mèo', 'uống', 'sữa'],
+    wordsToChooseFrom: ['con', 'mèo', 'uống', 'sữa', 'nước', 'cái'],
+  ),
+  Question(
+    question: 'She eats an apple',
+    correctAnswer: ['cô', 'ấy', 'ăn', 'quả', 'táo'],
+    wordsToChooseFrom: ['cô', 'ấy', 'ăn', 'quả', 'táo', 'chuối'],
+  ),
+  Question(
+    question: 'We go to school',
+    correctAnswer: ['chúng', 'tôi', 'đi', 'đến', 'trường'],
+    wordsToChooseFrom: ['chúng', 'tôi', 'đi', 'đến', 'trường', 'nhà'],
+  ),
+  Question(
+    question: 'He plays football',
+    correctAnswer: ['anh', 'ấy', 'chơi', 'bóng', 'đá'],
+    wordsToChooseFrom: ['anh', 'ấy', 'chơi', 'bóng', 'đá', 'tennis'],
+  ),
+  Question(
+    question: 'They read books',
+    correctAnswer: ['họ', 'đọc', 'sách'],
+    wordsToChooseFrom: ['họ', 'đọc', 'sách', 'báo', 'bút', 'giấy'],
+  ),
+  Question(
+    question: 'The dog barks loudly',
+    correctAnswer: ['con', 'chó', 'sủa', 'to'],
+    wordsToChooseFrom: ['con', 'chó', 'sủa', 'to', 'mèo', 'nhỏ'],
+  ),
+  Question(
+    question: 'She writes a letter',
+    correctAnswer: ['cô', 'ấy', 'viết', 'một', 'bức', 'thư'],
+    wordsToChooseFrom: ['cô', 'ấy', 'viết', 'một', 'bức', 'thư', 'email'],
+  ),
+  Question(
+    question: 'The cat drinks milk',
+    correctAnswer: ['con', 'mèo', 'uống', 'sữa'],
+    wordsToChooseFrom: ['con', 'mèo', 'uống', 'sữa', 'nước', 'cái'],
+  ),
+  Question(
+    question: 'She eats an apple',
+    correctAnswer: ['cô', 'ấy', 'ăn', 'quả', 'táo'],
+    wordsToChooseFrom: ['cô', 'ấy', 'ăn', 'quả', 'táo', 'chuối'],
+  ),
+  Question(
+    question: 'We go to school',
+    correctAnswer: ['chúng', 'tôi', 'đi', 'đến', 'trường'],
+    wordsToChooseFrom: ['chúng', 'tôi', 'đi', 'đến', 'trường', 'nhà'],
+  ),
+  Question(
+    question: 'He plays football',
+    correctAnswer: ['anh', 'ấy', 'chơi', 'bóng', 'đá'],
+    wordsToChooseFrom: ['anh', 'ấy', 'chơi', 'bóng', 'đá', 'tennis'],
+  ),
+  Question(
+    question: 'They read books',
+    correctAnswer: ['họ', 'đọc', 'sách'],
+    wordsToChooseFrom: ['họ', 'đọc', 'sách', 'báo', 'bút', 'giấy'],
+  ),
+  Question(
+    question: 'The dog barks loudly',
+    correctAnswer: ['con', 'chó', 'sủa', 'to'],
+    wordsToChooseFrom: ['con', 'chó', 'sủa', 'to', 'mèo', 'nhỏ'],
+  ),
+  Question(
+    question: 'She writes a letter',
+    correctAnswer: ['cô', 'ấy', 'viết', 'một', 'bức', 'thư'],
+    wordsToChooseFrom: ['cô', 'ấy', 'viết', 'một', 'bức', 'thư', 'email'],
   )
 ];

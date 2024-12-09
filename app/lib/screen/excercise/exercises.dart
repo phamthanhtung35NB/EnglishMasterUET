@@ -1,3 +1,4 @@
+import 'package:english_master_uet/screen/excercise/story_collection_creen.dart';
 import 'package:english_master_uet/screen/excercise/word_matching_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -43,6 +44,14 @@ class Exercises extends StatelessWidget {
                     progress: 92,
                     isCompleted: false,
                     icon: Icons.book,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => StoryCollectionScreen(storyId: 0), // Gọi màn hình StoryCollectionScreen với storyId
+                        ),
+                      );
+                    },
                   ),
                   _buildProgressCard(
                     title: 'Phần 4: Phát âm',
@@ -119,7 +128,4 @@ class Exercises extends StatelessWidget {
       ),
     );
   }
-
-/// Widget hiển thị từng mục tiến độ
-
 }
