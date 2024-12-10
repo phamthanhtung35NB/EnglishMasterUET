@@ -80,6 +80,10 @@ class _WordMatchingScreenState extends State<WordMatchingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+        backgroundColor: Colors.blue[200],
+        title: Text('Nối Từ'),
+    ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

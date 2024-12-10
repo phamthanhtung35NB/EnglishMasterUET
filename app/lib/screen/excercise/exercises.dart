@@ -1,3 +1,5 @@
+import 'package:english_master_uet/screen/excercise/exercise_screen.dart';
+import 'package:english_master_uet/screen/excercise/story_collection_creen.dart';
 import 'package:english_master_uet/screen/excercise/word_matching_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -26,7 +28,12 @@ class Exercises extends StatelessWidget {
                     isCompleted: true,
                     icon: Icons.link,
                     onTap: () {
-                      context.read<AppState>().updateScreen('Exercise', const WordMatchingScreen());
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const WordMatchingScreen(),
+                        ),
+                      );
                     },
                   ),
                   _buildProgressCard(
@@ -35,20 +42,28 @@ class Exercises extends StatelessWidget {
                     isCompleted: true,
                     icon: Icons.headphones,
                     onTap: () {
-                      context.read<AppState>().updateScreen('Exercise', const ListenMatchingScreen());
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ListenMatchingScreen(),
+                        ),
+                      );
                     },
                   ),
                   _buildProgressCard(
-                    title: 'Phần 3: Kho truyện',
+                    title: 'Phần 3: Điền từ',
                     progress: 92,
                     isCompleted: false,
-                    icon: Icons.book,
-                  ),
-                  _buildProgressCard(
-                    title: 'Phần 4: Phát âm',
-                    progress: 92,
-                    isCompleted: false,
-                    icon: Icons.mic,
+                    icon: Icons.edit,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          // builder: (context) => const ImprovedFillInTheBlankScreen(),
+                          builder: (context) => ExerciseScreen(),
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
@@ -80,7 +95,7 @@ class Exercises extends StatelessWidget {
               Icon(
                 icon ?? Icons.star,
                 size: 32,
-                color: isCompleted ? Colors.green : Colors.orange,
+                color: isCompleted ? Colors.green : Colors.green,
               ),
               const SizedBox(width: 16),
               Expanded(
@@ -98,18 +113,9 @@ class Exercises extends StatelessWidget {
                     LinearProgressIndicator(
                       value: progress / 100,
                       backgroundColor: Colors.grey[300],
-                      color: isCompleted ? Colors.green : Colors.orange,
+                      color: isCompleted ? Colors.green : Colors.green,
                     ),
                     const SizedBox(height: 8),
-                    Text(
-                      isCompleted
-                          ? 'Hoàn thành'
-                          : 'Đang hoàn thiện (${progress}%)',
-                      style: TextStyle(
-                        color: isCompleted ? Colors.green : Colors.orange,
-                        fontSize: 14,
-                      ),
-                    ),
                   ],
                 ),
               ),
@@ -119,7 +125,4 @@ class Exercises extends StatelessWidget {
       ),
     );
   }
-
-/// Widget hiển thị từng mục tiến độ
-
 }

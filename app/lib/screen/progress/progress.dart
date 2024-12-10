@@ -9,6 +9,7 @@ import 'learned_words_screen.dart';
 class ProgressScreen extends StatelessWidget {
   // Mock data - trong thực tế sẽ lấy từ state management (Provider/Bloc...)
   final Map<String, dynamic> stats = {
+    'exercisesCompleted': '1', // Số bài tập đã làm
     'wordsLearned': 245,
     'topicsCompleted': 8,
     'streak': 7,
@@ -17,27 +18,26 @@ class ProgressScreen extends StatelessWidget {
     'dailyGoal': '85%',
   };
 
+  // Thêm hàm format duration
+  String _formatDuration(Duration duration) {
+    int hours = duration.inHours;
+    int minutes = duration.inMinutes.remainder(60);
+    return '$hours h ${minutes.toString().padLeft(2, '0')} m';
+  }
+
   @override
   Widget build(BuildContext context) {
     final userProgress = context.watch<UserProgress>();
     return Scaffold(
       backgroundColor: Colors.grey[100],
-      appBar: AppBar(
-        title: Text('Tiến độ học tập'),
-        elevation: 0,
-      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Header
-              Text(
-                'Tổng quan',
-                style: Theme.of(context).textTheme.headlineSmall,
-              ),
-              const SizedBox(height: 16),
+
+              _buildUserHeader(context),
 
               // Stats Grid
               GridView.count(
@@ -86,8 +86,8 @@ class ProgressScreen extends StatelessWidget {
                     context,
                     icon: FontAwesomeIcons.trophy,
                     iconColor: Colors.amber,
-                    title: 'Thời gian học',
-                    value: '${stats['streak']}',
+                    title: 'Chuỗi ngày học',
+                    value:  '${userProgress.loginStreak}',
                     subtitle: 'ngày',
                   ),
 
@@ -117,7 +117,7 @@ class ProgressScreen extends StatelessWidget {
                 icon: FontAwesomeIcons.clock,
                 iconColor: Colors.purple,
                 title: 'Tổng thời gian học',
-                value: stats['totalStudyTime'],
+                value: '${userProgress.totalStudyTime.inHours}h ${(userProgress.totalStudyTime.inMinutes % 60)}m',
                 subtitle: 'giờ học',
               ),
 
@@ -132,9 +132,76 @@ class ProgressScreen extends StatelessWidget {
                 value: stats['dailyGoal'],
                 subtitle: 'hoàn thành',
               ),
+              const SizedBox(height: 16),
+
+              // Bài tập đã làm
+              _buildWideCard(
+                context,
+                icon: FontAwesomeIcons.checkCircle,
+                iconColor: Colors.teal,
+                title: 'Bài tập đã hoàn thành',
+                value: stats['exercisesCompleted'] ?? '0', // Thêm giá trị mặc định
+                subtitle: 'bài tập',
+              ),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  // Widget header với thông tin người dùng
+  Widget _buildUserHeader(BuildContext context) {
+    final userProgress = Provider.of<UserProgress>(context);
+
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [Colors.blue.shade300, Colors.blue.shade600],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(20),
+          bottomRight: Radius.circular(20),
+        ),
+      ),
+      child: Row(
+        children: [
+          // Avatar
+          CircleAvatar(
+            radius: 40,
+            backgroundColor: Colors.white,
+            child: Icon(
+              Icons.person,
+              size: 40,
+              color: Colors.blue.shade600,
+            ),
+          ),
+          const SizedBox(width: 16),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Xin chào!',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
+              Text(
+                userProgress.userName, // Sử dụng tên người dùng từ UserProgress
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
