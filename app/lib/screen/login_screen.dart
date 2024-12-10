@@ -36,8 +36,14 @@ class _LoginScreenState extends State<LoginScreen> {
       print("UID: $result");
       if (result.length == 28) {
 
-        // Bắt đầu theo dõi thời gian học
-        Provider.of<UserProgress>(context, listen: false).startStudyTracking();
+        // Lấy UserProgress từ context và cập nhật thời gian đăng nhập
+        final userProgress = Provider.of<UserProgress>(context, listen: false);
+        userProgress.updateLoginTime();
+
+        // Trích xuất tên người dùng từ email (ví dụ)
+        String userName = _usernameController.text.split('@')[0];
+        userProgress.setUserName(userName);
+
         // Assuming UID is 28 characters long
         Navigator.pushReplacement(
           context,
