@@ -57,11 +57,9 @@ class _FlashcardScreenState extends State<FlashcardScreen>
       _isListening = true;
       _animationController.repeat(reverse: true);
     });
-
     await flutterTts.setLanguage("en-US");
     await flutterTts.setPitch(1.0);
     await flutterTts.setSpeechRate(0.4);
-
     flutterTts.setCompletionHandler(() {
       setState(() {
         _isListening = false;
@@ -69,7 +67,6 @@ class _FlashcardScreenState extends State<FlashcardScreen>
         _animationController.reset();
       });
     });
-
     await flutterTts.speak(word);
   }
 
@@ -141,7 +138,7 @@ class _FlashcardScreenState extends State<FlashcardScreen>
     }
 
     return Scaffold(
-      backgroundColor: Colors.blue[25],
+      backgroundColor: Colors.blue[50],
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
@@ -298,11 +295,11 @@ class _FlashcardScreenState extends State<FlashcardScreen>
                         height: 2.0,
                       ),
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.circular(25),
                         borderSide: BorderSide.none,
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.circular(25),
                         borderSide: BorderSide(
                           color: Colors.blue.shade400,
                           width: 2,
@@ -351,7 +348,7 @@ class _FlashcardScreenState extends State<FlashcardScreen>
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 12),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
+                            borderRadius: BorderRadius.circular(25),
                           ),
                         ),
                         child: const Text('Xác Nhận',

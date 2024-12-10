@@ -12,7 +12,7 @@ class Flashcard extends StatelessWidget {
       height: 200,
       decoration: BoxDecoration(
         color: Colors.blue,
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(25),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.2),
