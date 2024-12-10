@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../data/questions.dart';
 
 class WordMatchingScreen extends StatefulWidget {
   const WordMatchingScreen({super.key});
@@ -8,36 +9,83 @@ class WordMatchingScreen extends StatefulWidget {
 }
 
 class _WordMatchingScreenState extends State<WordMatchingScreen> {
-  List<String> words = ["ấy", "cà", "ép", "cái", "chai", "Hôm", "hai", "mười"];
-  List<String> selectedWords = [];
+  int currentQuestionIndex = 0; // Chỉ số câu hỏi hiện tại
+  List<String> words = []; // Các từ có sẵn để người dùng chọn
+  List<String> selectedWords = []; // Các từ người dùng đã chọn
+  String currentQuestion = ''; // Câu hỏi hiện tại
 
+  // Hàm để nạp câu hỏi
+  void loadQuestions() {
+    setState(() {
+      currentQuestion =
+          questions[currentQuestionIndex].question; // Câu hỏi tiếng Anh
+      words = List<String>.from(
+          questions[currentQuestionIndex].wordsToChooseFrom); // Các từ cần chọn
+    });
+  }
+
+  // Hàm xử lý khi người dùng chọn hoặc bỏ chọn một từ
   void onWordTap(String word) {
     setState(() {
       if (selectedWords.contains(word)) {
-        selectedWords.remove(word);
+        selectedWords.remove(word); // Nếu từ đã chọn thì bỏ chọn
       } else {
-        selectedWords.add(word);
+        selectedWords.add(word); // Nếu chưa chọn thì thêm vào danh sách
       }
     });
+  }
+
+  // Hàm kiểm tra đáp án và chuyển sang câu hỏi tiếp theo
+  void checkAnswer() {
+    if (selectedWords.join(" ") ==
+        questions[currentQuestionIndex].correctAnswer.join(" ")) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Chính xác!'),
+          backgroundColor: Colors.green,
+        ),
+      );
+
+      setState(() {
+        if (currentQuestionIndex < questions.length - 1) {
+          currentQuestionIndex++; // Chuyển sang câu hỏi tiếp theo
+          selectedWords.clear(); // Xóa các từ đã chọn
+          loadQuestions(); // Nạp câu hỏi mới
+        } else {
+          // Nếu đã hết câu hỏi
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Bạn đã hoàn thành tất cả câu hỏi!'),
+              backgroundColor: Colors.blue,
+            ),
+          );
+        }
+      });
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Sai rồi, hãy thử lại!'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
+  @override
+  void initState() {
+    super.initState();
+    questions = getRandomizedQuestions(questions); // Randomize both question order and words
+    loadQuestions();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: const Icon(Icons.book, color: Colors.white),
-        title: const Text(
-          'Bài tập Nối từ',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.blueAccent,
-      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Hiển thị câu hỏi bằng tiếng Anh
             Card(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
@@ -61,17 +109,18 @@ class _WordMatchingScreenState extends State<WordMatchingScreen> {
                     const Text(
                       'Viết lại bằng Tiếng Việt',
                       style: TextStyle(
-                        fontSize: 24,
+                        fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     const SizedBox(height: 16),
                     Row(
                       children: [
-                        const Icon(Icons.volume_up, size: 28, color: Colors.blue),
+                        const Icon(Icons.volume_up,
+                            size: 28, color: Colors.blue),
                         const SizedBox(width: 8),
                         Text(
-                          'twelve bottles',
+                          currentQuestion, // Hiển thị câu hỏi tiếng Anh
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -84,6 +133,7 @@ class _WordMatchingScreenState extends State<WordMatchingScreen> {
                 ),
               ),
             ),
+            // Phần tiếp theo của UI
             Container(
               height: 60,
               padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -162,7 +212,6 @@ class _WordMatchingScreenState extends State<WordMatchingScreen> {
                 }).toList(),
               ),
             ),
-            const SizedBox(height: 16),
             Center(
               child: ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
@@ -170,26 +219,10 @@ class _WordMatchingScreenState extends State<WordMatchingScreen> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 14, horizontal: 32),
+                  padding:
+                  const EdgeInsets.symmetric(vertical: 14, horizontal: 32),
                 ),
-                onPressed: () {
-                  if (selectedWords.join(" ") == "mười hai chai") {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Chính xác!'),
-                        backgroundColor: Colors.green,
-                      ),
-                    );
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Sai rồi, hãy thử lại!'),
-                        backgroundColor: Colors.red,
-                      ),
-                    );
-                  }
-                },
+                onPressed: checkAnswer,
                 icon: const Icon(Icons.check_circle, color: Colors.white),
                 label: const Text(
                   'Hoàn thành',
@@ -197,6 +230,7 @@ class _WordMatchingScreenState extends State<WordMatchingScreen> {
                 ),
               ),
             ),
+            const SizedBox(height: 36),
           ],
         ),
       ),

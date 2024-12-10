@@ -120,6 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  bool _isPasswordVisible = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -188,11 +189,21 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 50.0,
                   child: TextField(
                     controller: _passwordController,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       labelText: 'Mật khẩu',
                       border: OutlineInputBorder(),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _isPasswordVisible = !_isPasswordVisible;
+                          });
+                        },
+                      ),
                     ),
-                    obscureText: true,
+                    obscureText: !_isPasswordVisible, // Ẩn/hiện mật khẩu
                   ),
                 ),
                 const SizedBox(height: 16.0),
@@ -212,7 +223,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   label: const Text(
                     'Đăng nhập bằng Google',
-                    style: TextStyle(fontSize: 16),
                   ),
                 ),
                 const SizedBox(height: 10.0),

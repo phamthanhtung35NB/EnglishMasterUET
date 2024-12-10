@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:english_master_uet/screen/home_screen.dart';
 import 'package:english_master_uet/screen/progress/progress.dart';
 import 'package:english_master_uet/screen/flashcard/flashcard_screen.dart';
-import 'package:english_master_uet/screen/excercise/Exercises.dart';
+import 'package:english_master_uet/screen/excercise/exercises.dart';
 import 'package:english_master_uet/screen/translate_screen.dart';
 
 class BottomAppBarWidget extends StatelessWidget {
@@ -15,6 +15,7 @@ class BottomAppBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ConvexAppBar(
+      backgroundColor: const Color(0xFF3478DC),
       style: TabStyle.react,
       items: [
         TabItem(icon: Image.asset('assets/images/home.png'), title: 'Progress'),
@@ -29,10 +30,10 @@ class BottomAppBarWidget extends StatelessWidget {
             context.read<AppState>().updateScreen('Progress', ProgressScreen());
             break;
           case 1:
-            context.read<AppState>().updateScreen('Chọn Chủ Đề', TopicSelectionScreen());
+            context.read<AppState>().updateScreen('Select a topic', TopicSelectionScreen());
             break;
           case 2:
-            context.read<AppState>().updateScreen('Exercise', const progressScreen());
+            context.read<AppState>().updateScreen('Exercise', const Exercises());
             break;
           case 3:
             context.read<AppState>().updateScreen('Translate', TranslateScreen());
