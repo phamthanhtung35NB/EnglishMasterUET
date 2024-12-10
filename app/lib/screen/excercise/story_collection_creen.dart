@@ -1,161 +1,137 @@
 import 'package:flutter/material.dart';
 
-class StoryCollectionScreen extends StatefulWidget {
-  final int storyId;
-  const StoryCollectionScreen({super.key, required this.storyId});
-
+class WordFillGameScreen extends StatefulWidget {
   @override
-  _StoryCollectionScreenState createState() => _StoryCollectionScreenState();
+  _WordFillGameScreenState createState() => _WordFillGameScreenState();
 }
 
-class _StoryCollectionScreenState extends State<StoryCollectionScreen> {
-  final _controllers = <String, TextEditingController>{};
-  int _correctAnswers = 0;
-  String _feedback = '';
+class _WordFillGameScreenState extends State<WordFillGameScreen> {
+  final List<String> wordsToChoose = ["dog", "forest", "mountain", "river"];
+  final List<String> correctAnswer = ["dog", "forest"];
+  final List<String> selectedWords = [];
 
-  final List<Map<String, dynamic>> _storyExercises = [
-    {
-      'story': 'Once upon a time, there was a ____ (animal) living in the ____ (place).',
-      'answers': ['dog', 'forest'],
-      'placeholders': ['____ (animal)', '____ (place)'],
-    },
-    {
-      'story': 'The ____ (time) was cold and the ____ (animal) was searching for food.',
-      'answers': ['winter', 'fox'],
-      'placeholders': ['____ (time)', '____ (animal)'],
-    },
-    {
-      'story': 'She walked through the ____ (place) and saw a ____ (object) on the ground.',
-      'answers': ['forest', 'rock'],
-      'placeholders': ['____ (place)', '____ (object)'],
-    },
-  ];
+  void checkAnswer() {
+    bool isCorrect = selectedWords.length == correctAnswer.length &&
+        selectedWords.every((word) => correctAnswer.contains(word));
 
-  @override
-  void initState() {
-    super.initState();
-    for (var i = 0; i < _storyExercises[widget.storyId]['placeholders'].length; i++) {
-      _controllers[_storyExercises[widget.storyId]['placeholders'][i]] = TextEditingController();
-    }
-  }
-
-  @override
-  void dispose() {
-    _controllers.forEach((_, controller) {
-      controller.dispose();
-    });
-    super.dispose();
-  }
-
-  void _checkAnswers() {
-    final answers = _storyExercises[widget.storyId]['answers'] as List<String>;
-    int correctCount = 0;
-    String feedbackText = '';
-
-    _controllers.forEach((placeholder, controller) {
-      final userInput = controller.text.trim().toLowerCase();
-      final answer = answers[_controllers.keys.toList().indexOf(placeholder)].toLowerCase();
-
-      if (userInput == answer) {
-        correctCount++;
-      }
-    });
-
-    if (correctCount == answers.length) {
-      feedbackText = 'Chúc mừng bạn! Câu trả lời đúng!';
+    if (isCorrect) {
+      // Hiệu ứng hoàn thành
+      showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: Image.asset('assets/images/success.png'), // Sử dụng hình ảnh thay vì Lottie
+          content: const Text('🎉 Chúc mừng! Bạn đã trả lời chính xác!'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Tiếp tục'),
+            ),
+          ],
+        ),
+      );
     } else {
-      feedbackText = 'Có $correctCount/ ${answers.length} câu trả lời đúng. Hãy thử lại!';
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('❌ Sai rồi, hãy thử lại!'),
+          backgroundColor: Colors.red,
+        ),
+      );
     }
-
-    setState(() {
-      _correctAnswers = correctCount;
-      _feedback = feedbackText;
-    });
-  }
-
-  void _retryExercise() {
-    _controllers.forEach((_, controller) {
-      controller.clear();
-    });
-    setState(() {
-      _correctAnswers = 0;
-      _feedback = '';
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-    final story = _storyExercises[widget.storyId];
-
     return Scaffold(
+      backgroundColor: Colors.lightBlue[50],
       appBar: AppBar(
-        title: Text('Bài tập đục lỗ - Truyện ${widget.storyId + 1}'),
-        backgroundColor: Colors.blue,
+        title: const Text('Điền từ vào câu'),
+        backgroundColor: Colors.purpleAccent,
+        elevation: 0,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Bài tập đục lỗ cho Truyện ${widget.storyId + 1}',
-              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const SizedBox(height: 16),
+          // Câu chuyện
+          Card(
+            margin: const EdgeInsets.all(16),
+            color: Colors.white,
+            elevation: 4,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
             ),
-            const SizedBox(height: 16),
-            _buildStoryText(story),
-            const SizedBox(height: 16),
-            _buildHoleFillingTextFields(story),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: _checkAnswers,
-              child: const Text('Kiểm tra'),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              _feedback,
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: _feedback.contains('Chúc mừng') ? Colors.green : Colors.red,
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: RichText(
+                text: const TextSpan(
+                  style: TextStyle(fontSize: 18, color: Colors.black87),
+                  children: [
+                    TextSpan(text: 'Once upon a time, there was a '),
+                    TextSpan(
+                      text: '______',
+                      style: TextStyle(
+                          backgroundColor: Colors.yellowAccent,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    TextSpan(text: ' living in the '),
+                    TextSpan(
+                      text: '______',
+                      style: TextStyle(
+                          backgroundColor: Colors.yellowAccent,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    TextSpan(text: '.'),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height: 16),
-            if (_correctAnswers == story['answers'].length)
-              ElevatedButton(
-                onPressed: _retryExercise,
-                child: const Text('Chơi lại'),
-              ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildStoryText(Map<String, dynamic> story) {
-    String storyText = story['story'];
-    for (var placeholder in story['placeholders']) {
-      storyText = storyText.replaceFirst(placeholder, '____');
-    }
-    return Text(
-      storyText,
-      style: const TextStyle(fontSize: 18),
-    );
-  }
-
-  Widget _buildHoleFillingTextFields(Map<String, dynamic> story) {
-    return Column(
-      children: story['placeholders'].map<Widget>((placeholder) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: TextField(
-            controller: _controllers[placeholder],
-            decoration: InputDecoration(
-              labelText: 'Điền vào: $placeholder',
-              border: OutlineInputBorder(),
             ),
           ),
-        );
-      }).toList(),
+          const SizedBox(height: 16),
+
+          // Các từ cần chọn
+          Wrap(
+            spacing: 10,
+            runSpacing: 10,
+            children: wordsToChoose.map((word) {
+              return ChoiceChip(
+                label: Text(
+                  word,
+                  style: const TextStyle(fontSize: 16),
+                ),
+                selected: selectedWords.contains(word),
+                onSelected: (selected) {
+                  setState(() {
+                    if (selected) {
+                      selectedWords.add(word);
+                    } else {
+                      selectedWords.remove(word);
+                    }
+                  });
+                },
+                selectedColor: Colors.greenAccent,
+                backgroundColor: Colors.white,
+                elevation: 2,
+              );
+            }).toList(),
+          ),
+
+          const Spacer(),
+
+          // Nút kiểm tra
+          ElevatedButton.icon(
+            onPressed: checkAnswer,
+            icon: const Icon(Icons.check_circle, color: Colors.white),
+            label: const Text('Kiểm tra'),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.green,
+              padding:
+              const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+              textStyle: const TextStyle(fontSize: 18),
+            ),
+          ),
+          const SizedBox(height: 36),
+        ],
+      ),
     );
   }
 }
