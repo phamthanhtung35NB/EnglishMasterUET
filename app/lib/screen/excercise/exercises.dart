@@ -48,16 +48,10 @@ class Exercises extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => StoryCollectionScreen(storyId: 0), // Gọi màn hình StoryCollectionScreen với storyId
+                          builder: (context) => WordFillGameScreen(), // Loại bỏ tham số storyId
                         ),
                       );
                     },
-                  ),
-                  _buildProgressCard(
-                    title: 'Phần 4: Phát âm',
-                    progress: 92,
-                    isCompleted: false,
-                    icon: Icons.mic,
                   ),
                 ],
               ),
