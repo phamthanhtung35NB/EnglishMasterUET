@@ -20,33 +20,56 @@ class FlashcardScreen extends StatefulWidget {
   _FlashcardScreenState createState() => _FlashcardScreenState();
 }
 
-class _FlashcardScreenState extends State<FlashcardScreen> {
+class _FlashcardScreenState extends State<FlashcardScreen>
+    with SingleTickerProviderStateMixin {
   int currentIndex = 0;
   int correctAnswers = 0;
-  GlobalKey<FlipCardState> cardKey = GlobalKey<FlipCardState>();
-
+  bool _isListening = false;
   bool isAnswerCorrect = false;
   late FlutterTts flutterTts;
   late AudioPlayer audioPlayer;
+  late AnimationController _animationController;
+  GlobalKey<FlipCardState> cardKey = GlobalKey<FlipCardState>();
 
   @override
   void initState() {
     super.initState();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+      lowerBound: 0.4,
+      upperBound: 0.6,
+    );
     flutterTts = FlutterTts();
     audioPlayer = AudioPlayer();
   }
 
   @override
   void dispose() {
+    _animationController.dispose();
     flutterTts.stop();
     audioPlayer.dispose();
     super.dispose();
   }
 
   Future<void> _speakWord(String word) async {
+    setState(() {
+      _isListening = true;
+      _animationController.repeat(reverse: true);
+    });
+
     await flutterTts.setLanguage("en-US");
     await flutterTts.setPitch(1.0);
     await flutterTts.setSpeechRate(0.4);
+
+    flutterTts.setCompletionHandler(() {
+      setState(() {
+        _isListening = false;
+        _animationController.stop();
+        _animationController.reset();
+      });
+    });
+
     await flutterTts.speak(word);
   }
 
@@ -63,7 +86,7 @@ class _FlashcardScreenState extends State<FlashcardScreen> {
   Widget build(BuildContext context) {
     final words = topicWords[widget.topic]!;
     final currentWord = words[currentIndex];
-    // Kiểm tra câu tra lời
+    // Kiểm tra câu trả lời
     void checkAnswer(String input) {
       setState(() {
         isAnswerCorrect =
@@ -118,13 +141,13 @@ class _FlashcardScreenState extends State<FlashcardScreen> {
     }
 
     return Scaffold(
-      backgroundColor: Colors.blue[50],
+      backgroundColor: Colors.blue[25],
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 20.0, bottom: 10.0),
+              padding: const EdgeInsets.only(top: 0, bottom: 10.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -132,9 +155,16 @@ class _FlashcardScreenState extends State<FlashcardScreen> {
                     'Từ ${currentIndex + 1}/${words.length}',
                     style: TextStyle(color: Colors.blue[600]),
                   ),
-                  IconButton(
-                    icon: Icon(Icons.volume_up, color: Colors.blue[400]),
-                    onPressed: () => _speakWord(currentWord.word),
+                  ScaleTransition(
+                    scale: _animationController,
+                    child: IconButton(
+                      icon: Icon(
+                        _isListening ? Icons.music_note : Icons.volume_up,
+                        color: _isListening ? Colors.blue[300] : Colors.blue,
+                        size: 48,
+                      ),
+                      onPressed: () => _speakWord(currentWord.word),
+                    ),
                   ),
                 ],
               ),
@@ -197,42 +227,142 @@ class _FlashcardScreenState extends State<FlashcardScreen> {
 
   // Yêu cầu nhập từ vừa học
   void _showInputDialog(BuildContext context, Function(String) checkAnswer) {
-    TextEditingController inputController = TextEditingController();
+    final TextEditingController inputController = TextEditingController();
+    final FocusNode focusNode = FocusNode();
     bool isEmpty = false;
 
     showDialog(
       context: context,
+      barrierDismissible: false,
       builder: (context) => StatefulBuilder(
         builder: (context, setState) {
-          return AlertDialog(
-            title: const Text("Nhập Từ"),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                TextField(
-                  controller: inputController,
-                  decoration: InputDecoration(
-                    hintText: "Nhập từ của bạn",
-                    errorText: isEmpty ? "Vui lòng nhập từ" : null,
-                  ),
+          return Dialog(
+            backgroundColor: Colors.transparent,
+            child: Container(
+              width: 330,
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Colors.blue.shade50,
+                    Colors.blue.shade100,
+                  ],
                 ),
-              ],
-            ),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  if (inputController.text.trim().isEmpty) {
-                    setState(() {
-                      isEmpty = true;
-                    });
-                  } else {
-                    Navigator.pop(context);
-                    checkAnswer(inputController.text);
-                  }
-                },
-                child: const Text("Xác Nhận"),
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.blue.shade200.withOpacity(0.5),
+                    blurRadius: 25,
+                    spreadRadius: 5,
+                    offset: const Offset(0, 10),
+                  )
+                ],
               ),
-            ],
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'Kiểm tra',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w800,
+                      color: Colors.blue.shade800,
+                      letterSpacing: 1.2,
+                    ),
+                  ),
+                  const SizedBox(height: 25),
+                  TextField(
+                    controller: inputController,
+                    focusNode: focusNode,
+                    autofocus: true,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.blue.shade900,
+                      fontSize: 22,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white.withOpacity(0.7),
+                      hintText: 'Nhập từ bạn vừa học',
+                      errorText: isEmpty ? "Vui lòng nhập từ" : null,
+                      hintStyle: TextStyle(
+                        color: Colors.blue.shade300,
+                        fontSize: 18,
+                      ),
+                      errorStyle: const TextStyle(
+                        color: Colors.red,
+                        fontSize: 14,
+                        height: 2.0,
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: BorderSide.none,
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: BorderSide(
+                          color: Colors.blue.shade400,
+                          width: 2,
+                        ),
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 15, horizontal: 20),
+                    ),
+                    onSubmitted: (value) {
+                      if (value.trim().isNotEmpty) {
+                        Navigator.pop(context);
+                        checkAnswer(value);
+                      }
+                    },
+                  ),
+                  const SizedBox(height: 25),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        style: TextButton.styleFrom(
+                          foregroundColor: Colors.blue.shade700,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 12),
+                        ),
+                        child: const Text('Huỷ Bỏ',
+                            style: TextStyle(fontSize: 16)),
+                      ),
+                      const SizedBox(width: 15),
+                      ElevatedButton(
+                        onPressed: () {
+                          if (inputController.text.trim().isEmpty) {
+                            setState(() {
+                              isEmpty = true;
+                            });
+                          } else {
+                            Navigator.pop(context);
+                            checkAnswer(inputController.text);
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue.shade500,
+                          foregroundColor: Colors.white,
+                          elevation: 5,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 12),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
+                        child: const Text('Xác Nhận',
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.w500)),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
           );
         },
       ),
