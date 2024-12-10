@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'learned_word.dart'; // Đảm bảo import class LearnedWord
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,6 +11,42 @@ class UserProgress extends ChangeNotifier {
   Map<String, Set<String>> _learnedTopics = {};
   List<LearnedWord> _allLearnedWords = [];
   List<LearnedWord> _favoriteWords = [];
+
+  DateTime? _loginTime;
+  Duration _totalStudyTime = Duration.zero;
+  Timer? _studyTimer;
+
+  DateTime? get loginTime => _loginTime;
+  Duration get totalStudyTime => _totalStudyTime;
+
+  void startStudyTracking() {
+    _loginTime = DateTime.now();
+    // Bắt đầu timer cập nhật thời gian học mỗi giây
+    _studyTimer = Timer.periodic(Duration(seconds: 1), (timer) {
+      _totalStudyTime = DateTime.now().difference(_loginTime!);
+      notifyListeners();
+    });
+  }
+
+  void stopStudyTracking() {
+    _studyTimer?.cancel();
+  }
+
+  // Phương thức để format thời gian học thành chuỗi dễ đọc
+  String formatStudyTime() {
+    int hours = _totalStudyTime.inHours;
+    int minutes = _totalStudyTime.inMinutes.remainder(60);
+    int seconds = _totalStudyTime.inSeconds.remainder(60);
+    return '${hours}h ${minutes}m';
+  }
+
+  // Thêm phương thức reset khi logout
+  void resetStudyTime() {
+    _loginTime = null;
+    _totalStudyTime = Duration.zero;
+    _studyTimer?.cancel();
+    notifyListeners();
+  }
 
   UserProgress() {
     // Load saved progress when the class is initialized

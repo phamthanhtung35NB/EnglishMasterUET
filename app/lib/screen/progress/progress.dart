@@ -17,15 +17,18 @@ class ProgressScreen extends StatelessWidget {
     'dailyGoal': '85%',
   };
 
+  // Thêm hàm format duration
+  String _formatDuration(Duration duration) {
+    int hours = duration.inHours;
+    int minutes = duration.inMinutes.remainder(60);
+    return '$hours h ${minutes.toString().padLeft(2, '0')} m';
+  }
+
   @override
   Widget build(BuildContext context) {
     final userProgress = context.watch<UserProgress>();
     return Scaffold(
       backgroundColor: Colors.grey[100],
-      appBar: AppBar(
-        title: Text('Tiến độ học tập'),
-        elevation: 0,
-      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -117,7 +120,7 @@ class ProgressScreen extends StatelessWidget {
                 icon: FontAwesomeIcons.clock,
                 iconColor: Colors.purple,
                 title: 'Tổng thời gian học',
-                value: stats['totalStudyTime'],
+                value: userProgress.formatStudyTime(), // Sử dụng phương thức mới
                 subtitle: 'giờ học',
               ),
 

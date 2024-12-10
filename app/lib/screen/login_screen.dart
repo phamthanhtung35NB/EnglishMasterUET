@@ -3,6 +3,9 @@ import 'package:english_master_uet/controller/login_controller.dart';
 import 'package:english_master_uet/screen/home_screen.dart';
 import 'package:english_master_uet/screen/register_screen.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
+
+import '../model/user_progress.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -32,6 +35,9 @@ class _LoginScreenState extends State<LoginScreen> {
     if (result != null) {
       print("UID: $result");
       if (result.length == 28) {
+
+        // Bắt đầu theo dõi thời gian học
+        Provider.of<UserProgress>(context, listen: false).startStudyTracking();
         // Assuming UID is 28 characters long
         Navigator.pushReplacement(
           context,
@@ -54,6 +60,8 @@ class _LoginScreenState extends State<LoginScreen> {
     if (result != null) {
       print("UID: $result");
       if (result.length == 28) {
+
+
         // Navigator.pushReplacement(
         //   context,
         //   MaterialPageRoute(
