@@ -61,11 +61,15 @@ class _FlashcardScreenState extends State<FlashcardScreen>
     await flutterTts.setPitch(1.0);
     await flutterTts.setSpeechRate(0.4);
     flutterTts.setCompletionHandler(() {
-      setState(() {
-        _isListening = false;
-        _animationController.stop();
-        _animationController.reset();
-      });
+      if (mounted) {
+        setState(() {
+          _isListening = false;
+          if (_animationController.isAnimating) {
+            _animationController.stop();
+            _animationController.reset();
+          }
+        });
+      }
     });
     await flutterTts.speak(word);
   }
@@ -104,8 +108,7 @@ class _FlashcardScreenState extends State<FlashcardScreen>
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          backgroundColor:
-              isAnswerCorrect ? Colors.green[100] : Colors.red[100],
+          backgroundColor: isAnswerCorrect ? Colors.green[100] : Colors.red[100],
           title: Text(
             isAnswerCorrect ? "Chính xác!" : "Sai rồi!",
             style: const TextStyle(fontWeight: FontWeight.bold),
@@ -116,8 +119,11 @@ class _FlashcardScreenState extends State<FlashcardScreen>
                 : "Từ đúng là: ${currentWord.word}",
           ),
         ),
-      );
-
+      ).then((_) {
+        if (mounted && Navigator.canPop(context)) {
+          Navigator.pop(context);
+        }
+      });
       Future.delayed(const Duration(milliseconds: 800), () {
         Navigator.pop(context);
         if (currentIndex < words.length - 1) {

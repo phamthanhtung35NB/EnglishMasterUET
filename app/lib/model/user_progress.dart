@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'learned_word.dart'; // Đảm bảo import class LearnedWord
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,6 +11,21 @@ class UserProgress extends ChangeNotifier {
 
   String _userName = "Học viên English Master"; // Giá trị mặc định
 
+
+  // Thêm thuộc tính để theo dõi số bài tập đã hoàn thành
+  int _completedExercises = 0;
+
+  // Getter để lấy số bài tập đã hoàn thành
+  int get completedExercises => _completedExercises;
+
+  // Phương thức để tăng số bài tập đã hoàn thành
+  void incrementCompletedExercises() {
+    _completedExercises++;
+    _saveProgress();
+    notifyListeners();
+  }
+
+
   // Thêm getter và setter
   String get userName => _userName;
 
@@ -19,13 +36,18 @@ class UserProgress extends ChangeNotifier {
   }
 
   DateTime? _appStartTime;
-  Duration _totalStudyTime = Duration.zero;
+
 
   Map<String, Set<String>> _learnedTopics = {};
   List<LearnedWord> _allLearnedWords = [];
   List<LearnedWord> _favoriteWords = [];
   DateTime? _lastLoginTime; // Thêm thuộc tính này
-  int _loginStreak = 0; // Thêm thuộc tính này để theo dõi streak
+  int _loginStreak = 1; // Thêm thuộc tính này để theo dõi streak
+
+  // New properties for study time tracking
+  DateTime? _studyStartTime;
+  Duration _totalStudyTime = Duration.zero;
+  Timer? _studyTimer;
 
   UserProgress() {
     // Load saved progress when the class is initialized
@@ -33,18 +55,93 @@ class UserProgress extends ChangeNotifier {
   }
 
 
+  // Start tracking study time when user logs in
+  void startStudyTime() {
+    if (_studyStartTime == null) {
+      _studyStartTime = DateTime.now();
 
-  // Phương thức để format thời gian học thành chuỗi dễ đọc
-  String formatStudyTime() {
-    int hours = _totalStudyTime.inHours;
-    int minutes = _totalStudyTime.inMinutes.remainder(60);
-    int seconds = _totalStudyTime.inSeconds.remainder(60);
-    return '${hours}h ${minutes}m ${seconds}s';
+      // Start a periodic timer to update total study time
+      _studyTimer = Timer.periodic(Duration(minutes: 1), (timer) {
+        _updateTotalStudyTime();
+      });
+    }
   }
+
+  // Stop tracking study time when user logs out or app is closed
+  void stopStudyTime() {
+    if (_studyStartTime != null) {
+      _updateTotalStudyTime();
+      _studyTimer?.cancel();
+      _studyStartTime = null;
+      _saveProgress();
+    }
+  }
+
+  // Update total study time
+  void _updateTotalStudyTime() {
+    if (_studyStartTime != null) {
+      _totalStudyTime += DateTime.now().difference(_studyStartTime!);
+      _studyStartTime = DateTime.now(); // Reset start time to current time
+      notifyListeners();
+    }
+  }
+
+  // Get formatted total study time
+  String getFormattedStudyTime() {
+    int totalMinutes = _totalStudyTime.inMinutes;
+    int hours = totalMinutes ~/ 60;
+    int minutes = totalMinutes % 60;
+    return '${hours}h ${minutes}m';
+  }
+
+  //--------------------
+  // Thêm các thuộc tính mới cho mục tiêu học tập
+  int _monthlyWordGoal = 50; // Mục tiêu mặc định
+  int _currentMonthLearnedWords = 0;
+
+  // Getter và setter cho mục tiêu học từ vựng
+  int get monthlyWordGoal => _monthlyWordGoal;
+  int get currentMonthLearnedWords => _currentMonthLearnedWords;
+
+  // Phương thức đặt mục tiêu hàng tháng
+  void setMonthlyWordGoal(int goal) {
+    _monthlyWordGoal = goal;
+    _saveProgress();
+    notifyListeners();
+  }
+
+  // Phương thức kiểm tra và cập nhật số từ học trong tháng
+  void updateMonthlyLearnedWords(LearnedWord word) {
+    // Chỉ tăng nếu từ được học trong tháng hiện tại
+    if (word.learnedDate.month == DateTime.now().month &&
+        word.learnedDate.year == DateTime.now().year) {
+      _currentMonthLearnedWords++;
+      _saveProgress();
+      notifyListeners();
+    }
+  }
+
+  // Phương thức tính phần trăm hoàn thành mục tiêu
+  double getMonthlyGoalCompletionPercentage() {
+    return _monthlyWordGoal > 0
+        ? (_currentMonthLearnedWords / _monthlyWordGoal * 100).clamp(0, 100)
+        : 0.0;
+  }
+
+
 
   // Tải tiến trình từ SharedPreferences
   Future<void> _loadSavedProgress() async {
     final prefs = await SharedPreferences.getInstance();
+
+    // Tải số bài tập đã hoàn thành
+    _completedExercises = prefs.getInt('completed_exercises') ?? 0;
+
+    // Load study time
+    final savedStudyTimeJson = prefs.getString('total_study_time');
+    if (savedStudyTimeJson != null) {
+      _totalStudyTime = Duration(minutes: int.parse(savedStudyTimeJson));
+    }
 
 
     // Tải thông tin đăng nhập cuối cùng
@@ -63,7 +160,7 @@ class UserProgress extends ChangeNotifier {
     final savedStudyTimeInSeconds = prefs.getInt('total_study_time') ?? 0;
     _totalStudyTime = Duration(seconds: savedStudyTimeInSeconds);
 
-    // Load learned topics
+    // Existing load methods remain the same...
     final topicsJson = prefs.getString('learned_topics');
     if (topicsJson != null) {
       final Map<String, dynamic> decodedTopics = json.decode(topicsJson);
@@ -90,12 +187,31 @@ class UserProgress extends ChangeNotifier {
       _favoriteWords = _allLearnedWords.where((word) => word.isFavorite).toList();
     }
 
+    // Load mục tiêu và từ đã học trong tháng
+    _monthlyWordGoal = prefs.getInt('monthly_word_goal') ?? 50;
+    _currentMonthLearnedWords = prefs.getInt('current_month_learned_words') ?? 0;
+
+    // Kiểm tra và reset nếu đã sang tháng mới
+    final lastUpdatedMonth = prefs.getInt('last_updated_month') ?? DateTime.now().month;
+    if (lastUpdatedMonth != DateTime.now().month) {
+      _currentMonthLearnedWords = 0;
+      await prefs.setInt('last_updated_month', DateTime.now().month);
+    }
+
 
     notifyListeners();
   }
 
   Future<void> _saveProgress() async {
     final prefs = await SharedPreferences.getInstance();
+
+    // Save study time
+    await prefs.setString('total_study_time', _totalStudyTime.inMinutes.toString());
+
+    // Existing save methods remain the same...
+    await prefs.setString('learned_topics', json.encode(
+        _learnedTopics.map((key, value) => MapEntry(key, value.toList()))
+    ));
 
     // Lưu thời gian đăng nhập cuối cùng
     if (_lastLoginTime != null) {
@@ -126,7 +242,17 @@ class UserProgress extends ChangeNotifier {
           'isFavorite': word.isFavorite
         }).toList()
     ));
+
+    // Lưu số bài tập đã hoàn thành
+    await prefs.setInt('completed_exercises', _completedExercises);
+
+
+    // Lưu mục tiêu và từ đã học trong tháng
+    await prefs.setInt('monthly_word_goal', _monthlyWordGoal);
+    await prefs.setInt('current_month_learned_words', _currentMonthLearnedWords);
+    await prefs.setInt('last_updated_month', DateTime.now().month);
   }
+
 
   // Phương thức cập nhật thời gian đăng nhập
   void updateLoginTime() {
@@ -141,6 +267,8 @@ class UserProgress extends ChangeNotifier {
         _loginStreak++;
       }
     }
+
+
 
     _lastLoginTime = now;
     _saveProgress();
@@ -188,6 +316,7 @@ class UserProgress extends ChangeNotifier {
       _learnedTopics.putIfAbsent(word.topic, () => {});
       _learnedTopics[word.topic]!.add(word.word);
 
+      updateMonthlyLearnedWords(word);
       // Lưu tiến trình sau khi thêm từ mới
       _saveProgress();
       notifyListeners();

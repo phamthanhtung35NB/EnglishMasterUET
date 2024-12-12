@@ -10,7 +10,7 @@ import 'learned_words_screen.dart';
 class ProgressScreen extends StatelessWidget {
   // Mock data - trong thực tế sẽ lấy từ state management (Provider/Bloc...)
   final Map<String, dynamic> stats = {
-    'exercisesCompleted': '1', // Số bài tập đã làm
+    'exercisesCompleted': '0', // Số bài tập đã làm
     'wordsLearned': 245,
     'topicsCompleted': 8,
     'streak': 7,
@@ -24,6 +24,66 @@ class ProgressScreen extends StatelessWidget {
     int hours = duration.inHours;
     int minutes = duration.inMinutes.remainder(60);
     return '$hours h ${minutes.toString().padLeft(2, '0')} m';
+  }
+
+  // Thêm phương thức để hiển thị dialog đặt mục tiêu
+  void _showGoalSettingDialog(BuildContext context) {
+    final userProgress = context.read<UserProgress>();
+    final TextEditingController goalController =
+        TextEditingController(text: userProgress.monthlyWordGoal.toString());
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        titlePadding: const EdgeInsets.only(top: 20, left: 24, right: 24),
+        title: const Text('Đặt Mục Tiêu'),
+        content: TextField(
+          controller: goalController,
+          keyboardType: TextInputType.number,
+          decoration: const InputDecoration(
+            labelText: 'Số từ vựng mục tiêu ngày hôm nay',
+            labelStyle: TextStyle(fontSize: 18),
+            hintText: 'Nhập số từ vựng',
+          ),
+        ),
+        actions: [
+          SizedBox(
+            height: 45,
+            width: 65,
+            child: TextButton(
+              onPressed: () => Navigator.pop(context),
+              style: OutlinedButton.styleFrom(
+                foregroundColor: Colors.blue[600],
+                side: BorderSide(color: Colors.blue.shade400),
+                padding: const EdgeInsets.symmetric(vertical: 12),
+              ),
+              child: const Text('Huỷ',
+                  style: TextStyle(fontSize: 16)),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              final int? newGoal = int.tryParse(goalController.text);
+              if (newGoal != null && newGoal > 0) {
+                userProgress.setMonthlyWordGoal(newGoal);
+                Navigator.pop(context);
+              }
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.blue.shade500,
+              foregroundColor: Colors.white,
+              elevation: 5,
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 20, vertical: 12),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(25),
+              ),
+            ),
+            child: const Text('Lưu'),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -40,7 +100,7 @@ class ProgressScreen extends StatelessWidget {
       ),
       child: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(18.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -52,8 +112,8 @@ class ProgressScreen extends StatelessWidget {
                 physics: NeverScrollableScrollPhysics(),
                 crossAxisCount: 2,
                 childAspectRatio: 1.5,
-                mainAxisSpacing: 16,
-                crossAxisSpacing: 16,
+                mainAxisSpacing: 12,
+                crossAxisSpacing: 12,
                 children: [
                   // Từ vựng đã học
                   _buildStatCard(
@@ -119,31 +179,7 @@ class ProgressScreen extends StatelessWidget {
                 ],
               ),
 
-              const SizedBox(height: 24),
-
-              // Study Time Card
-              _buildWideCard(
-                context,
-                icon: FontAwesomeIcons.clock,
-                iconColor: Colors.purple,
-                title: 'Tổng thời gian học',
-                value:
-                    '${userProgress.totalStudyTime.inHours}h ${(userProgress.totalStudyTime.inMinutes % 60)}m',
-                subtitle: 'giờ học',
-              ),
-
-              const SizedBox(height: 16),
-
-              // Daily Goal Card
-              _buildWideCard(
-                context,
-                icon: FontAwesomeIcons.bullseye,
-                iconColor: Colors.indigo,
-                title: 'Mục tiêu hôm nay',
-                value: stats['dailyGoal'],
-                subtitle: 'hoàn thành',
-              ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 10),
 
               // Bài tập đã làm
               _buildWideCard(
@@ -151,9 +187,79 @@ class ProgressScreen extends StatelessWidget {
                 icon: FontAwesomeIcons.checkCircle,
                 iconColor: Colors.teal,
                 title: 'Bài tập đã hoàn thành',
-                value: stats['exercisesCompleted'] ?? '0',
-                // Thêm giá trị mặc định
+                value: '${userProgress.completedExercises}',
                 subtitle: 'bài tập',
+              ),
+              Card(
+                elevation: 2,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Mục tiêu từ vựng hôm nay',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey[800],
+                                ),
+                          ),
+                          IconButton(
+                            icon: FaIcon(FontAwesomeIcons.pencil, size: 18),
+                            onPressed: () => _showGoalSettingDialog(context),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 12),
+                      LinearProgressIndicator(
+                        value:
+                            userProgress.getMonthlyGoalCompletionPercentage() /
+                                100,
+                        backgroundColor: Colors.blue[100],
+                        color: Colors.blue,
+                        minHeight: 10,
+                      ),
+                      SizedBox(height: 12),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Đã học: ${userProgress.currentMonthLearnedWords} / ${userProgress.monthlyWordGoal} từ',
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                          Text(
+                            '${userProgress.getMonthlyGoalCompletionPercentage().toStringAsFixed(1)}%',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(
+                                  color: Colors.blue[600],
+                                  fontWeight: FontWeight.bold,
+                                ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              // Study Time Card
+              _buildWideCard(
+                context,
+                icon: FontAwesomeIcons.clock,
+                iconColor: Colors.purple,
+                title: 'Tổng thời gian học',
+                value: '${userProgress.getFormattedStudyTime()}',
+                subtitle: 'giờ học',
               ),
             ],
           ),
@@ -175,7 +281,7 @@ class ProgressScreen extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        borderRadius: const BorderRadius.only(
+        borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(20),
           bottomRight: Radius.circular(20),
         ),
@@ -196,7 +302,7 @@ class ProgressScreen extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 'Xin chào!',
                 style: TextStyle(
                   color: Colors.white,
@@ -206,7 +312,7 @@ class ProgressScreen extends StatelessWidget {
               ),
               Text(
                 userProgress.userName, // Sử dụng tên người dùng từ UserProgress
-                style: const TextStyle(
+                style: TextStyle(
                   color: Colors.white,
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
