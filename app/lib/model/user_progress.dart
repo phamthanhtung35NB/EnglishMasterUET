@@ -10,7 +10,7 @@ import 'dart:convert';
 class UserProgress extends ChangeNotifier {
 
   String _userName = "Học viên English Master"; // Giá trị mặc định
-  
+
 
   // Thêm thuộc tính để theo dõi số bài tập đã hoàn thành
   int _completedExercises = 0;
@@ -94,6 +94,41 @@ class UserProgress extends ChangeNotifier {
     return '${hours}h ${minutes}m';
   }
 
+  //--------------------
+  // Thêm các thuộc tính mới cho mục tiêu học tập
+  int _monthlyWordGoal = 50; // Mục tiêu mặc định
+  int _currentMonthLearnedWords = 0;
+
+  // Getter và setter cho mục tiêu học từ vựng
+  int get monthlyWordGoal => _monthlyWordGoal;
+  int get currentMonthLearnedWords => _currentMonthLearnedWords;
+
+  // Phương thức đặt mục tiêu hàng tháng
+  void setMonthlyWordGoal(int goal) {
+    _monthlyWordGoal = goal;
+    _saveProgress();
+    notifyListeners();
+  }
+
+  // Phương thức kiểm tra và cập nhật số từ học trong tháng
+  void updateMonthlyLearnedWords(LearnedWord word) {
+    // Chỉ tăng nếu từ được học trong tháng hiện tại
+    if (word.learnedDate.month == DateTime.now().month &&
+        word.learnedDate.year == DateTime.now().year) {
+      _currentMonthLearnedWords++;
+      _saveProgress();
+      notifyListeners();
+    }
+  }
+
+  // Phương thức tính phần trăm hoàn thành mục tiêu
+  double getMonthlyGoalCompletionPercentage() {
+    return _monthlyWordGoal > 0
+        ? (_currentMonthLearnedWords / _monthlyWordGoal * 100).clamp(0, 100)
+        : 0.0;
+  }
+
+
 
   // Tải tiến trình từ SharedPreferences
   Future<void> _loadSavedProgress() async {
@@ -152,6 +187,17 @@ class UserProgress extends ChangeNotifier {
       _favoriteWords = _allLearnedWords.where((word) => word.isFavorite).toList();
     }
 
+    // Load mục tiêu và từ đã học trong tháng
+    _monthlyWordGoal = prefs.getInt('monthly_word_goal') ?? 50;
+    _currentMonthLearnedWords = prefs.getInt('current_month_learned_words') ?? 0;
+
+    // Kiểm tra và reset nếu đã sang tháng mới
+    final lastUpdatedMonth = prefs.getInt('last_updated_month') ?? DateTime.now().month;
+    if (lastUpdatedMonth != DateTime.now().month) {
+      _currentMonthLearnedWords = 0;
+      await prefs.setInt('last_updated_month', DateTime.now().month);
+    }
+
 
     notifyListeners();
   }
@@ -199,7 +245,14 @@ class UserProgress extends ChangeNotifier {
 
     // Lưu số bài tập đã hoàn thành
     await prefs.setInt('completed_exercises', _completedExercises);
+
+
+    // Lưu mục tiêu và từ đã học trong tháng
+    await prefs.setInt('monthly_word_goal', _monthlyWordGoal);
+    await prefs.setInt('current_month_learned_words', _currentMonthLearnedWords);
+    await prefs.setInt('last_updated_month', DateTime.now().month);
   }
+
 
   // Phương thức cập nhật thời gian đăng nhập
   void updateLoginTime() {
@@ -214,6 +267,8 @@ class UserProgress extends ChangeNotifier {
         _loginStreak++;
       }
     }
+
+
 
     _lastLoginTime = now;
     _saveProgress();
@@ -261,6 +316,7 @@ class UserProgress extends ChangeNotifier {
       _learnedTopics.putIfAbsent(word.topic, () => {});
       _learnedTopics[word.topic]!.add(word.word);
 
+      updateMonthlyLearnedWords(word);
       // Lưu tiến trình sau khi thêm từ mới
       _saveProgress();
       notifyListeners();

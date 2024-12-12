@@ -25,6 +25,45 @@ class ProgressScreen extends StatelessWidget {
     return '$hours h ${minutes.toString().padLeft(2, '0')} m';
   }
 
+  // Thêm phương thức để hiển thị dialog đặt mục tiêu
+  void _showGoalSettingDialog(BuildContext context) {
+    final userProgress = context.read<UserProgress>();
+    final TextEditingController goalController = TextEditingController(
+        text: userProgress.monthlyWordGoal.toString()
+    );
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Đặt Mục Tiêu Học Từ Vựng'),
+        content: TextField(
+          controller: goalController,
+          keyboardType: TextInputType.number,
+          decoration: InputDecoration(
+            labelText: 'Số từ vựng mục tiêu ngày hôm nay',
+            hintText: 'Nhập số từ vựng',
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text('Huỷ'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              final int? newGoal = int.tryParse(goalController.text);
+              if (newGoal != null && newGoal > 0) {
+                userProgress.setMonthlyWordGoal(newGoal);
+                Navigator.pop(context);
+              }
+            },
+            child: Text('Lưu'),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final userProgress = context.watch<UserProgress>();
@@ -32,7 +71,7 @@ class ProgressScreen extends StatelessWidget {
       backgroundColor: Colors.grey[100],
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(18.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -45,8 +84,8 @@ class ProgressScreen extends StatelessWidget {
                 physics: NeverScrollableScrollPhysics(),
                 crossAxisCount: 2,
                 childAspectRatio: 1.5,
-                mainAxisSpacing: 16,
-                crossAxisSpacing: 16,
+                mainAxisSpacing: 12,
+                crossAxisSpacing: 12,
                 children: [
 
                   // Từ vựng đã học
@@ -109,30 +148,8 @@ class ProgressScreen extends StatelessWidget {
                 ],
               ),
 
-              const SizedBox(height: 24),
+              const SizedBox(height: 10),
 
-              // Study Time Card
-              _buildWideCard(
-                context,
-                icon: FontAwesomeIcons.clock,
-                iconColor: Colors.purple,
-                title: 'Tổng thời gian học',
-                value: '${userProgress.getFormattedStudyTime()}',
-                subtitle: 'giờ học',
-              ),
-
-              const SizedBox(height: 16),
-
-              // Daily Goal Card
-              _buildWideCard(
-                context,
-                icon: FontAwesomeIcons.bullseye,
-                iconColor: Colors.indigo,
-                title: 'Mục tiêu hôm nay',
-                value: stats['dailyGoal'],
-                subtitle: 'hoàn thành',
-              ),
-              const SizedBox(height: 16),
 
               // Bài tập đã làm
               _buildWideCard(
@@ -142,6 +159,69 @@ class ProgressScreen extends StatelessWidget {
                 title: 'Bài tập đã hoàn thành',
                 value: '${userProgress.completedExercises}',
                 subtitle: 'bài tập',
+              ),
+              Card(
+                elevation: 2,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Mục tiêu từ vựng hôm nay',
+                            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey[800],
+                            ),
+                          ),
+                          IconButton(
+                            icon: FaIcon(FontAwesomeIcons.pencil, size: 18),
+                            onPressed: () => _showGoalSettingDialog(context),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 12),
+                      LinearProgressIndicator(
+                        value: userProgress.getMonthlyGoalCompletionPercentage() / 100,
+                        backgroundColor: Colors.blue[100],
+                        color: Colors.blue,
+                        minHeight: 10,
+                      ),
+                      SizedBox(height: 12),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Đã học: ${userProgress.currentMonthLearnedWords} / ${userProgress.monthlyWordGoal} từ',
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                          Text(
+                            '${userProgress.getMonthlyGoalCompletionPercentage().toStringAsFixed(1)}%',
+                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: Colors.blue[600],
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              // Study Time Card
+              _buildWideCard(
+                context,
+                icon: FontAwesomeIcons.clock,
+                iconColor: Colors.purple,
+                title: 'Tổng thời gian học',
+                value: '${userProgress.getFormattedStudyTime()}',
+                subtitle: 'giờ học',
               ),
             ],
           ),
