@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:english_master_uet/controller/exercise_controller.dart';
 import 'package:english_master_uet/data/data.dart';
 
+import '../../model/user_progress.dart';
+
 class ExerciseScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -153,6 +155,8 @@ class ExerciseScreen extends StatelessWidget {
           SizedBox(height: 30),
           ElevatedButton(
             onPressed: () {
+              // Tăng số bài tập đã hoàn thành
+              Provider.of<UserProgress>(context, listen: false).incrementCompletedExercises();
               // Có thể thêm chức năng làm lại bài hoặc quay lại màn hình chính
               Navigator.pop(context);
             },

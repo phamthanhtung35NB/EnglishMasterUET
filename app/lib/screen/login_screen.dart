@@ -36,6 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
       print("UID: $result");
       if (result.length == 28) {
 
+        Provider.of<UserProgress>(context, listen: false).startStudyTime();
         // Lấy UserProgress từ context và cập nhật thời gian đăng nhập
         final userProgress = Provider.of<UserProgress>(context, listen: false);
         userProgress.updateLoginTime();

@@ -9,7 +9,7 @@ import 'learned_words_screen.dart';
 class ProgressScreen extends StatelessWidget {
   // Mock data - trong thực tế sẽ lấy từ state management (Provider/Bloc...)
   final Map<String, dynamic> stats = {
-    'exercisesCompleted': '1', // Số bài tập đã làm
+    'exercisesCompleted': '0', // Số bài tập đã làm
     'wordsLearned': 245,
     'topicsCompleted': 8,
     'streak': 7,
@@ -117,7 +117,7 @@ class ProgressScreen extends StatelessWidget {
                 icon: FontAwesomeIcons.clock,
                 iconColor: Colors.purple,
                 title: 'Tổng thời gian học',
-                value: '${userProgress.totalStudyTime.inHours}h ${(userProgress.totalStudyTime.inMinutes % 60)}m',
+                value: '${userProgress.getFormattedStudyTime()}',
                 subtitle: 'giờ học',
               ),
 
@@ -140,7 +140,7 @@ class ProgressScreen extends StatelessWidget {
                 icon: FontAwesomeIcons.checkCircle,
                 iconColor: Colors.teal,
                 title: 'Bài tập đã hoàn thành',
-                value: stats['exercisesCompleted'] ?? '0', // Thêm giá trị mặc định
+                value: '${userProgress.completedExercises}',
                 subtitle: 'bài tập',
               ),
             ],
