@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';import '../../model/user_progress.dart';
+import 'package:provider/provider.dart';
+import '../../model/user_progress.dart';
 
 import 'topic_learned.dart';
 import 'favorite_word_screen.dart';
@@ -29,14 +30,20 @@ class ProgressScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final userProgress = context.watch<UserProgress>();
     return Scaffold(
-      backgroundColor: Colors.grey[100],
-      body: SingleChildScrollView(
+        body: Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [Colors.blue.shade100, Colors.blue.shade50],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
+      ),
+      child: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
               _buildUserHeader(context),
 
               // Stats Grid
@@ -48,7 +55,6 @@ class ProgressScreen extends StatelessWidget {
                 mainAxisSpacing: 16,
                 crossAxisSpacing: 16,
                 children: [
-
                   // Từ vựng đã học
                   _buildStatCard(
                     context,
@@ -60,7 +66,9 @@ class ProgressScreen extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => LearnedWordsScreen()), // Use the new screen
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                LearnedWordsScreen()), // Use the new screen
                       );
                     },
                   ),
@@ -76,7 +84,8 @@ class ProgressScreen extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => CompletedTopicsScreen()),
+                        MaterialPageRoute(
+                            builder: (context) => CompletedTopicsScreen()),
                       );
                     },
                   ),
@@ -87,7 +96,7 @@ class ProgressScreen extends StatelessWidget {
                     icon: FontAwesomeIcons.trophy,
                     iconColor: Colors.amber,
                     title: 'Chuỗi ngày học',
-                    value:  '${userProgress.loginStreak}',
+                    value: '${userProgress.loginStreak}',
                     subtitle: 'ngày',
                   ),
 
@@ -102,7 +111,8 @@ class ProgressScreen extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => FavoriteWordsScreen()),
+                        MaterialPageRoute(
+                            builder: (context) => FavoriteWordsScreen()),
                       );
                     },
                   ),
@@ -117,7 +127,8 @@ class ProgressScreen extends StatelessWidget {
                 icon: FontAwesomeIcons.clock,
                 iconColor: Colors.purple,
                 title: 'Tổng thời gian học',
-                value: '${userProgress.totalStudyTime.inHours}h ${(userProgress.totalStudyTime.inMinutes % 60)}m',
+                value:
+                    '${userProgress.totalStudyTime.inHours}h ${(userProgress.totalStudyTime.inMinutes % 60)}m',
                 subtitle: 'giờ học',
               ),
 
@@ -140,14 +151,15 @@ class ProgressScreen extends StatelessWidget {
                 icon: FontAwesomeIcons.checkCircle,
                 iconColor: Colors.teal,
                 title: 'Bài tập đã hoàn thành',
-                value: stats['exercisesCompleted'] ?? '0', // Thêm giá trị mặc định
+                value: stats['exercisesCompleted'] ?? '0',
+                // Thêm giá trị mặc định
                 subtitle: 'bài tập',
               ),
             ],
           ),
         ),
       ),
-    );
+    ));
   }
 
   // Widget header với thông tin người dùng
@@ -155,6 +167,7 @@ class ProgressScreen extends StatelessWidget {
     final userProgress = Provider.of<UserProgress>(context);
 
     return Container(
+      margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -162,7 +175,7 @@ class ProgressScreen extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(20),
           bottomRight: Radius.circular(20),
         ),
@@ -183,7 +196,7 @@ class ProgressScreen extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 'Xin chào!',
                 style: TextStyle(
                   color: Colors.white,
@@ -193,7 +206,7 @@ class ProgressScreen extends StatelessWidget {
               ),
               Text(
                 userProgress.userName, // Sử dụng tên người dùng từ UserProgress
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -207,20 +220,21 @@ class ProgressScreen extends StatelessWidget {
   }
 
   Widget _buildStatCard(
-      BuildContext context, {
-        required IconData icon,
-        required Color iconColor,
-        required String title,
-        required String value,
-        required String subtitle,
-        VoidCallback? onTap,
-      }) {
+    BuildContext context, {
+    required IconData icon,
+    required Color iconColor,
+    required String title,
+    required String value,
+    required String subtitle,
+    VoidCallback? onTap,
+  }) {
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
       ),
-      child: InkWell(  // Wrap với InkWell để thêm hiệu ứng nhấn
+      child: InkWell(
+        // Wrap với InkWell để thêm hiệu ứng nhấn
         onTap: onTap,
         borderRadius: BorderRadius.circular(12),
         child: Padding(
@@ -235,8 +249,8 @@ class ProgressScreen extends StatelessWidget {
                     child: Text(
                       title,
                       style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                        color: Colors.grey[600],
-                      ),
+                            color: Colors.grey[600],
+                          ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -252,14 +266,14 @@ class ProgressScreen extends StatelessWidget {
               Text(
                 value,
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+                      fontWeight: FontWeight.bold,
+                    ),
               ),
               Text(
                 subtitle,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Colors.grey[500],
-                ),
+                      color: Colors.grey[500],
+                    ),
               ),
             ],
           ),
@@ -269,13 +283,13 @@ class ProgressScreen extends StatelessWidget {
   }
 
   Widget _buildWideCard(
-      BuildContext context, {
-        required IconData icon,
-        required Color iconColor,
-        required String title,
-        required String value,
-        required String subtitle,
-      }) {
+    BuildContext context, {
+    required IconData icon,
+    required Color iconColor,
+    required String title,
+    required String value,
+    required String subtitle,
+  }) {
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(
@@ -291,21 +305,21 @@ class ProgressScreen extends StatelessWidget {
                 Text(
                   title,
                   style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                    color: Colors.grey[600],
-                  ),
+                        color: Colors.grey[600],
+                      ),
                 ),
                 const SizedBox(height: 8),
                 Text(
                   value,
                   style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+                        fontWeight: FontWeight.bold,
+                      ),
                 ),
                 Text(
                   subtitle,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Colors.grey[500],
-                  ),
+                        color: Colors.grey[500],
+                      ),
                 ),
               ],
             ),

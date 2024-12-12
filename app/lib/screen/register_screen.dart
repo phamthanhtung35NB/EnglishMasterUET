@@ -13,8 +13,10 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _passwordAgainController = TextEditingController();
+  final TextEditingController _passwordAgainController =
+      TextEditingController();
   final RegisterController _registerController = RegisterController();
+
   // String? _verificationId;
 
   Future<void> _register() async {
@@ -61,8 +63,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
       }
     }
   }
+
   bool _isPasswordVisible = false;
   bool _isPasswordVisible2 = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,24 +102,50 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 height: 50.0,
                 child: TextField(
                   controller: _emailController,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     labelText: 'Email',
-                    border: OutlineInputBorder(),
+                    labelStyle: const TextStyle(
+                      color: Colors.black,
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(25),
+                      borderSide: const BorderSide(
+                        color: Colors.blue,
+                        width: 1.5,
+                      ),
+                    ),
                   ),
                 ),
               ),
               const SizedBox(height: 16.0),
-              Container(
+              SizedBox(
                 width: 300.0, // Set the desired width
                 height: 50.0,
                 child: TextField(
                   controller: _passwordController,
                   decoration: InputDecoration(
                     labelText: 'Mật khẩu',
-                    border: OutlineInputBorder(),
+                    labelStyle: const TextStyle(
+                      color: Colors.black,
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(25),
+                      borderSide: const BorderSide(
+                        color: Colors.blue,
+                        width: 1.5,
+                      ),
+                    ),
                     suffixIcon: IconButton(
                       icon: Icon(
-                        _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                        _isPasswordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
                       ),
                       onPressed: () {
                         setState(() {
@@ -129,17 +159,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
               const SizedBox(height: 16.0),
               // nhập lai mat khau
-              Container(
+              SizedBox(
                 width: 300.0, // Set the desired width
                 height: 50.0,
                 child: TextField(
                   controller: _passwordAgainController,
                   decoration: InputDecoration(
                     labelText: 'Nhập lại mật khẩu',
-                    border: OutlineInputBorder(),
+                    labelStyle: const TextStyle(
+                      color: Colors.black,
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(25),
+                      borderSide: const BorderSide(
+                        color: Colors.blue,
+                        width: 1.5,
+                      ),
+                    ),
                     suffixIcon: IconButton(
                       icon: Icon(
-                        _isPasswordVisible2 ? Icons.visibility : Icons.visibility_off,
+                        _isPasswordVisible2
+                            ? Icons.visibility
+                            : Icons.visibility_off,
                       ),
                       onPressed: () {
                         setState(() {
@@ -152,22 +196,36 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
               ),
               const SizedBox(height: 16.0),
-              ElevatedButton(
-                onPressed: _register,
-                child: const Text('Đăng ký'),
+              SizedBox(
+                width: 300.0,
+                height: 40.0,
+                child: ElevatedButton(
+                  onPressed: _register,
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue.shade200,
+                      foregroundColor: Colors.black),
+                  child: const Text('Đăng ký'),
+                ),
               ),
               const SizedBox(height: 16.0),
-              ElevatedButton.icon(
-                onPressed: () async {
-                  await _registerWithGoogle();
-                },
-                icon: SvgPicture.network(
-                  'https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg',
-                  height: 24.0,
-                  width: 24.0,
-                ),
-                label: const Text(
-                  'Đăng nhập bằng Google',
+              SizedBox(
+                width: 300.0,
+                height: 40.0,
+                child: ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                      side: const BorderSide(color: Colors.blue, width: 1),
+                      foregroundColor: Colors.black),
+                  onPressed: () async {
+                    await _registerWithGoogle();
+                  },
+                  icon: SvgPicture.network(
+                    'https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg',
+                    height: 24.0,
+                    width: 24.0,
+                  ),
+                  label: const Text(
+                    'Đăng nhập bằng Google',
+                  ),
                 ),
               ),
               const SizedBox(height: 16.0),

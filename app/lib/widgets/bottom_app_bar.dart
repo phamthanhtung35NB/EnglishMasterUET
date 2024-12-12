@@ -30,7 +30,7 @@ class BottomAppBarWidget extends StatelessWidget {
             context.read<AppState>().updateScreen('Progress', ProgressScreen());
             break;
           case 1:
-            context.read<AppState>().updateScreen('Select a topic', TopicSelectionScreen());
+            context.read<AppState>().updateScreen('Flashcard', TopicSelectionScreen());
             break;
           case 2:
             context.read<AppState>().updateScreen('Exercise', const Exercises());

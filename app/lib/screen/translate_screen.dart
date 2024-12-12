@@ -14,7 +14,6 @@ class _TranslateScreenState extends State<TranslateScreen> {
   final FlutterTts _flutterTts = FlutterTts();
 
   String _translatedText = '';
-  String _sourceLang = 'auto';
   String _targetLang = 'en';
   bool _isTranslating = false;
   bool _isSpeaking = false;
@@ -85,11 +84,11 @@ class _TranslateScreenState extends State<TranslateScreen> {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text('Thông báo'),
+        title: const Text('Thông báo'),
         content: Text(message),
         actions: <Widget>[
           TextButton(
-            child: Text('Đóng'),
+            child: const Text('Đóng'),
             onPressed: () {
               Navigator.of(ctx).pop();
             },
@@ -132,7 +131,7 @@ class _TranslateScreenState extends State<TranslateScreen> {
     if (_translatedText.isNotEmpty) {
       Clipboard.setData(ClipboardData(text: _translatedText));
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Đã sao chép kết quả dịch')),
+        const SnackBar(content: Text('Đã sao chép kết quả dịch')),
       );
     }
   }
@@ -140,14 +139,15 @@ class _TranslateScreenState extends State<TranslateScreen> {
   @override
   void dispose() {
     _flutterTts.stop();
-    // super.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blue[50],
       body: Container(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -155,7 +155,7 @@ class _TranslateScreenState extends State<TranslateScreen> {
             Container(
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(18),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.2),
@@ -166,14 +166,15 @@ class _TranslateScreenState extends State<TranslateScreen> {
               ),
               child: TextField(
                 controller: _textController,
+                cursorColor: Colors.black,
                 maxLines: 4,
                 decoration: InputDecoration(
                   hintText: 'Nhập văn bản để dịch...',
                   border: InputBorder.none,
-                  contentPadding: EdgeInsets.all(16),
+                  contentPadding: const EdgeInsets.all(16),
                   suffixIcon: _textController.text.isNotEmpty
                       ? IconButton(
-                          icon: Icon(Icons.clear, color: Colors.grey),
+                          icon: const Icon(Icons.clear, color: Colors.grey),
                           onPressed: _clearText,
                         )
                       : null,
@@ -184,7 +185,7 @@ class _TranslateScreenState extends State<TranslateScreen> {
               ),
             ),
 
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
 
             // Các nút lựa chọn ngôn ngữ (giữ nguyên như trước)
             SingleChildScrollView(
@@ -210,7 +211,7 @@ class _TranslateScreenState extends State<TranslateScreen> {
               ),
             ),
 
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
 
             // Nút dịch (giữ nguyên như trước)
             ElevatedButton(
@@ -218,38 +219,42 @@ class _TranslateScreenState extends State<TranslateScreen> {
                   ? _translate
                   : null,
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
-                padding: EdgeInsets.symmetric(vertical: 12),
+                backgroundColor: Colors.blue.shade200,
+                padding: const EdgeInsets.symmetric(vertical: 12),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(18),
                 ),
               ),
               child: _isTranslating
-                  ? CircularProgressIndicator(color: Colors.white)
+                  ? const CircularProgressIndicator(color: Colors.white)
                   : Text(
                       'Dịch',
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: _textController.text.isNotEmpty
+                              ? Colors.black
+                              : Colors.grey, // Màu chữ khi có văn bản
+                          fontWeight: FontWeight.bold),
                     ),
             ),
 
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
 
             // Kết quả dịch thuật
             Container(
               decoration: BoxDecoration(
                 color: Colors.grey[100],
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(18),
                 border: Border.all(color: Colors.grey[300]!),
               ),
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         'Kết quả dịch',
                         style: TextStyle(
                             fontWeight: FontWeight.bold, color: Colors.blue),
@@ -258,15 +263,15 @@ class _TranslateScreenState extends State<TranslateScreen> {
                         children: [
                           // Nút sao chép
                           IconButton(
-                            icon: Icon(Icons.copy, size: 20),
+                            icon: const Icon(Icons.copy, size: 20),
                             onPressed: _copyTranslatedText,
                             tooltip: 'Sao chép',
                           ),
                           // Nút phát âm
                           IconButton(
                             icon: _isSpeaking
-                                ? Icon(Icons.stop, color: Colors.red)
-                                : Icon(Icons.volume_up),
+                                ? const Icon(Icons.stop, color: Colors.red)
+                                : const Icon(Icons.volume_up),
                             onPressed: _isSpeaking ? _stopSpeaking : _speak,
                             tooltip: _isSpeaking ? 'Dừng' : 'Phát âm',
                           ),
@@ -274,7 +279,7 @@ class _TranslateScreenState extends State<TranslateScreen> {
                       )
                     ],
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text(
                     _translatedText.isEmpty
                         ? 'Kết quả dịch sẽ hiển thị ở đây'

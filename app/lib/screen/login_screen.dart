@@ -35,7 +35,6 @@ class _LoginScreenState extends State<LoginScreen> {
     if (result != null) {
       print("UID: $result");
       if (result.length == 28) {
-
         // Lấy UserProgress từ context và cập nhật thời gian đăng nhập
         final userProgress = Provider.of<UserProgress>(context, listen: false);
         userProgress.updateLoginTime();
@@ -60,14 +59,13 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     }
   }
+
   Future<String> _loginWithGoogle(BuildContext context) async {
     String? result = await _loginController.loginWithGoogle(context);
 
     if (result != null) {
       print("UID: $result");
       if (result.length == 28) {
-
-
         // Navigator.pushReplacement(
         //   context,
         //   MaterialPageRoute(
@@ -87,6 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
     }
     return result ?? '';
   }
+
   Future<void> _resetPassword() async {
     final TextEditingController emailController = TextEditingController();
 
@@ -94,12 +93,24 @@ class _LoginScreenState extends State<LoginScreen> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('Reset Password'),
+          title: const Text('Lấy lại mật khẩu'),
           content: TextField(
             controller: emailController,
-            decoration: const InputDecoration(
-              labelText: 'Enter your email',
-              border: OutlineInputBorder(),
+            decoration: InputDecoration(
+              labelText: 'Nhập email của bạn',
+              labelStyle: const TextStyle(
+                color: Colors.black,
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(25),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(25),
+                borderSide: const BorderSide(
+                  color: Colors.blue,
+                  width: 1.5,
+                ),
+              ),
             ),
           ),
           actions: [
@@ -112,13 +123,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   SnackBar(content: Text(result ?? 'An error occurred')),
                 );
               },
-              child: const Text('Submit'),
+              style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.blue.shade600),
+              child: const Text('Xác nhận'),
             ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('Cancel'),
+              style: ElevatedButton.styleFrom(foregroundColor: Colors.black),
+              child: const Text('Hủy'),
             ),
           ],
         );
@@ -127,18 +141,20 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   bool _isPasswordVisible = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        //căn giữa
-        title: const Center(
-            child: Text('Đăng nhập',
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.black))),
+        // set từ trên xuống
+        body: Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [Colors.blue.shade100, Colors.white],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
       ),
-      // set từ trên xuống
-      body: Stack(
+      child: Stack(
         alignment: Alignment.center,
         fit: StackFit.expand,
         children: [
@@ -149,7 +165,9 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 TextButton(
                   onPressed: _resetPassword,
-                  child: const Text('Bạn quên mật khẩu?'),
+                  style:
+                      ElevatedButton.styleFrom(foregroundColor: Colors.black),
+                  child: const Text('Quên mật khẩu?'),
                 ),
                 TextButton(
                   onPressed: () {
@@ -159,12 +177,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     //   MaterialPageRoute(builder: (context) => RegisterScreen()),
                     // );
                   },
+                  style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.blue.shade600),
                   child: const Text('Đăng ký ngay?'),
                 ),
               ],
             ),
           ),
-
           Padding(
             padding: const EdgeInsets.only(top: 0.0),
             child: Column(
@@ -178,29 +197,56 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 const SizedBox(height: 50.0),
-                Container(
+                SizedBox(
                   width: 300.0, // Set the desired width
                   height: 50.0,
                   child: TextField(
                     controller: _usernameController,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       labelText: 'Email',
-                      border: OutlineInputBorder(),
+                      labelStyle: const TextStyle(
+                        color: Colors.black,
+                      ),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25),
+                          borderSide:
+                              const BorderSide(color: Colors.blue, width: 1)),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(25),
+                        borderSide: const BorderSide(
+                          color: Colors.blue,
+                          width: 1.5,
+                        ),
+                      ),
                     ),
                   ),
                 ),
                 const SizedBox(height: 16.0),
-                Container(
+                SizedBox(
                   width: 300.0, // Set the desired width
                   height: 50.0,
                   child: TextField(
                     controller: _passwordController,
                     decoration: InputDecoration(
                       labelText: 'Mật khẩu',
-                      border: OutlineInputBorder(),
+                      labelStyle: const TextStyle(
+                        color: Colors.black,
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(25),
+                        borderSide: const BorderSide(
+                          color: Colors.blue,
+                          width: 1.5,
+                        ),
+                      ),
                       suffixIcon: IconButton(
                         icon: Icon(
-                          _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                          _isPasswordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
                         ),
                         onPressed: () {
                           setState(() {
@@ -213,32 +259,44 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 const SizedBox(height: 16.0),
-                ElevatedButton(
-                  onPressed: _login,
-                  child: const Text('Đăng nhập'),
-                ),
-
-                ElevatedButton.icon(
-                  onPressed: () async {
-                    await _loginWithGoogle(context);
-                  },
-                  icon: SvgPicture.network(
-                    'https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg',
-                    height: 24.0,
-                    width: 24.0,
+                SizedBox(
+                  width: 300.0,
+                  height: 40.0,
+                  child: ElevatedButton(
+                    onPressed: _login,
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue.shade200,
+                        foregroundColor: Colors.black),
+                    child: const Text('Đăng nhập'),
                   ),
-                  label: const Text(
-                    'Đăng nhập bằng Google',
+                ),
+                const SizedBox(height: 16.0),
+                SizedBox(
+                  width: 300.0,
+                  height: 40.0,
+                  child: ElevatedButton.icon(
+                    onPressed: () async {
+                      await _loginWithGoogle(context);
+                    },
+                    style: ElevatedButton.styleFrom(
+                        side: const BorderSide(color: Colors.blue, width: 1),
+                        foregroundColor: Colors.black),
+                    icon: SvgPicture.network(
+                      'https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg',
+                      height: 24.0,
+                      width: 24.0,
+                    ),
+                    label: const Text(
+                      'Đăng nhập bằng Google',
+                    ),
                   ),
                 ),
                 const SizedBox(height: 10.0),
               ],
             ),
           )
-
         ],
       ),
-    );
+    ));
   }
 }
-

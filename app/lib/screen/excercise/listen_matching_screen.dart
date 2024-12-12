@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-import '../../data/listenData.dart';
+import '../../data/listen_matching_data.dart';
 
 class ListenMatchingScreen extends StatefulWidget {
   const ListenMatchingScreen({super.key});
@@ -159,7 +159,7 @@ class _ListenMatchingScreenState extends State<ListenMatchingScreen> with Single
       appBar: AppBar(
         title: const Text('Listening Challenge'),
         centerTitle: true,
-        backgroundColor: Colors.blue[600],
+        backgroundColor: Colors.blue[200],
         elevation: 0,
       ),
       body: SafeArea(
@@ -228,12 +228,12 @@ class _ListenMatchingScreenState extends State<ListenMatchingScreen> with Single
                   labelText: "Nhập câu trả lời của bạn",
                   labelStyle: TextStyle(color: Colors.blue[600]),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(20),
                     borderSide: BorderSide(color: Colors.blue[300]!),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(color: Colors.blue[600]!, width: 2),
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: BorderSide(color: Colors.blue[600]!, width: 1.5),
                   ),
                   filled: true,
                   fillColor: Colors.blue[50],
@@ -248,7 +248,7 @@ class _ListenMatchingScreenState extends State<ListenMatchingScreen> with Single
                   backgroundColor: Colors.blue[600],
                   disabledBackgroundColor: Colors.grey[400],
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(25),
                   ),
                   padding: const EdgeInsets.symmetric(
                       vertical: 12, horizontal: 48),

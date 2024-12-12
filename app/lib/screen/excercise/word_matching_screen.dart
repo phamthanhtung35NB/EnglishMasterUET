@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../data/questions.dart';
+import '../../data/word_matching_data.dart';
 
 class WordMatchingScreen extends StatefulWidget {
   const WordMatchingScreen({super.key});
@@ -43,6 +43,7 @@ class _WordMatchingScreenState extends State<WordMatchingScreen> {
         const SnackBar(
           content: Text('Chính xác!'),
           backgroundColor: Colors.green,
+          duration: Duration(seconds: 1),
         ),
       );
 
@@ -66,24 +67,27 @@ class _WordMatchingScreenState extends State<WordMatchingScreen> {
         const SnackBar(
           content: Text('Sai rồi, hãy thử lại!'),
           backgroundColor: Colors.red,
+          duration: Duration(seconds: 1),
         ),
       );
     }
   }
+
   @override
   void initState() {
     super.initState();
-    questions = getRandomizedQuestions(questions); // Randomize both question order and words
+    questions = getRandomizedQuestions(
+        questions); // Randomize both question order and words
     loadQuestions();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
+      appBar: AppBar(
         backgroundColor: Colors.blue[200],
-        title: Text('Nối Từ'),
-    ),
+        title: Text('Word Matching'),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -120,8 +124,6 @@ class _WordMatchingScreenState extends State<WordMatchingScreen> {
                     const SizedBox(height: 16),
                     Row(
                       children: [
-                        const Icon(Icons.volume_up,
-                            size: 28, color: Colors.blue),
                         const SizedBox(width: 8),
                         Text(
                           currentQuestion, // Hiển thị câu hỏi tiếng Anh
@@ -143,7 +145,7 @@ class _WordMatchingScreenState extends State<WordMatchingScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 8),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(20),
                 border: Border.all(color: Colors.grey[300]!, width: 1),
                 boxShadow: [
                   BoxShadow(
@@ -194,12 +196,12 @@ class _WordMatchingScreenState extends State<WordMatchingScreen> {
                         ),
                         boxShadow: selectedWords.contains(word)
                             ? [
-                          BoxShadow(
-                            color: Colors.blue.withOpacity(0.3),
-                            blurRadius: 4,
-                            spreadRadius: 1,
-                          ),
-                        ]
+                                BoxShadow(
+                                  color: Colors.blue.withOpacity(0.3),
+                                  blurRadius: 4,
+                                  spreadRadius: 1,
+                                ),
+                              ]
                             : null,
                       ),
                       child: Text(
@@ -219,18 +221,18 @@ class _WordMatchingScreenState extends State<WordMatchingScreen> {
             Center(
               child: ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
+                  backgroundColor: Colors.blue.shade400,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(25),
                   ),
                   padding:
-                  const EdgeInsets.symmetric(vertical: 14, horizontal: 32),
+                      const EdgeInsets.symmetric(vertical: 14, horizontal: 32),
                 ),
                 onPressed: checkAnswer,
                 icon: const Icon(Icons.check_circle, color: Colors.white),
                 label: const Text(
                   'Hoàn thành',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  style: TextStyle(color: Colors.white, fontSize: 16),
                 ),
               ),
             ),

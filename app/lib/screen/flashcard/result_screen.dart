@@ -16,7 +16,7 @@ class ResultScreen extends StatelessWidget {
     String resultMessage = _getResultMessage(percentage);
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.blue.shade50,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -24,7 +24,7 @@ class ResultScreen extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: Colors.blue[50],
+                color: Colors.white,
                 borderRadius: BorderRadius.circular(15),
               ),
               child: Column(
@@ -56,21 +56,23 @@ class ResultScreen extends StatelessWidget {
             const SizedBox(height: 30),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue[300],
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
+                backgroundColor: Colors.blue.shade500,
+                foregroundColor: Colors.white,
+                elevation: 5,
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 20, vertical: 12),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(25),
                 ),
               ),
               onPressed: () {
                 context
                     .read<AppState>()
-                    .updateScreen('Select a topic', TopicSelectionScreen());
+                    .updateScreen('Flashcard', TopicSelectionScreen());
               },
               child: const Text(
                 'Quay Lại',
-                style: TextStyle(fontSize: 18),
+                style: TextStyle(color: Colors.white),
               ),
             ),
           ],

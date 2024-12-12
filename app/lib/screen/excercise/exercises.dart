@@ -1,5 +1,4 @@
-import 'package:english_master_uet/screen/excercise/exercise_screen.dart';
-import 'package:english_master_uet/screen/excercise/story_collection_creen.dart';
+import 'package:english_master_uet/screen/excercise/choice_question_screen.dart';
 import 'package:english_master_uet/screen/excercise/word_matching_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -13,6 +12,7 @@ class Exercises extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blue[50],
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -52,15 +52,14 @@ class Exercises extends StatelessWidget {
                   ),
                   _buildProgressCard(
                     title: 'Phần 3: Điền từ',
-                    progress: 92,
+                    progress: 100,
                     isCompleted: false,
                     icon: Icons.edit,
                     onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          // builder: (context) => const ImprovedFillInTheBlankScreen(),
-                          builder: (context) => ExerciseScreen(),
+                          builder: (context) => ChoiceQuestionScreen(),
                         ),
                       );
                     },

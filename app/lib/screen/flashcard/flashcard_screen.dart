@@ -187,8 +187,14 @@ class _FlashcardScreenState extends State<FlashcardScreen>
                   Expanded(
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue[300],
-                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        backgroundColor: Colors.blue.shade500,
+                        foregroundColor: Colors.white,
+                        elevation: 5,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 12),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25),
+                        ),
                       ),
                       onPressed: () => _showInputDialog(context, checkAnswer),
                       child: const Text('Kiểm Tra'),
@@ -263,7 +269,7 @@ class _FlashcardScreenState extends State<FlashcardScreen>
                   Text(
                     'Kiểm tra',
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 24,
                       fontWeight: FontWeight.w800,
                       color: Colors.blue.shade800,
                       letterSpacing: 1.2,
@@ -272,17 +278,17 @@ class _FlashcardScreenState extends State<FlashcardScreen>
                   const SizedBox(height: 25),
                   TextField(
                     controller: inputController,
+                    cursorColor: Colors.black54,
                     focusNode: focusNode,
                     autofocus: true,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.blue.shade900,
                       fontSize: 22,
-                      fontWeight: FontWeight.w600,
                     ),
                     decoration: InputDecoration(
                       filled: true,
-                      fillColor: Colors.white.withOpacity(0.7),
+                      fillColor: Colors.white.withOpacity(0.5),
                       hintText: 'Nhập từ bạn vừa học',
                       errorText: isEmpty ? "Vui lòng nhập từ" : null,
                       hintStyle: TextStyle(
@@ -319,15 +325,19 @@ class _FlashcardScreenState extends State<FlashcardScreen>
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      TextButton(
-                        onPressed: () => Navigator.pop(context),
-                        style: TextButton.styleFrom(
-                          foregroundColor: Colors.blue.shade700,
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 12),
+                      SizedBox(
+                        height: 50,
+                        width: 100,
+                        child: TextButton(
+                          onPressed: () => Navigator.pop(context),
+                          style: OutlinedButton.styleFrom(
+                            foregroundColor: Colors.blue[600],
+                            side: BorderSide(color: Colors.blue.shade400),
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                          ),
+                          child: const Text('Huỷ Bỏ',
+                              style: TextStyle(fontSize: 16)),
                         ),
-                        child: const Text('Huỷ Bỏ',
-                            style: TextStyle(fontSize: 16)),
                       ),
                       const SizedBox(width: 15),
                       ElevatedButton(

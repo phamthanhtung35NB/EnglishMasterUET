@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:english_master_uet/data/data.dart';
+import 'package:english_master_uet/data/choice_question_data.dart';
 
 class ExerciseController extends ChangeNotifier {
   int _currentQuestionIndex = 0;

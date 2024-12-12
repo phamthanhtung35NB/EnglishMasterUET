@@ -37,10 +37,9 @@ class AppBarScreen extends StatelessWidget implements PreferredSizeWidget {
               ],
             ),
             actions: [
-              Container(
+              SizedBox(
                 width: 40,
                 height: 40,
-                color: Colors.white,
                 child: IconButton(
                   icon: const Icon(Icons.notifications),
                   onPressed: () {
