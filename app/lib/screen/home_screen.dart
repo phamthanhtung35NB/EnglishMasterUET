@@ -8,7 +8,7 @@ import 'package:english_master_uet/screen/progress/progress.dart';
 import 'package:english_master_uet/screen/flashcard/flashcard_screen.dart'; // Giả sử bạn có màn hình này
 
 class AppState extends ChangeNotifier {
-  String _currentTitle = "Home";
+  String _currentTitle = "Progress";
   Widget _currentBody = ProgressScreen();
 
   String get currentTitle => _currentTitle;
